@@ -17,6 +17,7 @@
             android:exported="false" />
         <activity
             android:name=".views.launcher.LauncherActivity"
+            android:theme="@style/Theme.JourneyJournal.NoActionBar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
