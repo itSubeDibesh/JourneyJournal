@@ -27,12 +27,12 @@ public class ComponentsViewModel extends AndroidViewModel {
      */
     public void exitConfirmation(Activity activity) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle("Exit Confirmation!");
+        builder.setTitle(R.string.confirmation_exit);
         builder.setIcon(R.drawable.ic_launcher_foreground);
         builder
-                .setMessage("Do you really want to exit?").setCancelable(false)
-                .setPositiveButton("Yes", (dialog, id) -> activity.finish())
-                .setNegativeButton("No", (dialog, id) -> dialog.cancel());
+                .setMessage(R.string.consent_exit).setCancelable(false)
+                .setPositiveButton(R.string.option_yes, (dialog, id) -> activity.finish())
+                .setNegativeButton(R.string.option_no, (dialog, id) -> dialog.cancel());
         AlertDialog alert = builder.create();
         alert.show();
     }

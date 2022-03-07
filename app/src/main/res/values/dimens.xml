@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- DP Scale  -->
+    <dimen name="dp">0dp</dimen>
+    <dimen name="dp_super_small">2dp</dimen>
+    <dimen name="dp_extra_small">4dp</dimen>
+    <dimen name="dp_bit_small">6dp</dimen>
+    <dimen name="dp_small">8dp</dimen>
+    <dimen name="dp_medium">16dp</dimen>
+    <dimen name="dp_bit_medium">20dp</dimen>
+    <dimen name="dp_extra_medium">24dp</dimen>
+    <dimen name="dp_super_medium">28dp</dimen>
+    <dimen name="dp_large">32dp</dimen>
+    <dimen name="dp_bit_large">40dp</dimen>
+    <dimen name="dp_extra_large">64dp</dimen>
+    <dimen name="dp_super_large">72dp</dimen>
+    <!-- SP Scale  -->
+    <dimen name="sp">0sp</dimen>
+    <dimen name="sp_super_small">2sp</dimen>
+    <dimen name="sp_extra_small">4sp</dimen>
+    <dimen name="sp_bit_small">6sp</dimen>
+    <dimen name="sp_small">8sp</dimen>
+    <dimen name="sp_medium">16sp</dimen>
+    <dimen name="sp_bit_medium">20sp</dimen>
+    <dimen name="sp_extra_medium">24sp</dimen>
+    <dimen name="sp_super_medium">28sp</dimen>
+    <dimen name="sp_large">32sp</dimen>
+    <dimen name="sp_bit_large">40sp</dimen>
+    <dimen name="sp_extra_large">64sp</dimen>
+    <dimen name="sp_super_large">72sp</dimen>
+    <!--  Image Box  -->
+    <dimen name="ib">0dp</dimen>
+    <dimen name="ib_120">120dp</dimen>
+    <dimen name="ib_130">130dp</dimen>
+    <dimen name="ib_150">150dp</dimen>
+    <dimen name="ib_200">200dp</dimen>
+</resources>
