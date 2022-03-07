@@ -38,7 +38,6 @@ public class RegisterFragment extends Fragment {
         register = viewGroup.findViewById(R.id.btn_register);
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
 
