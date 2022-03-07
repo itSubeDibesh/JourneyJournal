@@ -10,7 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JourneyJournal">
         <activity
-            android:name=".MainActivity"
+            android:name=".views.activities.home.HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.activities.authentication.AuthenticationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.launcher.LauncherActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
