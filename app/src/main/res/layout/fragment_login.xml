@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_medium"
                 android:hint="@string/field_auth_email"
-                app:startIconDrawable="@drawable/ic_account">
+                app:startIconDrawable="@drawable/ic_email">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"

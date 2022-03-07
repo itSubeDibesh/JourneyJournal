@@ -58,6 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_medium"
+                app:startIconDrawable="@drawable/ic_account"
                 android:hint="@string/field_auth_name">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -72,12 +73,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_small"
+                app:startIconDrawable="@drawable/ic_email"
                 android:hint="@string/field_auth_email">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textEmailAddress"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
