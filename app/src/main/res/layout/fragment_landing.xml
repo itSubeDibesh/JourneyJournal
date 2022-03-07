@@ -1,14 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".views.fragments.authentication.landing.LandingFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_large"
+        android:layout_marginTop="@dimen/dp_medium"
+        android:layout_marginRight="@dimen/dp_large"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/dp_large"
+        android:paddingRight="@dimen/dp_large">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/tv_app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_medium"
+            android:layout_marginBottom="@dimen/dp_medium"
+            android:text="@string/app_name"
+            android:textSize="@dimen/sp_extra_medium"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/iv_background_image"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/ib_150"
+            android:contentDescription="@string/field_journey_image"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_img_landing" />
+
+        <TextView
+            android:id="@+id/tv_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_large"
+            android:layout_marginBottom="@dimen/dp_medium"
+            android:gravity="center"
+            android:text="@string/message_welcome"
+            android:textSize="@dimen/sp_medium"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_medium"
+            android:layout_marginBottom="@dimen/dp_small"
+            android:text="@string/message_landing_get_started"
+            android:textSize="@dimen/sp_bit_medium"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp_medium"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/dp_small"
+                android:drawableLeft="@drawable/ic_lock"
+                android:drawableTint="@color/white"
+                android:padding="@dimen/dp_small"
+                android:text="@string/button_login"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_medium"
+                android:textStyle="bold"
+                tools:ignore="ButtonStyle,RtlHardcoded" />
+
+            <Button
+                android:id="@+id/btn_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/ic_app_registration"
+                android:drawableTint="@color/white"
+                android:padding="@dimen/dp_small"
+                android:text="@string/button_register"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_medium"
+                android:textStyle="bold"
+                tools:ignore="ButtonStyle,RtlHardcoded" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/ib_150"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="@dimen/dp_medium"
+            android:contentDescription="@string/field_journey_image"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_img_city" />
+    </LinearLayout>
+</ScrollView>
