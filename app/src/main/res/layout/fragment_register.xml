@@ -58,8 +58,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_medium"
-                app:startIconDrawable="@drawable/ic_account"
-                android:hint="@string/field_auth_name">
+                android:hint="@string/field_auth_name"
+                app:startIconDrawable="@drawable/ic_account">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -73,14 +73,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_small"
-                app:startIconDrawable="@drawable/ic_email"
-                android:hint="@string/field_auth_email">
+                android:hint="@string/field_auth_email"
+                app:startIconDrawable="@drawable/ic_email">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    />
+                    android:inputType="textEmailAddress" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -128,6 +127,7 @@
                 android:drawableLeft="@drawable/ic_app_registration"
                 android:drawableTint="@color/white"
                 android:text="@string/button_register"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_medium"
                 android:textStyle="bold"
