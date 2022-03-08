@@ -12,6 +12,14 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="colorAccent">@color/primaryLightColor</item>
+    </style>
+
+    <!--  Fab Theme  -->
+    <style name="Theme.JourneyJournal.FAB" parent="">
+        <item name="colorSecondary">@color/primaryLightColor</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorOnSurface">@color/primaryLightColor</item>
     </style>
 
     <!-- No ActionBar theme. -->

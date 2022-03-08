@@ -36,6 +36,10 @@ public class HomeActivity extends AppCompatActivity {
      * Triggers Elements Globally
      */
     public void triggerEvents() {
+        // Setting Background to Null
+        bottomNavigationView.setBackground(null);
+        // Disabling the Middle Empty Placeholder
+        bottomNavigationView.getMenu().getItem(2).setEnabled(false);
         // Load Home Fragment as Default
         getSupportFragmentManager().beginTransaction().replace(R.id.home_frame_layout_container, homeFragment).commit();
         // Navigate on Button Clicked
