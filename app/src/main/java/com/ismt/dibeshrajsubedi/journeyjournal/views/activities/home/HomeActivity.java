@@ -1,8 +1,8 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.views.activities.home;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -20,12 +20,14 @@ public class HomeActivity extends AppCompatActivity {
     private ProfileFragment profileFragment;
     private AboutFragment aboutFragment;
     private ComponentsViewModel componentsViewModel;
+    private ActionBar actionBar;
 
     /**
      * Extract Elements Globally
      */
     public void extractElements() {
         componentsViewModel = new ViewModelProvider(this).get(ComponentsViewModel.class);
+        actionBar = getSupportActionBar();
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         homeFragment = new HomeFragment();
         profileFragment = new ProfileFragment();
@@ -36,6 +38,8 @@ public class HomeActivity extends AppCompatActivity {
      * Triggers Elements Globally
      */
     public void triggerEvents() {
+        // Setting Page Title to Home
+        actionBar.setTitle(R.string.page_home);
         // Setting Background to Null
         bottomNavigationView.setBackground(null);
         // Disabling the Middle Empty Placeholder
@@ -45,18 +49,22 @@ public class HomeActivity extends AppCompatActivity {
         // Navigate on Button Clicked
         bottomNavigationView.setOnItemSelectedListener(item -> {
                     if (item.getItemId() == R.id.app_bar_home) {
+                        actionBar.setTitle(R.string.page_home);
                         getSupportFragmentManager().beginTransaction().replace(R.id.home_frame_layout_container, homeFragment).commit();
                         return true;
                     } else if (item.getItemId() == R.id.app_bar_about) {
+                        actionBar.setTitle(R.string.page_about);
                         getSupportFragmentManager().beginTransaction().replace(R.id.home_frame_layout_container, aboutFragment).commit();
                         return true;
                     } else if (item.getItemId() == R.id.app_bar_profile) {
+                        actionBar.setTitle(R.string.page_profile);
                         getSupportFragmentManager().beginTransaction().replace(R.id.home_frame_layout_container, profileFragment).commit();
                         return true;
                     } else if (item.getItemId() == R.id.app_bar_logout) {
-                        Toast.makeText(HomeActivity.this, R.string.confirmation_exit, Toast.LENGTH_LONG).show();
+                        componentsViewModel.logoutConfirmation(HomeActivity.this);
                         return true;
                     } else {
+                        actionBar.setTitle(R.string.app_name);
                         return false;
                     }
                 }
@@ -75,4 +83,5 @@ public class HomeActivity extends AppCompatActivity {
     public void onBackPressed() {
         componentsViewModel.exitConfirmation(HomeActivity.this);
     }
+
 }
