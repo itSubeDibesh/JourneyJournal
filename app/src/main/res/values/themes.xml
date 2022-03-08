@@ -12,7 +12,16 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="colorAccent">@color/primaryColor</item>
     </style>
+
+    <!--  Fab Theme  -->
+    <style name="Theme.JourneyJournal.FAB" parent="">
+        <item name="colorSecondary">@color/primaryColor</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorOnSurface">@color/primaryColor</item>
+    </style>
+
     <!-- No ActionBar theme. -->
     <style name="Theme.JourneyJournal.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->

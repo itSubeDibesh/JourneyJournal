@@ -11,6 +11,7 @@
         android:theme="@style/Theme.JourneyJournal">
         <activity
             android:name=".views.activities.home.HomeActivity"
+            android:theme="@style/Theme.JourneyJournal"
             android:exported="false" />
         <activity
             android:name=".views.activities.authentication.AuthenticationActivity"

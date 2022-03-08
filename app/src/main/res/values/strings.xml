@@ -10,6 +10,7 @@
     <string name="page_journey">Journey\'s</string>
     <!--  Icon Label  -->
     <string name="icon_more_options">More Options</string>
+    <string name="icon_home">Home</string>
     <string name="icon_profile">@string/page_profile</string>
     <string name="icon_about">@string/page_about</string>
     <string name="icon_logout">Log Out</string>
