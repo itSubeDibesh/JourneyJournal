@@ -2,7 +2,7 @@
     <!--  Application Details  -->
     <string name="app_name">Journey Journal</string>
     <!--  Labels  -->
-    <string name="label_journey">Journey\'s</string>
+    <string name="label_journey">Journey\'s and Expedition\'s</string>
     <!--  Page Labels  -->
     <string name="page_login">Login</string>
     <string name="page_register">Register</string>
@@ -57,9 +57,10 @@
     <string name="redirect_create">Create</string>
     <!--  Message  -->
     <string name="message_check_email">Please! Check Your Email.</string>
+    <string name="message_query_hint">Search your journey with title</string>
     <!--  Confirmation  -->
     <string name="confirmation_exit">Exit Confirmation!</string>
-    <string name="confirmation_logout">Logout Confirmation!</string>
+    <string name="confirmation_logout">Log out Confirmation!</string>
     <!--  Consent  -->
     <string name="consent_exit">Do you really want to exit?</string>
     <string name="consent_logout">Are you sure you want to logout?</string>

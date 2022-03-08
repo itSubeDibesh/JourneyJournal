@@ -38,8 +38,6 @@ public class HomeActivity extends AppCompatActivity {
      * Triggers Elements Globally
      */
     public void triggerEvents() {
-        // Setting Page Title to Home
-        actionBar.setTitle(R.string.page_home);
         // Setting Background to Null
         bottomNavigationView.setBackground(null);
         // Disabling the Middle Empty Placeholder
@@ -49,15 +47,12 @@ public class HomeActivity extends AppCompatActivity {
         // Navigate on Button Clicked
         bottomNavigationView.setOnItemSelectedListener(item -> {
                     if (item.getItemId() == R.id.app_bar_home) {
-                        actionBar.setTitle(R.string.page_home);
                         getSupportFragmentManager().beginTransaction().replace(R.id.home_frame_layout_container, homeFragment).commit();
                         return true;
                     } else if (item.getItemId() == R.id.app_bar_about) {
-                        actionBar.setTitle(R.string.page_about);
                         getSupportFragmentManager().beginTransaction().replace(R.id.home_frame_layout_container, aboutFragment).commit();
                         return true;
                     } else if (item.getItemId() == R.id.app_bar_profile) {
-                        actionBar.setTitle(R.string.page_profile);
                         getSupportFragmentManager().beginTransaction().replace(R.id.home_frame_layout_container, profileFragment).commit();
                         return true;
                     } else if (item.getItemId() == R.id.app_bar_logout) {
@@ -72,16 +67,15 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        componentsViewModel.exitConfirmation(HomeActivity.this);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         extractElements();
         triggerEvents();
     }
-
-    @Override
-    public void onBackPressed() {
-        componentsViewModel.exitConfirmation(HomeActivity.this);
-    }
-
 }

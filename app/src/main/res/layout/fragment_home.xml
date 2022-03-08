@@ -1,13 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".views.fragments.home.home.HomeFragment">
 
     <TextView
+        android:id="@+id/label_page_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/label_journey"/>
+        android:layout_marginStart="@dimen/dp_medium"
+        android:layout_marginTop="@dimen/dp_medium"
+        android:text="@string/label_journey"
+        android:textColor="@color/primaryLightColor"
+        android:textSize="@dimen/sp_bit_medium"
+        android:textStyle="bold" />
 
-</FrameLayout>
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/sv_search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_medium"
+        android:layout_marginTop="@dimen/dp_small"
+        android:layout_marginRight="@dimen/dp_medium"
+        android:animateLayoutChanges="true"
+        android:clipToPadding="false"
+        android:elevation="@dimen/dp_small"
+        android:fitsSystemWindows="true"
+        android:hapticFeedbackEnabled="true"
+        android:layoutDirection="rtl"
+        android:verticalScrollbarPosition="right"
+        app:defaultQueryHint="@string/message_query_hint"
+        app:iconifiedByDefault="false" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srl_refresh_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_small">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_journey_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_medium"
+            android:layout_marginRight="@dimen/dp_medium">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</LinearLayout>
