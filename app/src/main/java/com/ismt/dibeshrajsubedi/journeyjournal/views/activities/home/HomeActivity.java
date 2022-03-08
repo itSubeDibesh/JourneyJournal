@@ -57,7 +57,7 @@ public class HomeActivity extends AppCompatActivity {
                         return true;
                     } else if (item.getItemId() == R.id.app_bar_logout) {
                         componentsViewModel.logoutConfirmation(HomeActivity.this);
-                        return true;
+                        return false;
                     } else {
                         actionBar.setTitle(R.string.app_name);
                         return false;
