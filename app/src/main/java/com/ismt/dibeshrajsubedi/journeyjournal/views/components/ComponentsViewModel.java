@@ -58,7 +58,10 @@ public class ComponentsViewModel extends AndroidViewModel {
             case LOGOUT:
                 builder
                         .setMessage(message).setCancelable(true)
-                        .setPositiveButton(R.string.option_yes, (dialog, id) -> activity.startActivity(new Intent(activity.getApplicationContext(), AuthenticationActivity.class)))
+                        .setPositiveButton(R.string.option_yes, (dialog, id) -> {
+                            activity.startActivity(new Intent(activity.getApplicationContext(), AuthenticationActivity.class));
+                            activity.finish();
+                        })
                         .setNegativeButton(R.string.option_no, (dialog, id) -> dialog.cancel());
                 break;
             case DELETE:
