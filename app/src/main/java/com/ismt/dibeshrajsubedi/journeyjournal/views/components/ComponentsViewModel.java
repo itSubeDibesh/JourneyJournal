@@ -6,6 +6,8 @@ import android.content.Intent;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.AndroidViewModel;
 
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
@@ -24,6 +26,14 @@ public class ComponentsViewModel extends AndroidViewModel {
         EXIT,
         LOGOUT,
         DELETE
+    }
+
+    /**
+     * Enum for Container Fragment
+     */
+    private enum FragmentContainer {
+        HOME,
+        ADD_EDIT
     }
 
     /**
@@ -96,4 +106,58 @@ public class ComponentsViewModel extends AndroidViewModel {
     public void logoutConfirmation(Activity activity) {
         this.confirmation(activity, R.string.confirmation_logout, R.string.consent_logout, Confirmation.LOGOUT);
     }
+
+    /**
+     * Loads Up The Fragment on Frame Layout
+     *
+     * @param supportFragmentManager FragmentManager
+     * @param fragment               Fragment
+     * @param fragmentContainer      FragmentContainer
+     * @return boolean
+     */
+    private boolean loadFragment(FragmentManager supportFragmentManager, Fragment fragment, FragmentContainer fragmentContainer) {
+        if (fragment != null) {
+            switch (fragmentContainer) {
+                case HOME:
+                    supportFragmentManager
+                            .beginTransaction()
+                            .replace(R.id.home_frame_layout_container, fragment)
+                            .commit();
+                    break;
+                case ADD_EDIT:
+                    supportFragmentManager
+                            .beginTransaction()
+                            .replace(R.id.add_edit_journey_frame_layout_container, fragment)
+                            .commit();
+                    break;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Loads Home Fragment Container
+     *
+     * @param supportFragmentManager FragmentManager
+     * @param fragment               Fragment
+     * @return boolean
+     */
+    public boolean loadHomeContainerFragment(FragmentManager supportFragmentManager, Fragment fragment) {
+        return this.loadFragment(supportFragmentManager, fragment, FragmentContainer.HOME);
+    }
+
+
+    /**
+     * Loads AddEdit Fragment Container
+     *
+     * @param supportFragmentManager FragmentManager
+     * @param fragment               Fragment
+     * @return boolean
+     */
+    public boolean loadJourneyAddEditContainerFragment(FragmentManager supportFragmentManager, Fragment fragment) {
+        return this.loadFragment(supportFragmentManager, fragment, FragmentContainer.ADD_EDIT);
+    }
+
+
 }
