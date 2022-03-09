@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
+import com.ismt.dibeshrajsubedi.journeyjournal.views.components.JourneyMockup.JourneyHandler;
+import com.ismt.dibeshrajsubedi.journeyjournal.views.components.JourneyMockup.JourneyModule;
 
 /**
  * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.home was
@@ -19,10 +21,9 @@ import com.ismt.dibeshrajsubedi.journeyjournal.R;
 public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerViewAdapter.HomeRecyclerViewHolder> {
 
     private final Context context;
+    private final JourneyHandler journeyHandler;
 
-    public HomeRecyclerViewAdapter(Context context) {
-        this.context = context;
-    }
+    public HomeRecyclerViewAdapter(Context context) { this.context = context;journeyHandler = new JourneyHandler(); }
 
     @NonNull
     @Override
@@ -34,11 +35,16 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
     @Override
     public void onBindViewHolder(@NonNull HomeRecyclerViewHolder holder, int position) {
         // Set Text, Description, Image and Date Here
+        final JourneyModule journeyModule = journeyHandler.journeyList().get(position);
+        holder.imageView.setImageResource(journeyModule.getJourneyImageResId());
+        holder.title.setText(journeyModule.getJourneyTitle());
+        holder.date.setText(journeyModule.getJourneyCreatedDate());
+        holder.description.setText(journeyModule.getJourneyDescription());
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        return journeyHandler.getLength();
     }
 
     static class HomeRecyclerViewHolder extends RecyclerView.ViewHolder {
