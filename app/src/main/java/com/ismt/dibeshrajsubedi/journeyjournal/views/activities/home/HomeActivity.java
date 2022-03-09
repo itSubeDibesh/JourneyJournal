@@ -3,7 +3,6 @@ package com.ismt.dibeshrajsubedi.journeyjournal.views.activities.home;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -25,7 +24,6 @@ public class HomeActivity extends AppCompatActivity {
     private AboutFragment aboutFragment;
     private ComponentsViewModel componentsViewModel;
     private FragmentManager fragmentManager;
-    private ActionBar actionBar;
     private FloatingActionButton fabButton;
 
     /**
@@ -34,7 +32,6 @@ public class HomeActivity extends AppCompatActivity {
     private void extractElements() {
         componentsViewModel = new ViewModelProvider(this).get(ComponentsViewModel.class);
         fragmentManager = getSupportFragmentManager();
-        actionBar = getSupportActionBar();
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         homeFragment = new HomeFragment();
         profileFragment = new ProfileFragment();
@@ -64,7 +61,6 @@ public class HomeActivity extends AppCompatActivity {
                         componentsViewModel.logoutConfirmation(HomeActivity.this);
                         return false;
                     } else {
-                        actionBar.setTitle(R.string.app_name);
                         return false;
                     }
                 }
