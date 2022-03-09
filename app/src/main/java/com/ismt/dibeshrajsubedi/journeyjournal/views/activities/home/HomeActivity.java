@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
-import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.add_edit.AddEditActivity;
+import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.journey.JourneyActivity;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.components.ComponentsViewModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.about.AboutFragment;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.home.HomeFragment;
@@ -67,7 +67,7 @@ public class HomeActivity extends AppCompatActivity {
         );
         // Trigger Add Journey Button
         fabButton.setOnClickListener(view -> {
-            Intent add = new Intent(HomeActivity.this, AddEditActivity.class);
+            Intent add = new Intent(HomeActivity.this, JourneyActivity.class);
             add.putExtra("Action", "ADD");
             startActivity(add);
         });

@@ -1,4 +1,4 @@
-package com.ismt.dibeshrajsubedi.journeyjournal.views.activities.add_edit;
+package com.ismt.dibeshrajsubedi.journeyjournal.views.activities.journey;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,16 +10,16 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.components.ComponentsViewModel;
-import com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.add_edit.add_journey.AddJourneyFragment;
-import com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.add_edit.edit_journey.EditJourneyFragment;
+import com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.journey.add.AddFragment;
+import com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.journey.edit.EditFragment;
 
-public class AddEditActivity extends AppCompatActivity {
+public class JourneyActivity extends AppCompatActivity {
 
     private ActionBar actionBar;
     private String Action;
     private ComponentsViewModel componentsViewModel;
-    private AddJourneyFragment addJourneyFragment;
-    private EditJourneyFragment editJourneyFragment;
+    private AddFragment addJourneyFragment;
+    private EditFragment editJourneyFragment;
     private FragmentManager fragmentManager;
 
     /**
@@ -36,8 +36,8 @@ public class AddEditActivity extends AppCompatActivity {
         // Extracting Action From Intent
         Action = intent.getStringExtra("Action");
         // Instantiating Fragments
-        addJourneyFragment = new AddJourneyFragment();
-        editJourneyFragment = new EditJourneyFragment();
+        addJourneyFragment = new AddFragment();
+        editJourneyFragment = new EditFragment();
     }
 
     /**
@@ -59,7 +59,7 @@ public class AddEditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_edit);
+        setContentView(R.layout.activity_journey);
         this.extractElements();
         this.setPageTitle();
     }
