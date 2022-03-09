@@ -1,10 +1,12 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.views.components.JourneyMockup;
 
+import java.io.Serializable;
+
 /**
  * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.views.components was
  * Created by Dibesh Raj Subedi on 3/9/2022.
  */
-public class JourneyModule {
+public class JourneyModule implements Serializable {
     private String journeyTitle;
     private String journeyCreatedDate;
     private int journeyImageResId, journeyDescription;

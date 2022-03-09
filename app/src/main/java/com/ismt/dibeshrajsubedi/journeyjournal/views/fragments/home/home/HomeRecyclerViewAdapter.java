@@ -22,8 +22,13 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
 
     private final Context context;
     private final JourneyHandler journeyHandler;
+    private final HomeRecyclerViewInterface homeRecyclerViewClickInterface;
 
-    public HomeRecyclerViewAdapter(Context context) { this.context = context;journeyHandler = new JourneyHandler(); }
+    public HomeRecyclerViewAdapter(Context context, HomeRecyclerViewInterface homeRecyclerViewClickInterface) {
+        this.context = context;
+        journeyHandler = new JourneyHandler();
+        this.homeRecyclerViewClickInterface = homeRecyclerViewClickInterface;
+    }
 
     @NonNull
     @Override
@@ -47,7 +52,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
         return journeyHandler.getLength();
     }
 
-    static class HomeRecyclerViewHolder extends RecyclerView.ViewHolder {
+    class HomeRecyclerViewHolder extends RecyclerView.ViewHolder {
         // Accessing Data Set from Fragment To Update elements in View.
         TextView title, description, date;
         ImageView imageView;
@@ -58,6 +63,9 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
             description = itemView.findViewById(R.id.tv_item_description);
             date = itemView.findViewById(R.id.tv_item_date);
             imageView = itemView.findViewById(R.id.iv_item_image);
+            itemView.setOnClickListener(view -> homeRecyclerViewClickInterface
+                    .onJourneyListItemClick(journeyHandler.findJourney(getAdapterPosition()))
+            );
         }
     }
 }
