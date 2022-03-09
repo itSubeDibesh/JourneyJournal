@@ -10,6 +10,8 @@
     <string name="page_profile">Profile</string>
     <string name="page_about">About</string>
     <string name="page_home">Home</string>
+    <string name="page_add_journey">Add Journey</string>
+    <string name="page_edit_journey">Edit Journey</string>
     <!--  Icon Label  -->
     <string name="icon_home">Home</string>
     <string name="icon_profile">@string/page_profile</string>
@@ -61,8 +63,10 @@
     <!--  Confirmation  -->
     <string name="confirmation_exit">Exit confirmation!</string>
     <string name="confirmation_logout">Log-out confirmation!</string>
+    <string name="confirmation_delete">Delete confirmation!</string>
     <!--  Consent  -->
     <string name="consent_exit">Do you really want to exit?</string>
     <string name="consent_logout">Are you sure you want to logout?</string>
+    <string name="consent_delete_journey">Are you sure you want to delete your journey?</string>
     <string name="consent_sure_consent">Are you sure?</string>
 </resources>
