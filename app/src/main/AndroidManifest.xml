@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JourneyJournal.NoActionBar">
         <activity
-            android:name=".views.activities.add_edit.AddEditActivity"
+            android:name=".views.activities.journey.JourneyActivity"
             android:exported="false"
             android:parentActivityName=".views.activities.home.HomeActivity"
             android:theme="@style/Theme.JourneyJournal" />

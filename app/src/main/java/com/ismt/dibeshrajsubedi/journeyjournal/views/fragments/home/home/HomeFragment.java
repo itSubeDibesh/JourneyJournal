@@ -1,6 +1,9 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.home;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +16,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
+import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.journey.JourneyActivity;
+import com.ismt.dibeshrajsubedi.journeyjournal.views.components.JourneyMockup.JourneyModule;
+
+import java.io.Serializable;
 
 /**
  * Implements List of Journey's and respective events
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements HomeRecyclerViewInterface {
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -31,10 +38,11 @@ public class HomeFragment extends Fragment {
     private void implementCoreElements() {
         // Populating List
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        recyclerView.setAdapter(new HomeRecyclerViewAdapter(requireContext()));
+        recyclerView.setAdapter(new HomeRecyclerViewAdapter(requireContext(), this));
         swipeRefreshLayout.setOnRefreshListener(() -> {
             // TODO: Swipe Refresh Implementation
             // setting Refreshing to false
+            recyclerView.notifyAll();
             swipeRefreshLayout.setRefreshing(false);
         });
     }
@@ -55,5 +63,15 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         implementCoreElements();
+    }
+
+
+    @Override
+    public void onJourneyListItemClick(JourneyModule journeyModule) {
+        // Open a Journey Page With Journey Details
+        Intent view = new Intent(requireContext(), JourneyActivity.class);
+        view.putExtra("Action", "VIEW");
+        view.putExtra("JourneyModule", journeyModule);
+        startActivity(view);
     }
 }

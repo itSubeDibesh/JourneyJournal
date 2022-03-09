@@ -33,7 +33,7 @@ public class ComponentsViewModel extends AndroidViewModel {
      */
     private enum FragmentContainer {
         HOME,
-        ADD_EDIT
+        JOURNEY
     }
 
     /**
@@ -127,10 +127,10 @@ public class ComponentsViewModel extends AndroidViewModel {
                             .replace(R.id.home_frame_layout_container, fragment)
                             .commit();
                     break;
-                case ADD_EDIT:
+                case JOURNEY:
                     supportFragmentManager
                             .beginTransaction()
-                            .replace(R.id.add_edit_journey_frame_layout_container, fragment)
+                            .replace(R.id.journey_frame_layout_container, fragment)
                             .commit();
                     break;
             }
@@ -152,13 +152,13 @@ public class ComponentsViewModel extends AndroidViewModel {
 
 
     /**
-     * Loads AddEdit Fragment Container
+     * Loads Journey Fragment Container
      *
      * @param supportFragmentManager FragmentManager
      * @param fragment               Fragment
      */
-    public void loadJourneyAddEditContainerFragment(FragmentManager supportFragmentManager, Fragment fragment) {
-        this.loadFragment(supportFragmentManager, fragment, FragmentContainer.ADD_EDIT);
+    public void loadJourneyContainerFragment(FragmentManager supportFragmentManager, Fragment fragment) {
+        this.loadFragment(supportFragmentManager, fragment, FragmentContainer.JOURNEY);
     }
 
 

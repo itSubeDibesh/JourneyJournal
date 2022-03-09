@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.activities.add_edit.AddEditActivity">
+    tools:context=".views.activities.journey.JourneyActivity">
 
     <FrameLayout
-        android:id="@+id/add_edit_journey_frame_layout_container"
+        android:id="@+id/journey_frame_layout_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
