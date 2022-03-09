@@ -156,10 +156,9 @@ public class ComponentsViewModel extends AndroidViewModel {
      *
      * @param supportFragmentManager FragmentManager
      * @param fragment               Fragment
-     * @return boolean
      */
-    public boolean loadJourneyAddEditContainerFragment(FragmentManager supportFragmentManager, Fragment fragment) {
-        return this.loadFragment(supportFragmentManager, fragment, FragmentContainer.ADD_EDIT);
+    public void loadJourneyAddEditContainerFragment(FragmentManager supportFragmentManager, Fragment fragment) {
+        this.loadFragment(supportFragmentManager, fragment, FragmentContainer.ADD_EDIT);
     }
 
 
