@@ -22,7 +22,8 @@ public class ComponentsViewModel extends AndroidViewModel {
      */
     private enum Confirmation {
         EXIT,
-        LOGOUT
+        LOGOUT,
+        DELETE
     }
 
     /**
@@ -50,6 +51,12 @@ public class ComponentsViewModel extends AndroidViewModel {
                         .setPositiveButton(R.string.option_yes, (dialog, id) -> activity.startActivity(new Intent(activity.getApplicationContext(), AuthenticationActivity.class)))
                         .setNegativeButton(R.string.option_no, (dialog, id) -> dialog.cancel());
                 break;
+            case DELETE:
+                builder
+                        .setMessage(message).setCancelable(true)
+                        .setPositiveButton(R.string.option_yes, (dialog, id) -> dialog.dismiss())
+                        .setNegativeButton(R.string.option_no, (dialog, id) -> dialog.cancel());
+                break;
         }
         AlertDialog alert = builder.create();
         alert.show();
@@ -57,6 +64,17 @@ public class ComponentsViewModel extends AndroidViewModel {
 
     public ComponentsViewModel(@NonNull Application application) {
         super(application);
+    }
+
+    /**
+     * Application Journey Delete Confirmation
+     * Alert Dialogue Builder Implementation
+     *
+     * @param activity Activity
+     */
+    public void deleteConfirmation(Activity activity) {
+        // TODO -> Take Delete Details and trigger Deleter From Here Itself
+        this.confirmation(activity, R.string.confirmation_delete, R.string.consent_delete_journey, Confirmation.DELETE);
     }
 
     /**

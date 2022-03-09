@@ -1,13 +1,19 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.views.activities.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.ui.AppBarConfiguration;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
+import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.add_edit.AddEditActivity;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.components.ComponentsViewModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.about.AboutFragment;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.home.HomeFragment;
@@ -21,6 +27,10 @@ public class HomeActivity extends AppCompatActivity {
     private AboutFragment aboutFragment;
     private ComponentsViewModel componentsViewModel;
     private ActionBar actionBar;
+    private FloatingActionButton fabButton;
+
+    private AppBarConfiguration appBarConfiguration;
+    private NavController navController;
 
     /**
      * Extract Elements Globally
@@ -32,6 +42,24 @@ public class HomeActivity extends AppCompatActivity {
         homeFragment = new HomeFragment();
         profileFragment = new ProfileFragment();
         aboutFragment = new AboutFragment();
+        fabButton = findViewById(R.id.fab_btn_add_journey);
+        // Add Edit Page Config using NavController
+    }
+
+    /**
+     * Loads Up The Fragment on Frame Layout
+     * @param fragment Fragment
+     * @return boolean
+     */
+    private boolean loadFragment(Fragment fragment) {
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.home_frame_layout_container, fragment)
+                    .commit();
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -43,19 +71,16 @@ public class HomeActivity extends AppCompatActivity {
         // Disabling the Middle Empty Placeholder
         bottomNavigationView.getMenu().getItem(2).setEnabled(false);
         // Load Home Fragment as Default
-        getSupportFragmentManager().beginTransaction().replace(R.id.home_frame_layout_container, homeFragment).commit();
+        this.loadFragment(homeFragment);
         // Navigate on Button Clicked
         bottomNavigationView.setOnItemSelectedListener(item -> {
-                    if (item.getItemId() == R.id.app_bar_home) {
-                        getSupportFragmentManager().beginTransaction().replace(R.id.home_frame_layout_container, homeFragment).commit();
-                        return true;
-                    } else if (item.getItemId() == R.id.app_bar_about) {
-                        getSupportFragmentManager().beginTransaction().replace(R.id.home_frame_layout_container, aboutFragment).commit();
-                        return true;
-                    } else if (item.getItemId() == R.id.app_bar_profile) {
-                        getSupportFragmentManager().beginTransaction().replace(R.id.home_frame_layout_container, profileFragment).commit();
-                        return true;
-                    } else if (item.getItemId() == R.id.app_bar_logout) {
+                    if (item.getItemId() == R.id.app_bar_home)
+                        return this.loadFragment(homeFragment);
+                    else if (item.getItemId() == R.id.app_bar_about)
+                        return this.loadFragment(aboutFragment);
+                    else if (item.getItemId() == R.id.app_bar_profile)
+                        return this.loadFragment(profileFragment);
+                    else if (item.getItemId() == R.id.app_bar_logout) {
                         componentsViewModel.logoutConfirmation(HomeActivity.this);
                         return false;
                     } else {
@@ -64,11 +89,23 @@ public class HomeActivity extends AppCompatActivity {
                     }
                 }
         );
+        // Trigger Add Journey Button
+        fabButton.setOnClickListener(view -> {
+            Intent add = new Intent(HomeActivity.this, AddEditActivity.class);
+            add.putExtra("ACTION","ADD");
+            startActivity(add);
+        });
     }
 
     @Override
     public void onBackPressed() {
-        componentsViewModel.exitConfirmation(HomeActivity.this);
+        if (bottomNavigationView.getSelectedItemId() == R.id.app_bar_home) {
+            // Show Exit Confirmation From Home Fragment Only
+            componentsViewModel.exitConfirmation(HomeActivity.this);
+        } else {
+            // Redirect To Home from Other Fragment
+            bottomNavigationView.setSelectedItemId(R.id.app_bar_home);
+        }
     }
 
     @Override

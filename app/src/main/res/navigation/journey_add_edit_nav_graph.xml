@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/journey_add_edit_nav_graph"
+    app:startDestination="@id/addJourneyFragment">
+
+    <fragment
+        android:id="@+id/addJourneyFragment"
+        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.add_edit.add_journey.AddJourneyFragment"
+        android:label="fragment_add_journey"
+        tools:layout="@layout/fragment_add_journey" />
+    <fragment
+        android:id="@+id/editJourneyFragment"
+        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.add_edit.edit_journey.EditJourneyFragment"
+        android:label="fragment_edit_journey"
+        tools:layout="@layout/fragment_edit_journey" />
+</navigation>

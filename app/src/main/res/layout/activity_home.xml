@@ -17,10 +17,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:hideOnScroll="true"
         app:fabCradleMargin="@dimen/dp_medium"
         app:fabCradleRoundedCornerRadius="@dimen/dp_medium"
-        app:fabCradleVerticalOffset="@dimen/dp_medium">
+        app:fabCradleVerticalOffset="@dimen/dp_medium"
+        app:hideOnScroll="false">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
@@ -33,11 +33,12 @@
     </com.google.android.material.bottomappbar.BottomAppBar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_btn_add_journey"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/button_add_journey"
         android:src="@drawable/ic_add_card"
         android:theme="@style/Theme.JourneyJournal.FAB"
-        android:contentDescription="@string/button_add_journey"
         app:layout_anchor="@id/bottom_navigation" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
