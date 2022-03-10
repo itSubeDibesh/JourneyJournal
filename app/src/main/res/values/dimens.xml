@@ -37,4 +37,5 @@
     <dimen name="ib_130">130dp</dimen>
     <dimen name="ib_150">150dp</dimen>
     <dimen name="ib_200">200dp</dimen>
+    <dimen name="ib_250">250dp</dimen>
 </resources>

@@ -1,5 +1,6 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.home;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,24 +25,42 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewInterface 
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private LinearLayoutManager linearLayoutManager;
+    private HomeRecyclerViewAdapter homeRecyclerViewAdapter;
+    private Context context;
 
+    /**
+     * Extracts Elements on Local Scope
+     *
+     * @param viewGroup ViewGroup
+     */
     private void extractElements(ViewGroup viewGroup) {
-        recyclerView = viewGroup.findViewById(R.id.rv_journey_item);
-        // TODO: Swipe Refresh Implementation and Swipe Right to Delete or Edit
-        swipeRefreshLayout = viewGroup.findViewById(R.id.srl_refresh_list);
+        this.context = requireContext();
+        this.recyclerView = viewGroup.findViewById(R.id.rv_journey_item);
+        this.swipeRefreshLayout = viewGroup.findViewById(R.id.srl_refresh_list);
+        this.linearLayoutManager = new LinearLayoutManager(this.context);
+        this.homeRecyclerViewAdapter = new HomeRecyclerViewAdapter(this.context, this);
     }
 
-    private void implementCoreElements() {
-        // Populating List
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        recyclerView.setAdapter(new HomeRecyclerViewAdapter(requireContext(), this));
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            // TODO: Swipe Refresh Implementation
-            // setting Refreshing to false
-//            recyclerView.notifyAll();
-           // Notify From Recycler View
-            swipeRefreshLayout.setRefreshing(false);
+    /**
+     * Initialize Elements in Local Scope
+     */
+    private void initializeListElements() {
+        // Setting Layout manager and Adapter
+        this.recyclerView.setLayoutManager(this.linearLayoutManager);
+        this.recyclerView.setAdapter(this.homeRecyclerViewAdapter);
+        this.swipeRefreshLayout.setOnRefreshListener(() -> {
+            this.refreshList();
+            this.swipeRefreshLayout.setRefreshing(false);
         });
+    }
+
+    /**
+     * Refreshes the List of Array Data Set
+     */
+    private void refreshList() {
+        HomeRecyclerViewAdapter homeRecyclerViewAdapter = new HomeRecyclerViewAdapter(this.context, this);
+        this.recyclerView.setAdapter(homeRecyclerViewAdapter);
     }
 
     @Override
@@ -52,21 +71,20 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewInterface 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
-        extractElements(view);
+        this.extractElements(view);
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        implementCoreElements();
+        this.initializeListElements();
     }
-
 
     @Override
     public void onJourneyListItemClick(JourneyModule journeyModule) {
         // Open a Journey Page With Journey Details
-        Intent view = new Intent(requireContext(), JourneyActivity.class);
+        Intent view = new Intent(this.context, JourneyActivity.class);
         view.putExtra("Action", "VIEW");
         view.putExtra("JourneyModule", journeyModule);
         startActivity(view);
