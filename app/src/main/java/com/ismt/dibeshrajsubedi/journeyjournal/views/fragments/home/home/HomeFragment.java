@@ -2,8 +2,6 @@ package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +16,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.journey.JourneyActivity;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.components.JourneyMockup.JourneyModule;
-
-import java.io.Serializable;
 
 /**
  * Implements List of Journey's and respective events
@@ -42,7 +38,8 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewInterface 
         swipeRefreshLayout.setOnRefreshListener(() -> {
             // TODO: Swipe Refresh Implementation
             // setting Refreshing to false
-            recyclerView.notifyAll();
+//            recyclerView.notifyAll();
+           // Notify From Recycler View
             swipeRefreshLayout.setRefreshing(false);
         });
     }

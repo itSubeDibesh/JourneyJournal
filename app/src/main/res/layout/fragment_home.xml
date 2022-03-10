@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/dp_medium"
-            android:paddingBottom="@dimen/dp_super_large"
+            android:paddingBottom="@dimen/bottom_nav_recycler_hidden"
             android:layout_marginRight="@dimen/dp_medium">
 
         </androidx.recyclerview.widget.RecyclerView>

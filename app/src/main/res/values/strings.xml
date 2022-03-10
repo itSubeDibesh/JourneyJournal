@@ -47,6 +47,7 @@
     <!--  Message  -->
     <string name="message_login_success">Login successful.</string>
     <string name="message_login_with">Or login with</string>
+    <string name="message_register_using">Or register using</string>
     <string name="message_landing_get_started">Let\'s get started</string>
     <string name="message_reset_email">Don\'t Worry, We will send you a reset email.</string>
     <string name="message_remember_password">Remember password?</string>
@@ -63,7 +64,7 @@
     <string name="message_query_hint">Search your journey with title</string>
     <!--  Confirmation  -->
     <string name="confirmation_exit">Exit confirmation!</string>
-    <string name="confirmation_logout">Log-out confirmation!</string>
+    <string name="confirmation_logout">Logout confirmation!</string>
     <string name="confirmation_delete">Delete confirmation!</string>
     <!--  Consent  -->
     <string name="consent_exit">Do you really want to exit?</string>

@@ -16,12 +16,10 @@ import com.ismt.dibeshrajsubedi.journeyjournal.views.components.JourneyMockup.Jo
  */
 public class ViewFragment extends Fragment {
 
-    private JourneyModule journeyModule;
-
     private void getBundleData(Bundle bundle){
-        journeyModule = (JourneyModule) bundle.getSerializable("JourneyModule");
+        JourneyModule journeyModule = (JourneyModule) bundle.getSerializable("JourneyModule");
         // TODO : Dataset Received need to Implement UI and Organize nad Write Code Workflow.
-        Log.d("TAG", "getBundleData: "+journeyModule.getJourneyTitle());
+        Log.d("TAG", "getBundleData: "+ journeyModule.getJourneyTitle());
     }
 
 

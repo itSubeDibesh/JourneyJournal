@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +28,8 @@ import com.ismt.dibeshrajsubedi.journeyjournal.views.components.ComponentsViewMo
 public class LoginFragment extends Fragment {
 
     private ComponentsViewModel componentsViewModel;
-    private Button login, google, twitter;
+    private Button login;
+    private ImageButton google, twitter;
     private TextView forgot, register;
     private NavController navController;
 
