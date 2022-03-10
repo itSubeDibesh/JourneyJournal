@@ -64,7 +64,7 @@
     <string name="message_query_hint">Search your journey with title</string>
     <!--  Confirmation  -->
     <string name="confirmation_exit">Exit confirmation!</string>
-    <string name="confirmation_logout">Logout confirmation!</string>
+    <string name="confirmation_logout">Log Out confirmation!</string>
     <string name="confirmation_delete">Delete confirmation!</string>
     <!--  Consent  -->
     <string name="consent_exit">Do you really want to exit?</string>

@@ -29,14 +29,6 @@ public class ComponentsViewModel extends AndroidViewModel {
     }
 
     /**
-     * Enum for Container Fragment
-     */
-    private enum FragmentContainer {
-        HOME,
-        JOURNEY
-    }
-
-    /**
      * Pops out Confirmation using Alert Dialogue
      *
      * @param activity     Activity
@@ -110,55 +102,18 @@ public class ComponentsViewModel extends AndroidViewModel {
         this.confirmation(activity, R.string.confirmation_logout, R.string.consent_logout, Confirmation.LOGOUT);
     }
 
-    /**
-     * Loads Up The Fragment on Frame Layout
-     *
-     * @param supportFragmentManager FragmentManager
-     * @param fragment               Fragment
-     * @param fragmentContainer      FragmentContainer
-     * @return boolean
-     */
-    private boolean loadFragment(FragmentManager supportFragmentManager, Fragment fragment, FragmentContainer fragmentContainer) {
-        if (fragment != null) {
-            switch (fragmentContainer) {
-                case HOME:
-                    supportFragmentManager
-                            .beginTransaction()
-                            .replace(R.id.home_frame_layout_container, fragment)
-                            .commit();
-                    break;
-                case JOURNEY:
-                    supportFragmentManager
-                            .beginTransaction()
-                            .replace(R.id.journey_frame_layout_container, fragment)
-                            .commit();
-                    break;
-            }
-            return true;
-        }
-        return false;
-    }
 
     /**
-     * Loads Home Fragment Container
-     *
-     * @param supportFragmentManager FragmentManager
-     * @param fragment               Fragment
-     * @return boolean
-     */
-    public boolean loadHomeContainerFragment(FragmentManager supportFragmentManager, Fragment fragment) {
-        return this.loadFragment(supportFragmentManager, fragment, FragmentContainer.HOME);
-    }
-
-
-    /**
-     * Loads Journey Fragment Container
+     * Loads Fragment
      *
      * @param supportFragmentManager FragmentManager
      * @param fragment               Fragment
      */
-    public void loadJourneyContainerFragment(FragmentManager supportFragmentManager, Fragment fragment) {
-        this.loadFragment(supportFragmentManager, fragment, FragmentContainer.JOURNEY);
+    public void loadFragment(FragmentManager supportFragmentManager, Fragment fragment) {
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.journey_frame_container, fragment)
+                .commit();
     }
 
 

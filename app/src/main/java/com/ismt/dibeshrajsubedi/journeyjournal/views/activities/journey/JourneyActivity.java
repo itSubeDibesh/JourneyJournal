@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -45,25 +46,36 @@ public class JourneyActivity extends AppCompatActivity {
     }
 
     /**
+     * Loads Fragment calling Component ViewModel
+     *
+     * @param fragment Fragment
+     */
+    private void loadFragment(Fragment fragment) {
+        componentsViewModel.loadFragment(fragmentManager, fragment);
+    }
+
+    /**
      * Sets Page Title on Appbar
      */
-    private void setPageTitle() {
+    private void setPageTitleWithDetails() {
+        // Creating Bundle to Pass DataSet
+        Bundle bundle = new Bundle();
         switch (Action) {
             case "ADD":
                 actionBar.setTitle(R.string.page_add_journey);
-                componentsViewModel.loadJourneyContainerFragment(fragmentManager, addFragment);
+                this.loadFragment(addFragment);
                 break;
             case "EDIT":
                 actionBar.setTitle(R.string.page_edit_journey);
-                componentsViewModel.loadJourneyContainerFragment(fragmentManager, editFragment);
+                bundle.putSerializable("JourneyModule", journeyModule);
+                editFragment.setArguments(bundle);
+                this.loadFragment(editFragment);
                 break;
             case "VIEW":
                 actionBar.setTitle(R.string.page_journey);
-                // Creating Bundle to Pass DataSet
-                Bundle bundle = new Bundle();
                 bundle.putSerializable("JourneyModule", journeyModule);
                 viewFragment.setArguments(bundle);
-                componentsViewModel.loadJourneyContainerFragment(fragmentManager, viewFragment);
+                this.loadFragment(viewFragment);
                 break;
             default:
                 actionBar.setTitle(R.string.app_name);
@@ -77,6 +89,6 @@ public class JourneyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journey);
         this.extractElements();
-        this.setPageTitle();
+        this.setPageTitleWithDetails();
     }
 }

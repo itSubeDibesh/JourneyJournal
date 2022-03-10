@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/app_bar_home"
+        android:id="@+id/journeysFragment"
         android:icon="@drawable/ic_home"
         android:title="@string/icon_home" />
     <item
-        android:id="@+id/app_bar_profile"
+        android:id="@+id/profileFragment"
         android:icon="@drawable/ic_account"
         android:title="@string/icon_profile" />
     <item
         android:id="@+id/app_bar_placeholder"
         android:title="" />
     <item
-        android:id="@+id/app_bar_about"
+        android:id="@+id/aboutFragment"
         android:icon="@drawable/ic_info"
         android:title="@string/icon_about" />
     <item
