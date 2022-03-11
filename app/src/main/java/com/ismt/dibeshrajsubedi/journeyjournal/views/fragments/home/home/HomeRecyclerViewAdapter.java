@@ -24,9 +24,9 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
     private final JourneyHandler journeyHandler;
     private final HomeRecyclerViewInterface homeRecyclerViewClickInterface;
 
-    public HomeRecyclerViewAdapter(Context context, HomeRecyclerViewInterface homeRecyclerViewClickInterface) {
+    public HomeRecyclerViewAdapter(Context context, JourneyHandler journeyHandler, HomeRecyclerViewInterface homeRecyclerViewClickInterface) {
         this.context = context;
-        journeyHandler = new JourneyHandler();
+        this.journeyHandler = journeyHandler;
         this.homeRecyclerViewClickInterface = homeRecyclerViewClickInterface;
     }
 
@@ -40,7 +40,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
     @Override
     public void onBindViewHolder(@NonNull HomeRecyclerViewHolder holder, int position) {
         // Set Text, Description, Image and Date Here
-        final JourneyModule journeyModule = journeyHandler.journeyList().get(position);
+        JourneyModule journeyModule = this.journeyHandler.journeyList().get(position);
         holder.imageView.setImageResource(journeyModule.getJourneyImageResId());
         holder.title.setText(journeyModule.getJourneyTitle());
         holder.date.setText(journeyModule.getJourneyCreatedDate());
@@ -49,7 +49,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
 
     @Override
     public int getItemCount() {
-        return journeyHandler.getLength();
+        return this.journeyHandler.getLength();
     }
 
     class HomeRecyclerViewHolder extends RecyclerView.ViewHolder {
