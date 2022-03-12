@@ -1,5 +1,6 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.journey.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,21 +11,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
+import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.journey.JourneyActivity;
+import com.ismt.dibeshrajsubedi.journeyjournal.views.components.ComponentsViewModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.components.JourneyMockup.JourneyModule;
 
 /**
  * View journey Including Delete for itself
  */
 public class ViewFragment extends Fragment {
-
-    private TextView tv_journey_title, tv_journey_date, tv_journey_location_name, tv_journey_description;
+    private ComponentsViewModel componentsViewModel;
+    private TextView tv_journey_title, tv_journey_date, tv_journey_location_name, tv_journey_description, btn_share;
     private Button btn_journey_edit, btn_journey_delete;
     private ImageView iv_journey_image;
     private JourneyModule journeyModule;
 
     private void extractElements(ViewGroup view) {
+        componentsViewModel = new ViewModelProvider(this).get(ComponentsViewModel.class);
         tv_journey_title = view.findViewById(R.id.tv_journey_title);
         tv_journey_date = view.findViewById(R.id.tv_journey_date);
         tv_journey_location_name = view.findViewById(R.id.tv_journey_location_name);
@@ -32,6 +37,7 @@ public class ViewFragment extends Fragment {
         btn_journey_edit = view.findViewById(R.id.btn_journey_edit);
         btn_journey_delete = view.findViewById(R.id.btn_journey_delete);
         iv_journey_image = view.findViewById(R.id.iv_journey_image);
+        btn_share = view.findViewById(R.id.btn_journey_share);
     }
 
     private void setStringElement(String actual_value, TextView textView) {
@@ -47,9 +53,20 @@ public class ViewFragment extends Fragment {
         iv_journey_image.setImageResource(journeyModule.getJourneyImageResId());
     }
 
-    private void buttonTrigger(){
-        btn_journey_delete.setOnClickListener(v-> Toast.makeText(requireContext(), "Work on Delete", Toast.LENGTH_SHORT).show());
-        btn_journey_edit.setOnClickListener(v-> Toast.makeText(requireContext(), "Work on Edit", Toast.LENGTH_SHORT).show());
+    public ViewFragment() {
+        // Required empty public constructor
+    }
+
+    private void buttonTrigger() {
+        btn_journey_delete.setOnClickListener(v -> componentsViewModel.deleteConfirmation(getActivity()));
+        btn_share.setOnClickListener(v -> Toast.makeText(requireContext(), "Work on Share", Toast.LENGTH_SHORT).show());
+        btn_journey_edit.setOnClickListener(v -> {
+            // Open a Journey Edit Page With Journey Details
+            Intent view = new Intent(getContext(), JourneyActivity.class);
+            view.putExtra("Action", "EDIT");
+            view.putExtra("JourneyModule", journeyModule);
+            startActivity(view);
+        });
     }
 
     @Override

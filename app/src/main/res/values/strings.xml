@@ -12,7 +12,7 @@
     <string name="page_home">Home</string>
     <string name="page_journey">Journey</string>
     <string name="page_add_journey">Add Journey</string>
-    <string name="page_edit_journey">Edit Journey</string>
+    <string name="page_update_journey">Update Journey</string>
     <!--  Icon Label  -->
     <string name="icon_home">Home</string>
     <string name="icon_profile">@string/page_profile</string>
@@ -39,9 +39,10 @@
     <string name="button_name">Add</string>
     <string name="button_google">Google</string>
     <string name="button_twitter">Twitter</string>
-    <string name="button_edit">Edit</string>
+    <string name="button_update">Update</string>
     <string name="button_share">Share</string>
     <string name="button_delete">Delete</string>
+    <string name="button_get_location">Get Location</string>
     <string name="button_add_journey">Add journey</string>
     <string name="button_login">@string/page_login</string>
     <string name="button_logout">@string/icon_logout</string>

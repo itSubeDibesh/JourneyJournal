@@ -1,140 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".views.fragments.journey.view.ViewFragment">
 
-    <TextView
-        android:id="@+id/tv_journey_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_medium"
-        android:drawablePadding="@dimen/dp_small"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:text="@string/field_journey_title"
-        android:textSize="@dimen/sp_bit_medium"
-        android:textStyle="bold"
-        app:drawableLeftCompat="@drawable/ic_title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/btn_journey_share"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/dp_small"
-        android:padding="@dimen/dp_small"
-        android:text="@string/button_share"
-        android:textSize="@dimen/sp_medium"
-        android:textColor="@color/primaryLightColor"
-        android:drawableTint="@color/primaryLightColor"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:drawableLeftCompat="@drawable/ic_share" />
-
-    <ImageView
-        android:id="@+id/iv_journey_image"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="@dimen/dp_medium"
-        android:layout_height="@dimen/ib_200"
-        android:contentDescription="@string/field_journey_image"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_img_journey_default"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_journey_title" />
-
-    <TextView
-        android:id="@+id/tv_journey_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_medium"
-        android:drawablePadding="@dimen/dp_small"
-        android:gravity="center"
-        android:text="@string/field_journey_date"
-        android:textSize="@dimen/sp_medium"
-        android:textStyle="bold"
-        app:drawableLeftCompat="@drawable/ic_calendar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_journey_image" />
-
-    <TextView
-        android:id="@+id/tv_journey_location_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_medium"
-        android:drawablePadding="@dimen/dp_small"
-        android:gravity="center"
-        android:text="@string/field_journey_address"
-        android:textSize="@dimen/sp_medium"
-        android:textStyle="bold"
-        app:drawableLeftCompat="@drawable/ic_gps"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_journey_image" />
-
-
-    <ScrollView
-        android:id="@+id/scrollView3"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/ib_300"
-        android:layout_margin="@dimen/dp_medium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.218"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_journey_date">
+        android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tv_journey_description"
-            android:layout_width="match_parent"
+            android:id="@+id/tv_journey_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/dummy_lorem"
-            android:textSize="@dimen/sp_medium" />
-    </ScrollView>
+            android:layout_margin="@dimen/dp_medium"
+            android:drawablePadding="@dimen/dp_small"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="@string/field_journey_title"
+            android:textSize="@dimen/sp_bit_medium"
+            android:textStyle="bold"
+            app:drawableLeftCompat="@drawable/ic_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/btn_journey_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/dp_small"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="@dimen/dp_small"
+            android:text="@string/button_share"
+            android:textColor="@color/primaryLightColor"
+            android:textSize="@dimen/sp_medium"
+            android:textStyle="bold"
+            app:drawableLeftCompat="@drawable/ic_share"
+            app:drawableTint="@color/primaryLightColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_journey_image"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/ib_200"
+            android:layout_marginTop="@dimen/dp_medium"
+            android:contentDescription="@string/field_journey_image"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_img_journey_default"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_journey_title" />
+
+        <TextView
+            android:id="@+id/tv_journey_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_medium"
+            android:drawablePadding="@dimen/dp_small"
+            android:gravity="center"
+            android:text="@string/field_journey_date"
+            android:textSize="@dimen/sp_medium"
+            android:textStyle="bold"
+            app:drawableLeftCompat="@drawable/ic_calendar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_journey_image" />
+
+        <TextView
+            android:id="@+id/tv_journey_location_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_medium"
+            android:drawablePadding="@dimen/dp_small"
+            android:gravity="center"
+            android:text="@string/field_journey_address"
+            android:textSize="@dimen/sp_medium"
+            android:textStyle="bold"
+            app:drawableLeftCompat="@drawable/ic_gps"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_journey_image" />
 
 
-    <Button
-        android:id="@+id/btn_journey_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/dp_medium"
-        android:drawableLeft="@drawable/ic_delete"
-        android:drawableTint="@color/white"
-        android:padding="@dimen/dp_small"
-        android:text="@string/button_delete"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="@dimen/sp_medium"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/btn_journey_edit"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
+        <ScrollView
+            android:id="@+id/scrollView3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ib_300"
+            android:layout_margin="@dimen/dp_medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.218"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_journey_date">
 
-    <Button
-        android:id="@+id/btn_journey_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/dp_medium"
-        android:drawableLeft="@drawable/ic_edit"
-        android:drawableTint="@color/white"
-        android:padding="@dimen/dp_small"
-        android:text="@string/button_edit"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="@dimen/sp_medium"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
+            <TextView
+                android:id="@+id/tv_journey_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/field_journey_description"
+                android:textSize="@dimen/sp_medium" />
+        </ScrollView>
+
+        <Button
+            android:id="@+id/btn_journey_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/dp_medium"
+            android:drawableLeft="@drawable/ic_delete"
+            android:drawableTint="@color/white"
+            android:padding="@dimen/dp_small"
+            android:text="@string/button_delete"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_medium"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
+
+        <Button
+            android:id="@+id/btn_journey_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/dp_medium"
+            android:layout_marginEnd="169dp"
+            android:drawableLeft="@drawable/ic_edit"
+            android:drawableTint="@color/white"
+            android:padding="@dimen/dp_small"
+            android:text="@string/button_update"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_medium"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/btn_journey_delete"
+            app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
 
 
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

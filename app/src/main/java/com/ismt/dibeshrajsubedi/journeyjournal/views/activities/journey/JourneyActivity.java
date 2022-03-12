@@ -66,7 +66,7 @@ public class JourneyActivity extends AppCompatActivity {
                 this.loadFragment(addFragment);
                 break;
             case "EDIT":
-                actionBar.setTitle(R.string.page_edit_journey);
+                actionBar.setTitle(R.string.page_update_journey);
                 bundle.putSerializable("JourneyModule", journeyModule);
                 editFragment.setArguments(bundle);
                 this.loadFragment(editFragment);

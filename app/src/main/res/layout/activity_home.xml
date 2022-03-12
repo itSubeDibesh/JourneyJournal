@@ -24,7 +24,7 @@
         app:fabCradleVerticalOffset="@dimen/dp_medium"
         android:verticalScrollbarPosition="right"
         android:scrollIndicators="end"
-        app:hideOnScroll="true">
+        app:hideOnScroll="false">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"

@@ -20,7 +20,7 @@ public class JourneyHandler extends JourneyDataset {
      */
     private String getDate() {
         Date date = new Date();
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.format(date);
     }
 
