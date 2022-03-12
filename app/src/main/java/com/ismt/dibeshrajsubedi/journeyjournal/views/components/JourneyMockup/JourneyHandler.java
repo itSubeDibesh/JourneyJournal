@@ -2,6 +2,8 @@ package com.ismt.dibeshrajsubedi.journeyjournal.views.components.JourneyMockup;
 
 import android.annotation.SuppressLint;
 
+import com.ismt.dibeshrajsubedi.journeyjournal.R;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,7 +20,7 @@ public class JourneyHandler extends JourneyDataset {
      */
     private String getDate() {
         Date date = new Date();
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.format(date);
     }
 
@@ -26,12 +28,12 @@ public class JourneyHandler extends JourneyDataset {
      * Sets Journey For Initial Dataset
      */
     private void setJourney() {
-        journey.add(new JourneyModule("Back in Kathmandu", lorem, this.getDate(), imageHolder));
-        journey.add(new JourneyModule("World is Heaven", lorem, this.getDate(), imageHolder));
-        journey.add(new JourneyModule("Something is Good.", lorem, this.getDate(), imageHolder));
-        journey.add(new JourneyModule("Best of All Times.", lorem, this.getDate(), imageHolder));
-        journey.add(new JourneyModule("Thinking About You.", lorem, this.getDate(), imageHolder));
-        journey.add(new JourneyModule("Back to future.", lorem, this.getDate(), imageHolder));
+        journey.add(new JourneyModule("Back in Kathmandu", lorem, "Kathmandu", this.getDate(), imageHolder));
+        journey.add(new JourneyModule("World is Heaven", lorem, "China", this.getDate(), imageHolder));
+        journey.add(new JourneyModule("Something is Good.", lorem, "Maldives", this.getDate(), R.drawable.ic_img_landing));
+        journey.add(new JourneyModule("Best of All Times.", lorem, "Alabama", this.getDate(), imageHolder));
+        journey.add(new JourneyModule("Thinking About You.", lorem, "Sri-Lanka", this.getDate(), R.drawable.ic_img_city));
+        journey.add(new JourneyModule("Back to future.", lorem, "America", this.getDate(), R.drawable.ic_img_register));
     }
 
     /**

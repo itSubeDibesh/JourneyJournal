@@ -6,7 +6,7 @@
     tools:context=".views.activities.journey.JourneyActivity">
 
     <FrameLayout
-        android:id="@+id/journey_frame_layout_container"
+        android:id="@+id/journey_frame_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

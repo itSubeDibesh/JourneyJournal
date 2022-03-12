@@ -12,7 +12,7 @@
     <string name="page_home">Home</string>
     <string name="page_journey">Journey</string>
     <string name="page_add_journey">Add Journey</string>
-    <string name="page_edit_journey">Edit Journey</string>
+    <string name="page_update_journey">Update Journey</string>
     <!--  Icon Label  -->
     <string name="icon_home">Home</string>
     <string name="icon_profile">@string/page_profile</string>
@@ -28,6 +28,7 @@
     <string name="field_auth_password">Password</string>
     <string name="field_auth_retype_password">Retype-password</string>
     <string name="field_journey_image">@string/field_auth_image</string>
+    <string name="field_journey_address">Address</string>
     <string name="field_journey_date">Date</string>
     <string name="field_journey_title">Title</string>
     <string name="field_journey_description">Description</string>
@@ -39,6 +40,9 @@
     <string name="button_google">Google</string>
     <string name="button_twitter">Twitter</string>
     <string name="button_update">Update</string>
+    <string name="button_share">Share</string>
+    <string name="button_delete">Delete</string>
+    <string name="button_get_location">Get Location</string>
     <string name="button_add_journey">Add journey</string>
     <string name="button_login">@string/page_login</string>
     <string name="button_logout">@string/icon_logout</string>
@@ -47,6 +51,8 @@
     <!--  Message  -->
     <string name="message_login_success">Login successful.</string>
     <string name="message_login_with">Or login with</string>
+    <string name="message_register_using">Or register using</string>
+    <string name="message_journey_empty">No Journey Found in your Journal.</string>
     <string name="message_landing_get_started">Let\'s get started</string>
     <string name="message_reset_email">Don\'t Worry, We will send you a reset email.</string>
     <string name="message_remember_password">Remember password?</string>
@@ -63,7 +69,7 @@
     <string name="message_query_hint">Search your journey with title</string>
     <!--  Confirmation  -->
     <string name="confirmation_exit">Exit confirmation!</string>
-    <string name="confirmation_logout">Log-out confirmation!</string>
+    <string name="confirmation_logout">Log Out confirmation!</string>
     <string name="confirmation_delete">Delete confirmation!</string>
     <!--  Consent  -->
     <string name="consent_exit">Do you really want to exit?</string>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/Theme.JourneyJournal"
     tools:context=".views.fragments.authentication.register.RegisterFragment">
 
     <LinearLayout
@@ -55,6 +56,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_name"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_medium"
@@ -70,6 +72,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_email"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_small"
@@ -85,6 +88,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_password"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_small"
@@ -102,6 +106,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_retype_password"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_small"
@@ -133,9 +138,47 @@
                 android:textStyle="bold"
                 tools:ignore="RtlHardcoded" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp_small"
+                android:layout_marginBottom="@dimen/dp_small"
+                android:text="@string/message_register_using"
+                android:textStyle="bold" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btn_google"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_medium"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/button_google"
+                    android:src="@drawable/ic_google" />
+
+                <ImageButton
+                    android:id="@+id/btn_twitter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_medium"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/button_twitter"
+                    android:src="@drawable/ic_twitter" />
+
+            </LinearLayout>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_medium"
                 android:gravity="center">
 
                 <TextView

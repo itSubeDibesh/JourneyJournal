@@ -28,10 +28,15 @@
     <dimen name="sp_bit_large">40sp</dimen>
     <dimen name="sp_extra_large">64sp</dimen>
     <dimen name="sp_super_large">72sp</dimen>
+    <!--  Bottom Navigation  -->
+    <dimen name="bottom_nav">56dp</dimen>
+    <dimen name="bottom_nav_recycler_hidden">50dp</dimen>
     <!--  Image Box  -->
     <dimen name="ib">0dp</dimen>
     <dimen name="ib_120">120dp</dimen>
     <dimen name="ib_130">130dp</dimen>
     <dimen name="ib_150">150dp</dimen>
     <dimen name="ib_200">200dp</dimen>
+    <dimen name="ib_250">250dp</dimen>
+    <dimen name="ib_300">300dp</dimen>
 </resources>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/Theme.JourneyJournal"
     tools:context=".views.fragments.authentication.login.LoginFragment">
 
     <LinearLayout
@@ -56,6 +57,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_email"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_medium"
@@ -71,6 +73,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_password"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_small"
@@ -130,36 +133,26 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <Button
+            <ImageButton
                 android:id="@+id/btn_google"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginEnd="@dimen/dp_small"
-                android:drawableLeft="@drawable/ic_google"
-                android:drawableTint="@color/white"
-                android:padding="@dimen/dp_small"
-                android:text="@string/button_google"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_medium"
-                android:textStyle="bold"
-                tools:ignore="ButtonStyle,RtlHardcoded" />
+                android:layout_marginEnd="@dimen/dp_medium"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/button_google"
+                android:src="@drawable/ic_google" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/btn_twitter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:drawableLeft="@drawable/ic_twitter"
-                android:drawableTint="@color/white"
-                android:padding="@dimen/dp_small"
-                android:text="@string/button_twitter"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_medium"
-                android:textStyle="bold"
-                tools:ignore="ButtonStyle,RtlHardcoded" />
+                android:layout_marginEnd="@dimen/dp_medium"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/button_twitter"
+                android:src="@drawable/ic_twitter" />
+
         </LinearLayout>
 
         <LinearLayout

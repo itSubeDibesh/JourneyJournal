@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="@dimen/dp_small"
     app:cardCornerRadius="@dimen/dp_small"
+    app:cardElevation="@dimen/dp_small"
     app:cardUseCompatPadding="true">
 
     <LinearLayout
@@ -22,45 +22,53 @@
             android:scaleType="centerCrop"
             android:src="@drawable/ic_img_journey_default" />
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/tv_item_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp_small"
-                android:layout_marginStart="@dimen/dp_medium"
+                android:drawableLeft="@drawable/ic_title"
+                android:drawablePadding="@dimen/dp_small"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@string/field_journey_title"
                 android:textSize="@dimen/sp_medium"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_item_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp_small"
-                android:layout_marginStart="@dimen/dp_medium"
                 android:ellipsize="end"
                 android:maxLines="3"
-                android:text="@string/field_journey_description" />
+                android:text="@string/field_journey_description"
+                app:layout_constraintBottom_toTopOf="@+id/tv_item_date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_item_title" />
 
             <TextView
                 android:id="@+id/tv_item_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp_small"
-                android:layout_marginStart="@dimen/dp_medium"
+                android:layout_marginEnd="152dp"
                 android:drawablePadding="@dimen/dp_small"
                 android:gravity="center"
                 android:text="@string/field_journey_date"
                 android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_calendar" />
+                app:drawableStartCompat="@drawable/ic_calendar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-        </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
