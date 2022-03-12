@@ -40,6 +40,7 @@
     <string name="button_google">Google</string>
     <string name="button_twitter">Twitter</string>
     <string name="button_edit">Edit</string>
+    <string name="button_share">Share</string>
     <string name="button_delete">Delete</string>
     <string name="button_add_journey">Add journey</string>
     <string name="button_login">@string/page_login</string>

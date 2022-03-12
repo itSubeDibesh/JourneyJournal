@@ -2,7 +2,6 @@ package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.home;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Canvas;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -32,7 +30,7 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewInterface 
     private HomeRecyclerViewAdapter homeRecyclerViewAdapter;
     private Context context;
     private JourneyHandler handler;
-    private JourneyModule deletedJourney;
+/*    private JourneyModule deletedJourney;
 
     private final ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
         @Override
@@ -67,6 +65,7 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewInterface 
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
         }
     };
+*/
 
     /**
      * Extracts Elements on Local Scope
@@ -95,8 +94,8 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewInterface 
         });
 
         // Instantiating itemTouch helper and attaching to recycler view to handle swipe right and swipe left
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-        itemTouchHelper.attachToRecyclerView(this.recyclerView);
+//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+//        itemTouchHelper.attachToRecyclerView(this.recyclerView);
 
     }
 

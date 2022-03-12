@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,119 +10,131 @@
 
     <TextView
         android:id="@+id/tv_journey_title"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="@dimen/dp_small"
-        android:layout_marginTop="@dimen/dp_medium"
-        android:layout_marginRight="@dimen/dp_small"
-        android:layout_marginBottom="@dimen/dp_medium"
-        android:drawableLeft="@drawable/ic_title"
+        android:layout_margin="@dimen/dp_medium"
         android:drawablePadding="@dimen/dp_small"
         android:ellipsize="end"
-        android:gravity="start"
         android:maxLines="3"
-        android:text="@string/message_welcome"
+        android:text="@string/field_journey_title"
         android:textSize="@dimen/sp_bit_medium"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:drawableLeftCompat="@drawable/ic_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/btn_journey_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/dp_small"
+        android:padding="@dimen/dp_small"
+        android:text="@string/button_share"
+        android:textSize="@dimen/sp_medium"
+        android:textColor="@color/primaryLightColor"
+        android:drawableTint="@color/primaryLightColor"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:drawableLeftCompat="@drawable/ic_share" />
 
     <ImageView
         android:id="@+id/iv_journey_image"
         android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/dp_medium"
         android:layout_height="@dimen/ib_200"
+        android:contentDescription="@string/field_journey_image"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_img_journey_default" />
+        android:src="@drawable/ic_img_journey_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_journey_title" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv_journey_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="@dimen/dp_small"
-        android:layout_marginTop="@dimen/dp_medium"
-        android:layout_marginRight="@dimen/dp_small"
-        android:layout_marginBottom="@dimen/dp_medium"
-        android:orientation="horizontal">
+        android:layout_margin="@dimen/dp_medium"
+        android:drawablePadding="@dimen/dp_small"
+        android:gravity="center"
+        android:text="@string/field_journey_date"
+        android:textSize="@dimen/sp_medium"
+        android:textStyle="bold"
+        app:drawableLeftCompat="@drawable/ic_calendar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_journey_image" />
 
-        <TextView
-            android:id="@+id/tv_journey_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginRight="@dimen/dp_extra_large"
-            android:drawableLeft="@drawable/ic_calendar"
-            android:drawablePadding="@dimen/dp_small"
-            android:gravity="center"
-            android:text="@string/field_journey_date"
-            android:textSize="@dimen/dp_medium"
-            android:textStyle="bold" />
+    <TextView
+        android:id="@+id/tv_journey_location_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_medium"
+        android:drawablePadding="@dimen/dp_small"
+        android:gravity="center"
+        android:text="@string/field_journey_address"
+        android:textSize="@dimen/sp_medium"
+        android:textStyle="bold"
+        app:drawableLeftCompat="@drawable/ic_gps"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_journey_image" />
 
-        <TextView
-            android:id="@+id/tv_journey_location_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginLeft="@dimen/dp_large"
-            android:drawableLeft="@drawable/ic_gps"
-            android:drawablePadding="@dimen/dp_small"
-            android:gravity="center"
-            android:text="@string/field_journey_address"
-            android:textSize="@dimen/dp_medium"
-            android:textStyle="bold" />
-
-    </LinearLayout>
 
     <ScrollView
+        android:id="@+id/scrollView3"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/ib_250"
-        android:layout_marginLeft="@dimen/dp_medium"
-        android:layout_marginRight="@dimen/dp_medium">
+        android:layout_height="@dimen/ib_300"
+        android:layout_margin="@dimen/dp_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.218"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_journey_date">
+
         <TextView
             android:id="@+id/tv_journey_description"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/ib_250"
+            android:layout_height="wrap_content"
             android:text="@string/dummy_lorem"
-            android:textSize="@dimen/dp_medium" />
+            android:textSize="@dimen/sp_medium" />
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <Button
+        android:id="@+id/btn_journey_delete"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_medium"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/dp_medium"
+        android:drawableLeft="@drawable/ic_delete"
+        android:drawableTint="@color/white"
+        android:padding="@dimen/dp_small"
+        android:text="@string/button_delete"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_medium"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/btn_journey_edit"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
 
-        <Button
-            android:id="@+id/btn_journey_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="@dimen/dp_medium"
-            android:drawableLeft="@drawable/ic_edit"
-            android:drawableTint="@color/white"
-            android:padding="@dimen/dp_small"
-            android:text="@string/button_edit"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_medium"
-            android:textStyle="bold"
-            tools:ignore="ButtonStyle,RtlHardcoded" />
-
-        <Button
-            android:id="@+id/btn_journey_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_medium"
-            android:layout_gravity="center"
-            android:drawableLeft="@drawable/ic_delete"
-            android:drawableTint="@color/white"
-            android:padding="@dimen/dp_small"
-            android:text="@string/button_delete"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_medium"
-            android:textStyle="bold"
-            tools:ignore="ButtonStyle,RtlHardcoded" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/btn_journey_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/dp_medium"
+        android:drawableLeft="@drawable/ic_edit"
+        android:drawableTint="@color/white"
+        android:padding="@dimen/dp_small"
+        android:text="@string/button_edit"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_medium"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
 
 
-</LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
