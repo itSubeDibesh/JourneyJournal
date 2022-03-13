@@ -3,6 +3,8 @@
     <string name="app_name">Journey Journal</string>
     <!--  Labels  -->
     <string name="label_journey">Journey\'s and Expedition\'s</string>
+    <string name="label_send_reset_link">Reset Password</string>
+    <string name="label_update_profile">Update Profile</string>
     <!--  Page Labels  -->
     <string name="page_login">Login</string>
     <string name="page_register">Register</string>

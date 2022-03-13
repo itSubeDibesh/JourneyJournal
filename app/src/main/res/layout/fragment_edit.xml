@@ -12,7 +12,7 @@
 
         <ImageView
             android:id="@+id/iv_journey_image"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/ib_200"
             android:layout_marginTop="@dimen/dp_medium"
             android:contentDescription="@string/field_journey_image"
