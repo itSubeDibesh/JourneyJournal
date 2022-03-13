@@ -2,6 +2,7 @@ package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +11,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.journey.JourneyActivity;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.components.JourneyMockup.JourneyHandler;
@@ -30,7 +33,7 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewInterface 
     private HomeRecyclerViewAdapter homeRecyclerViewAdapter;
     private Context context;
     private JourneyHandler handler;
-/*    private JourneyModule deletedJourney;
+    private JourneyModule deletedJourney;
 
     private final ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
         @Override
@@ -44,16 +47,16 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewInterface 
             switch (direction) {
                 case ItemTouchHelper.LEFT:
                     // Setting Deleted Movie on Buffer
-//                    deletedJourney = handler.findJourney(position);
+                    deletedJourney = handler.findJourney(position);
                     // Delete Journey
-//                    handler.deleteJourney(position);
-//                    homeRecyclerViewAdapter.notifyItemRemoved(position);
-//                    Snackbar.make(recyclerView, "Journey: " + deletedJourney.getJourneyTitle() + ", deleted!", Snackbar.LENGTH_LONG)
-//                            .setAction("Undo", view -> {
-//                                handler.journeyList().add(position, deletedJourney);
-//                                homeRecyclerViewAdapter.notifyItemInserted(position);
-//                            }).show();
-//                    break;
+                    handler.deleteJourney(position);
+                    homeRecyclerViewAdapter.notifyItemRemoved(position);
+                    Snackbar.make(recyclerView, "Journey: " + deletedJourney.getJourneyTitle() + ", deleted!", Snackbar.LENGTH_LONG)
+                            .setAction("Undo", view -> {
+                                handler.journeyList().add(position, deletedJourney);
+                                homeRecyclerViewAdapter.notifyItemInserted(position);
+                            }).show();
+                    break;
                 case ItemTouchHelper.RIGHT:
                     // Edit Journey
                     break;
@@ -65,7 +68,7 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewInterface 
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
         }
     };
-*/
+
 
     /**
      * Extracts Elements on Local Scope
@@ -94,8 +97,8 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewInterface 
         });
 
         // Instantiating itemTouch helper and attaching to recycler view to handle swipe right and swipe left
-//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-//        itemTouchHelper.attachToRecyclerView(this.recyclerView);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(this.recyclerView);
 
     }
 
@@ -130,6 +133,7 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewInterface 
     public void onJourneyListItemClick(JourneyModule journeyModule) {
         // Open a Journey Page With Journey Details
         Intent view = new Intent(this.context, JourneyActivity.class);
+        view.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         view.putExtra("Action", "VIEW");
         view.putExtra("JourneyModule", journeyModule);
         startActivity(view);

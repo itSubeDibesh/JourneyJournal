@@ -50,9 +50,7 @@ public class JourneyActivity extends AppCompatActivity {
      *
      * @param fragment Fragment
      */
-    private void loadFragment(Fragment fragment) {
-        componentsViewModel.loadFragment(fragmentManager, fragment);
-    }
+    private void loadFragment(Fragment fragment) {componentsViewModel.loadFragment(fragmentManager, fragment); }
 
     /**
      * Sets Page Title on Appbar
@@ -72,7 +70,7 @@ public class JourneyActivity extends AppCompatActivity {
                 this.loadFragment(editFragment);
                 break;
             case "VIEW":
-                actionBar.setTitle(R.string.page_journey);
+                actionBar.setTitle(R.string.page_view_journey);
                 bundle.putSerializable("JourneyModule", journeyModule);
                 viewFragment.setArguments(bundle);
                 this.loadFragment(viewFragment);

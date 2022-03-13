@@ -66,6 +66,7 @@ public class ViewFragment extends Fragment {
             view.putExtra("Action", "EDIT");
             view.putExtra("JourneyModule", journeyModule);
             startActivity(view);
+            getActivity().finish();
         });
     }
 
@@ -84,4 +85,5 @@ public class ViewFragment extends Fragment {
         this.buttonTrigger();
         return view;
     }
+
 }
