@@ -45,7 +45,7 @@
 
         <ImageView
             android:id="@+id/iv_journey_image"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/ib_200"
             android:layout_marginTop="@dimen/dp_medium"
             android:contentDescription="@string/field_journey_image"
@@ -88,7 +88,7 @@
         <ScrollView
             android:id="@+id/scrollView3"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/ib_300"
+            android:layout_height="@dimen/ib_250"
             android:layout_margin="@dimen/dp_medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.218"

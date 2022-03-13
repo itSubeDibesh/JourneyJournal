@@ -77,4 +77,6 @@ public class EditFragment extends Fragment {
         this.populateUserInterface(getArguments());
         this.buttonTrigger();
     }
+
+
 }

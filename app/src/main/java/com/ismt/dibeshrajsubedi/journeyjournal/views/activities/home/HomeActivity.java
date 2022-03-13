@@ -67,6 +67,7 @@ public class HomeActivity extends AppCompatActivity {
         // Trigger Add Journey Button
         fabButton.setOnClickListener(v -> {
             Intent add = new Intent(HomeActivity.this, JourneyActivity.class);
+            add.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             add.putExtra("Action", "ADD");
             startActivity(add);
         });
