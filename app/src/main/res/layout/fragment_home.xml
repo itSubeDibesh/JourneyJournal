@@ -14,7 +14,6 @@
         android:layout_marginStart="@dimen/dp_medium"
         android:layout_marginTop="@dimen/dp_medium"
         android:text="@string/label_journey"
-        android:textColor="@color/primaryLightColor"
         android:textSize="@dimen/sp_bit_medium"
         android:textStyle="bold" />
 
