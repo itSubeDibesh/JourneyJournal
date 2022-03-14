@@ -102,7 +102,6 @@ public class ComponentsViewModel extends AndroidViewModel {
         this.confirmation(activity, R.string.confirmation_logout, R.string.consent_logout, Confirmation.LOGOUT);
     }
 
-
     /**
      * Loads Fragment
      *
@@ -115,6 +114,5 @@ public class ComponentsViewModel extends AndroidViewModel {
                 .replace(R.id.journey_frame_container, fragment)
                 .commit();
     }
-
 
 }

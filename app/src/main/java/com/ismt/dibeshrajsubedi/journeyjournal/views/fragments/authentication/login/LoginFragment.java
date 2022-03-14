@@ -33,7 +33,6 @@ public class LoginFragment extends Fragment {
     private TextView forgot, register;
     private NavController navController;
 
-
     /**
      * Extract Elements Globally
      *

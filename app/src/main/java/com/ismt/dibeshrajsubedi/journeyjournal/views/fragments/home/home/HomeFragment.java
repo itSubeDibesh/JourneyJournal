@@ -69,7 +69,6 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewInterface 
         }
     };
 
-
     /**
      * Extracts Elements on Local Scope
      *
@@ -101,7 +100,6 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewInterface 
         itemTouchHelper.attachToRecyclerView(this.recyclerView);
 
     }
-
 
     /**
      * Refreshes the List of Array Data Set

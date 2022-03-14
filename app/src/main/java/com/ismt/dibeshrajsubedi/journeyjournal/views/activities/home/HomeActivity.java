@@ -75,7 +75,6 @@ public class HomeActivity extends AppCompatActivity {
         logout.setOnClickListener(v -> componentsViewModel.logoutConfirmation(HomeActivity.this));
     }
 
-
     @Override
     public void onBackPressed() {
         if (bottomNavigationView.getSelectedItemId() == R.id.journeysFragment)
@@ -85,7 +84,6 @@ public class HomeActivity extends AppCompatActivity {
             // Redirect To Home from Other Fragment
             bottomNavigationView.setSelectedItemId(R.id.journeysFragment);
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

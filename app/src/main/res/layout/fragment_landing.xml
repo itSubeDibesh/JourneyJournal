@@ -102,5 +102,6 @@
             android:contentDescription="@string/field_journey_image"
             android:scaleType="centerInside"
             android:src="@drawable/ic_img_city" />
+
     </LinearLayout>
 </ScrollView>
