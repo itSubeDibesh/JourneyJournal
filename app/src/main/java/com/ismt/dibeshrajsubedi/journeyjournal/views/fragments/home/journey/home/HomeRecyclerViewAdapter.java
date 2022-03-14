@@ -1,4 +1,4 @@
-package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.home;
+package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.journey.home;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -44,7 +44,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
 
     @Override
     public int getItemCount() {
-        return 1;
+        return 0;
     }
 
     class HomeRecyclerViewHolder extends RecyclerView.ViewHolder {

@@ -1,4 +1,4 @@
-package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.view;
+package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.journey.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

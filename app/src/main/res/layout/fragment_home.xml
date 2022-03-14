@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".views.fragments.home.home.HomeFragment">
+    tools:context=".views.fragments.home.journey.home.HomeFragment">
 
     <TextView
         android:id="@+id/label_page_name"

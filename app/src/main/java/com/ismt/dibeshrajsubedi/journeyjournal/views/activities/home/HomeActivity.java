@@ -2,7 +2,6 @@ package com.ismt.dibeshrajsubedi.journeyjournal.views.activities.home;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,7 +12,6 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
@@ -23,27 +21,24 @@ public class HomeActivity extends AppCompatActivity {
 
     private CommonViewModel commonViewModel;
     private BottomNavigationView bottomNavigationView;
-    private BottomAppBar bottomAppBar;
     private FloatingActionButton fabButton;
     private NavHostFragment navHostFragment;
-    private FragmentManager fragmentManager;
     private View logout;
     private Toolbar toolbar;
     private NavController navController;
+    private FragmentManager fragmentManager;
 
     private void extractElements() {
         // Component Binding to Get Common Transactions
         commonViewModel = new ViewModelProvider(this).get(CommonViewModel.class);
         // Extract Bottom Navigation View
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        // Extracting Bottom Appbar
-        bottomAppBar = findViewById(R.id.bottom_appbar);
         // Extracting Fragment Manager
         fragmentManager = getSupportFragmentManager();
         // Extracting NavHost Fragment to Get NavController
         navHostFragment = (NavHostFragment) fragmentManager.findFragmentById(R.id.home_nav_host_fragment);
         // Extracting Navigation Controller From NavHost Fragment
-        navController = navHostFragment.getNavController();
+        if (navHostFragment != null)  navController = navHostFragment.getNavController();
         // Extracting Tool Bar
         toolbar = findViewById(R.id.home_toolbar);
         // Extracting FAB for Add Journey
@@ -62,15 +57,15 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setUpBottomNavigationViewWithNavController() {
-        if (navHostFragment != null) {
+        if (navHostFragment != null)
             // Setting Navigation UI with NavController
             NavigationUI.setupWithNavController(bottomNavigationView, navController);
-        }
     }
 
 
-    private void setAddEditPage(Bundle bundle) {
-        
+    private void setNavigationViewBasedOnBundle(Bundle bundle) {
+        commonViewModel.setVisibility(bottomNavigationView, bundle.getBoolean(getString(R.string.args_show_bottom_navigation_view), false));
+        commonViewModel.setVisibility(fabButton, bundle.getBoolean(getString(R.string.args_show_bottom_navigation_view), false));
     }
 
     private void showViewsBasedOnNavigationArguments() {
@@ -79,9 +74,7 @@ public class HomeActivity extends AppCompatActivity {
             // Condition 1: Show Toolbar Based on Argument passed
             commonViewModel.setVisibility(toolbar, bundle.getBoolean(getString(R.string.args_show_toolbar), false));
             // Condition 2: Show Navigation View Based on Argument passed
-            commonViewModel.setVisibility(bottomNavigationView, bundle.getBoolean(getString(R.string.args_show_bottom_navigation_view), false));
-            // Condition 3: Set Page based on Argument Bundle Passed for Add or Edit
-            setAddEditPage(bundle);
+            setNavigationViewBasedOnBundle(bundle);
         });
     }
 
@@ -103,34 +96,25 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void triggerButtonClickEvents() {
-        // TODO: Trigger Add Journey Button
-        fabButton.setOnClickListener(v -> Toast.makeText(HomeActivity.this, "Add Clicked", Toast.LENGTH_SHORT).show());
+        // Trigger Add Journey Button
+        fabButton.setOnClickListener(v ->  navController.navigate(R.id.addFragment));
         // Trigger Logout Button Click From Bottom Navigation
         logout.setOnClickListener(v -> commonViewModel.logoutConfirmation(HomeActivity.this));
     }
 
-    @Override
-    public void onBackPressed() {
-        if (bottomNavigationView.getSelectedItemId() == R.id.journeysFragment)
-            // Show Exit Confirmation From Home Fragment Only
-            commonViewModel.exitConfirmation(HomeActivity.this);
-        else
-            // Redirect To Home from Other Fragment
-            bottomNavigationView.setSelectedItemId(R.id.journeysFragment);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         // Step 1: Extract Elements To Use Globally
-        this.extractElements();
+        extractElements();
         // Step 2: Setup Components
-        this.setUpComponents();
-        // Step 5: Bugfix Navigation UI
-        this.bugFixBottomNavigationUI();
-        // Step 6: Trigger Button Click Events
-        this.triggerButtonClickEvents();
+        setUpComponents();
+        // Step 3: Bugfix Navigation UI
+        bugFixBottomNavigationUI();
+        // Step 4: Trigger Button Click Events
+        triggerButtonClickEvents();
     }
 
 }

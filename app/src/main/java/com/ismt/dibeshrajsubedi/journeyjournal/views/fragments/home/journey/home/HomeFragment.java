@@ -1,4 +1,4 @@
-package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.home;
+package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.journey.home;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -6,20 +6,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
+import com.ismt.dibeshrajsubedi.journeyjournal.views.components.CommonViewModel;
 
 /**
  * Implements List of Journey's and respective events
  */
 public class HomeFragment extends Fragment {
 
+    private CommonViewModel commonViewModel;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private LinearLayoutManager linearLayoutManager;
@@ -52,6 +56,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        commonViewModel = new ViewModelProvider(this).get(CommonViewModel.class);
     }
 
     @Override
@@ -65,5 +70,12 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.initializeListElements();
+        // Handle Back pressed for exit confirmation
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                commonViewModel.exitConfirmation(requireActivity());
+            }
+        });
     }
 }
