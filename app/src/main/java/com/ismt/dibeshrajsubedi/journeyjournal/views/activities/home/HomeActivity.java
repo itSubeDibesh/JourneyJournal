@@ -13,12 +13,12 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
-import com.ismt.dibeshrajsubedi.journeyjournal.views.components.ComponentsViewModel;
+import com.ismt.dibeshrajsubedi.journeyjournal.views.components.ConfirmationViewModel;
 
 public class HomeActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
-    private ComponentsViewModel componentsViewModel;
+    private ConfirmationViewModel confirmationViewModel;
     private FloatingActionButton fabButton;
     private View logout;
 
@@ -26,7 +26,7 @@ public class HomeActivity extends AppCompatActivity {
         // Extract Bottom Navigation View
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         // Component Binding to Get Common Transactions
-        componentsViewModel = new ViewModelProvider(this).get(ComponentsViewModel.class);
+        confirmationViewModel = new ViewModelProvider(this).get(ConfirmationViewModel.class);
         // Extracting FAB for Add Journey
         fabButton = findViewById(R.id.fab_btn_add_journey);
         // Extract Logout button
@@ -55,14 +55,14 @@ public class HomeActivity extends AppCompatActivity {
         // TODO: Trigger Add Journey Button
         fabButton.setOnClickListener(v -> Toast.makeText(HomeActivity.this, "Add Clicked", Toast.LENGTH_SHORT).show());
         // Trigger Logout Button Click From Bottom Navigation
-        logout.setOnClickListener(v -> componentsViewModel.logoutConfirmation(HomeActivity.this));
+        logout.setOnClickListener(v -> confirmationViewModel.logoutConfirmation(HomeActivity.this));
     }
 
     @Override
     public void onBackPressed() {
         if (bottomNavigationView.getSelectedItemId() == R.id.journeysFragment)
             // Show Exit Confirmation From Home Fragment Only
-            componentsViewModel.exitConfirmation(HomeActivity.this);
+            confirmationViewModel.exitConfirmation(HomeActivity.this);
         else
             // Redirect To Home from Other Fragment
             bottomNavigationView.setSelectedItemId(R.id.journeysFragment);

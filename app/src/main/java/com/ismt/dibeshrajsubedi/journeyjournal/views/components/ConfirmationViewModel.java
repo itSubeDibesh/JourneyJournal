@@ -6,8 +6,6 @@ import android.content.Intent;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.AndroidViewModel;
 
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
@@ -17,7 +15,7 @@ import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.authentication.A
  * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.views.components was
  * Created by Dibesh Raj Subedi on 3/7/2022.
  */
-public class ComponentsViewModel extends AndroidViewModel {
+public class ConfirmationViewModel extends AndroidViewModel {
 
     /**
      * Enum for Confirmation
@@ -67,7 +65,7 @@ public class ComponentsViewModel extends AndroidViewModel {
         alert.show();
     }
 
-    public ComponentsViewModel(@NonNull Application application) {
+    public ConfirmationViewModel(@NonNull Application application) {
         super(application);
     }
 
@@ -100,19 +98,6 @@ public class ComponentsViewModel extends AndroidViewModel {
      */
     public void logoutConfirmation(Activity activity) {
         this.confirmation(activity, R.string.confirmation_logout, R.string.consent_logout, Confirmation.LOGOUT);
-    }
-
-    /**
-     * Loads Fragment
-     *
-     * @param supportFragmentManager FragmentManager
-     * @param fragment               Fragment
-     */
-    public void loadFragment(FragmentManager supportFragmentManager, Fragment fragment) {
-        supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.journey_frame_container, fragment)
-                .commit();
     }
 
 }

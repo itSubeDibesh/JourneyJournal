@@ -1,4 +1,4 @@
-package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.journey.view;
+package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,19 +14,19 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
-import com.ismt.dibeshrajsubedi.journeyjournal.views.components.ComponentsViewModel;
+import com.ismt.dibeshrajsubedi.journeyjournal.views.components.ConfirmationViewModel;
 
 /**
  * View journey Including Delete for itself
  */
 public class ViewFragment extends Fragment {
-    private ComponentsViewModel componentsViewModel;
+    private ConfirmationViewModel confirmationViewModel;
     private TextView tv_journey_title, tv_journey_date, tv_journey_location_name, tv_journey_description, btn_share;
     private Button btn_journey_edit, btn_journey_delete;
     private ImageView iv_journey_image;
 
     private void extractElements(ViewGroup view) {
-        componentsViewModel = new ViewModelProvider(this).get(ComponentsViewModel.class);
+        confirmationViewModel = new ViewModelProvider(this).get(ConfirmationViewModel.class);
         tv_journey_title = view.findViewById(R.id.tv_journey_title);
         tv_journey_date = view.findViewById(R.id.tv_journey_date);
         tv_journey_location_name = view.findViewById(R.id.tv_journey_location_name);
