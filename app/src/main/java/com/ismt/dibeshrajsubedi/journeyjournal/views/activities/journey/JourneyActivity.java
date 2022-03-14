@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.components.ComponentsViewModel;
-import com.ismt.dibeshrajsubedi.journeyjournal.views.components.JourneyMockup.JourneyModule;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.journey.add.AddFragment;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.journey.edit.EditFragment;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.journey.view.ViewFragment;
@@ -19,7 +18,6 @@ public class JourneyActivity extends AppCompatActivity {
 
     private ActionBar actionBar;
     private String Action;
-    private JourneyModule journeyModule;
     private ComponentsViewModel componentsViewModel;
     private AddFragment addFragment;
     private EditFragment editFragment;
@@ -38,7 +36,6 @@ public class JourneyActivity extends AppCompatActivity {
         actionBar.setTitle("");
         // Extracting Data From Intent
         Action = getIntent().getStringExtra("Action");
-        journeyModule = (JourneyModule) getIntent().getSerializableExtra("JourneyModule");
         // Instantiating Fragments
         addFragment = new AddFragment();
         editFragment = new EditFragment();
@@ -50,7 +47,9 @@ public class JourneyActivity extends AppCompatActivity {
      *
      * @param fragment Fragment
      */
-    private void loadFragment(Fragment fragment) {componentsViewModel.loadFragment(fragmentManager, fragment); }
+    private void loadFragment(Fragment fragment) {
+        componentsViewModel.loadFragment(fragmentManager, fragment);
+    }
 
     /**
      * Sets Page Title on Appbar
@@ -65,13 +64,11 @@ public class JourneyActivity extends AppCompatActivity {
                 break;
             case "EDIT":
                 actionBar.setTitle(R.string.page_update_journey);
-                bundle.putSerializable("JourneyModule", journeyModule);
                 editFragment.setArguments(bundle);
                 this.loadFragment(editFragment);
                 break;
             case "VIEW":
                 actionBar.setTitle(R.string.page_view_journey);
-                bundle.putSerializable("JourneyModule", journeyModule);
                 viewFragment.setArguments(bundle);
                 this.loadFragment(viewFragment);
                 break;

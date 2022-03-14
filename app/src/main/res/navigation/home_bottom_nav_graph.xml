@@ -20,4 +20,20 @@
         android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.home.HomeFragment"
         android:label="fragment_journeys"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.journey.add.AddFragment"
+        android:label="fragment_add"
+        tools:layout="@layout/fragment_add" />
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.journey.edit.EditFragment"
+        android:label="fragment_edit"
+        tools:layout="@layout/fragment_edit" />
+    <fragment
+        android:id="@+id/viewFragment"
+        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.journey.view.ViewFragment"
+        android:label="fragment_view"
+        tools:layout="@layout/fragment_view" />
+
 </navigation>

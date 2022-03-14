@@ -1,8 +1,8 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.views.activities.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -13,7 +13,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
-import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.journey.JourneyActivity;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.components.ComponentsViewModel;
 
 public class HomeActivity extends AppCompatActivity {
@@ -23,9 +22,6 @@ public class HomeActivity extends AppCompatActivity {
     private FloatingActionButton fabButton;
     private View logout;
 
-    /**
-     * Extract Elements Globally
-     */
     private void extractElements() {
         // Extract Bottom Navigation View
         bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -37,40 +33,27 @@ public class HomeActivity extends AppCompatActivity {
         logout = findViewById(R.id.app_bar_logout);
     }
 
-    /**
-     * Sets Up Bottom Navigation View
-     */
-    private void setupBottomNavigationView() {
+    private void bugFixBottomNavigationUI() {
         // Setting Background to Null
         bottomNavigationView.setBackground(null);
         // Disabling the Middle Empty Placeholder
         bottomNavigationView.getMenu().getItem(2).setEnabled(false);
     }
 
-    /**
-     * Setting Up Navigation Controller
-     */
-    private void setupNavigationController() {
+    private void setupBottomNavigationControllerWithNavHostFragment() {
         // Extracting NavHost Fragment to Get NavController
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.home_nav_host_fragment);
         // Extracting Nav Controller
-        assert navHostFragment != null;
-        NavController navController = navHostFragment.getNavController();
-        // Setting Navigation UI
-        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+        if (navHostFragment != null) {
+            NavController navController = navHostFragment.getNavController();
+            // Setting Navigation UI
+            NavigationUI.setupWithNavController(bottomNavigationView, navController);
+        }
     }
 
-    /**
-     * Triggers Button Elements
-     */
-    private void initializeButtonClickEvents() {
-        // Trigger Add Journey Button
-        fabButton.setOnClickListener(v -> {
-            Intent add = new Intent(HomeActivity.this, JourneyActivity.class);
-            add.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            add.putExtra("Action", "ADD");
-            startActivity(add);
-        });
+    private void triggerButtonClickEvents() {
+        // TODO: Trigger Add Journey Button
+        fabButton.setOnClickListener(v -> Toast.makeText(HomeActivity.this, "Add Clicked", Toast.LENGTH_SHORT).show());
         // Trigger Logout Button Click From Bottom Navigation
         logout.setOnClickListener(v -> componentsViewModel.logoutConfirmation(HomeActivity.this));
     }
@@ -90,8 +73,8 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         this.extractElements();
-        this.setupBottomNavigationView();
-        this.initializeButtonClickEvents();
-        this.setupNavigationController();
+        this.bugFixBottomNavigationUI();
+        this.triggerButtonClickEvents();
+        this.setupBottomNavigationControllerWithNavHostFragment();
     }
 }
