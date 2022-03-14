@@ -2,16 +2,13 @@
 buildscript {
     repositories {
         google()
+        mavenCentral()
     }
     dependencies {
+        classpath 'com.android.tools.build:gradle:7.1.2'
         def nav_version = "2.4.1"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
     }
-}
-
-plugins {
-    id 'com.android.application' version '7.1.2' apply false
-    id 'com.android.library' version '7.1.2' apply false
 }
 
 task clean(type: Delete) {

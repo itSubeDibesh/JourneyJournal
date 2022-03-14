@@ -3,6 +3,7 @@ package com.ismt.dibeshrajsubedi.journeyjournal.views.components;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -15,7 +16,7 @@ import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.authentication.A
  * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.views.components was
  * Created by Dibesh Raj Subedi on 3/7/2022.
  */
-public class ConfirmationViewModel extends AndroidViewModel {
+public class CommonViewModel extends AndroidViewModel {
 
     /**
      * Enum for Confirmation
@@ -65,7 +66,7 @@ public class ConfirmationViewModel extends AndroidViewModel {
         alert.show();
     }
 
-    public ConfirmationViewModel(@NonNull Application application) {
+    public CommonViewModel(@NonNull Application application) {
         super(application);
     }
 
@@ -98,6 +99,16 @@ public class ConfirmationViewModel extends AndroidViewModel {
      */
     public void logoutConfirmation(Activity activity) {
         this.confirmation(activity, R.string.confirmation_logout, R.string.consent_logout, Confirmation.LOGOUT);
+    }
+
+    /**
+     * Shows or Hides Component based on condition passed
+     * @param component View
+     * @param condition boolean
+     */
+    public void setVisibility(View component, boolean condition) {
+        // If Condition is true Show it Else Hide it
+        component.setVisibility(condition ? View.VISIBLE : View.GONE);
     }
 
 }

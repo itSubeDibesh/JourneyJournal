@@ -15,7 +15,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
-import com.ismt.dibeshrajsubedi.journeyjournal.views.components.ConfirmationViewModel;
+import com.ismt.dibeshrajsubedi.journeyjournal.views.components.CommonViewModel;
 
 
 /**
@@ -23,7 +23,7 @@ import com.ismt.dibeshrajsubedi.journeyjournal.views.components.ConfirmationView
  */
 public class LandingFragment extends Fragment {
 
-    private ConfirmationViewModel confirmationViewModel;
+    private CommonViewModel commonViewModel;
     private Button login, register;
     private NavController navController;
 
@@ -40,7 +40,7 @@ public class LandingFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        confirmationViewModel = new ViewModelProvider(this).get(ConfirmationViewModel.class);
+        commonViewModel = new ViewModelProvider(this).get(CommonViewModel.class);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class LandingFragment extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                confirmationViewModel.exitConfirmation(requireActivity());
+                commonViewModel.exitConfirmation(requireActivity());
             }
         });
     }

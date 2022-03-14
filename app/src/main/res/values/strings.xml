@@ -1,6 +1,10 @@
 <resources>
     <!--  Application Details  -->
     <string name="app_name">Journey Journal</string>
+    <!--  Args  -->
+    <string name="args_show_toolbar">showToolBar</string>
+    <string name="args_show_bottom_navigation_view">showBottomNavigation</string>
+    <string name="args_add_edit_isAdd">isAdd</string>
     <!--  Labels  -->
     <string name="label_journey">Journey\'s</string>
     <string name="label_send_reset_link">Reset Password</string>
