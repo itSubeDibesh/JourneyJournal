@@ -28,7 +28,6 @@ public class RegisterFragment extends Fragment {
     private NavController navController;
     private ImageButton google, twitter;
 
-
     /**
      * Extract Elements Globally
      *

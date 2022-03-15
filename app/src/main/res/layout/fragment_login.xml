@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/Theme.JourneyJournal"
     tools:context=".views.fragments.authentication.login.LoginFragment">
 
     <LinearLayout
@@ -184,5 +183,7 @@
                 android:textStyle="bold"
                 tools:ignore="TouchTargetSizeCheck" />
         </LinearLayout>
+
     </LinearLayout>
+
 </ScrollView>

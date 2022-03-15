@@ -1,23 +1,15 @@
-package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.journey.add;
+package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.journey.edit;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 
-/**
- * Used For Adding Journey
- */
-public class AddFragment extends Fragment {
-
-    public AddFragment() {
-        // Required empty public constructor
-    }
+public class EditFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,7 +19,7 @@ public class AddFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_add, container, false);
+        ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_edit, container, false);
         return view;
     }
 }
