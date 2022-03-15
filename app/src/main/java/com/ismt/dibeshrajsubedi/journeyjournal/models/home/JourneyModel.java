@@ -1,4 +1,4 @@
-package com.ismt.dibeshrajsubedi.journeyjournal.models;
+package com.ismt.dibeshrajsubedi.journeyjournal.models.home;
 
 /**
  * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.models was
