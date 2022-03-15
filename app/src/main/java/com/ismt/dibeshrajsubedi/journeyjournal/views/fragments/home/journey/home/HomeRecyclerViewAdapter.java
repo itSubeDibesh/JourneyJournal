@@ -42,7 +42,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
     @Override
     public int getItemCount() {
         // ToDo: get size and return it
-        return 1;
+        return 10;
     }
 
     static class HomeRecyclerViewHolder extends RecyclerView.ViewHolder {

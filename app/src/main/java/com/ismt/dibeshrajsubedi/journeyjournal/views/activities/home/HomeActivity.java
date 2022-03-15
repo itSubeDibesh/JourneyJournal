@@ -12,10 +12,11 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
-import com.ismt.dibeshrajsubedi.journeyjournal.viewModels.CommonViewModel;
+import com.ismt.dibeshrajsubedi.journeyjournal.view_models.CommonViewModel;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -23,6 +24,7 @@ public class HomeActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private FloatingActionButton fabButton;
     private NavHostFragment navHostFragment;
+    private BottomAppBar bottomAppBar;
     private View logout;
     private Toolbar toolbar;
     private NavController navController;
@@ -32,12 +34,14 @@ public class HomeActivity extends AppCompatActivity {
         commonViewModel = new ViewModelProvider(this).get(CommonViewModel.class);
         // Extract Bottom Navigation View
         bottomNavigationView = findViewById(R.id.bottom_navigation);
+        // Extract Bottom Appbar
+        bottomAppBar = findViewById(R.id.bottom_appbar);
         // Extracting Fragment Manager
         FragmentManager fragmentManager = getSupportFragmentManager();
         // Extracting NavHost Fragment to Get NavController
         navHostFragment = (NavHostFragment) fragmentManager.findFragmentById(R.id.home_nav_host_fragment);
         // Extracting Navigation Controller From NavHost Fragment
-        if (navHostFragment != null)  navController = navHostFragment.getNavController();
+        if (navHostFragment != null) navController = navHostFragment.getNavController();
         // Extracting Tool Bar
         toolbar = findViewById(R.id.home_toolbar);
         // Extracting FAB for Add Journey
@@ -61,9 +65,8 @@ public class HomeActivity extends AppCompatActivity {
             NavigationUI.setupWithNavController(bottomNavigationView, navController);
     }
 
-
     private void setNavigationViewBasedOnBundle(Bundle bundle) {
-        commonViewModel.setVisibility(bottomNavigationView, bundle.getBoolean(getString(R.string.args_show_bottom_navigation_view), false));
+        commonViewModel.setVisibility(bottomAppBar, bundle.getBoolean(getString(R.string.args_show_bottom_navigation_view), false));
         commonViewModel.setVisibility(fabButton, bundle.getBoolean(getString(R.string.args_show_bottom_navigation_view), false));
     }
 
@@ -86,7 +89,6 @@ public class HomeActivity extends AppCompatActivity {
         this.showViewsBasedOnNavigationArguments();
     }
 
-
     private void bugFixBottomNavigationUI() {
         // Setting Background to Null
         bottomNavigationView.setBackground(null);
@@ -96,7 +98,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void triggerButtonClickEvents() {
         // Trigger Add Journey Button
-        fabButton.setOnClickListener(v ->  navController.navigate(R.id.action_global_addFragment));
+        fabButton.setOnClickListener(v -> navController.navigate(R.id.action_global_addFragment));
         // Trigger Logout Button Click From Bottom Navigation
         logout.setOnClickListener(v -> commonViewModel.logoutConfirmation(HomeActivity.this));
     }
