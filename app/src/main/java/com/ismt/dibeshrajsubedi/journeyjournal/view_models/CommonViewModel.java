@@ -1,23 +1,22 @@
-package com.ismt.dibeshrajsubedi.journeyjournal.views.components;
+package com.ismt.dibeshrajsubedi.journeyjournal.view_models;
 
 import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.AndroidViewModel;
 
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.authentication.AuthenticationActivity;
 
 /**
- * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.views.components was
+ * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.view_models was
  * Created by Dibesh Raj Subedi on 3/7/2022.
  */
-public class ComponentsViewModel extends AndroidViewModel {
+public class CommonViewModel extends AndroidViewModel {
 
     /**
      * Enum for Confirmation
@@ -67,7 +66,7 @@ public class ComponentsViewModel extends AndroidViewModel {
         alert.show();
     }
 
-    public ComponentsViewModel(@NonNull Application application) {
+    public CommonViewModel(@NonNull Application application) {
         super(application);
     }
 
@@ -102,19 +101,29 @@ public class ComponentsViewModel extends AndroidViewModel {
         this.confirmation(activity, R.string.confirmation_logout, R.string.consent_logout, Confirmation.LOGOUT);
     }
 
-
     /**
-     * Loads Fragment
+     * Shows or Hides Component based on condition passed
      *
-     * @param supportFragmentManager FragmentManager
-     * @param fragment               Fragment
+     * @param component View
+     * @param condition boolean
      */
-    public void loadFragment(FragmentManager supportFragmentManager, Fragment fragment) {
-        supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.journey_frame_container, fragment)
-                .commit();
+    public void setVisibility(View component, boolean condition) {
+        // If Condition is true Show it Else Hide it
+        component.setVisibility(condition ? View.VISIBLE : View.GONE);
+
     }
 
+    /**
+     * Show recyclerView on false Condition and Show Empty Card View on True Condition
+     *
+     * @param view            View
+     * @param truthyCondition boolean
+     */
+    public void recyclerViewVisibility(View view, boolean truthyCondition) {
+        // Hide Card on True Condition
+        this.setVisibility(view.findViewById(R.id.cv_emptyCard), truthyCondition);
+        // Show Refresh Layout on False Condition
+        this.setVisibility(view.findViewById(R.id.srl_refresh_list), !truthyCondition);
+    }
 
 }

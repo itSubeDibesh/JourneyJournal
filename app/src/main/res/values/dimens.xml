@@ -8,6 +8,7 @@
     <dimen name="dp_small">8dp</dimen>
     <dimen name="dp_medium">16dp</dimen>
     <dimen name="dp_bit_medium">20dp</dimen>
+    <dimen name="dp_negative_extra_medium">-24dp</dimen>
     <dimen name="dp_extra_medium">24dp</dimen>
     <dimen name="dp_super_medium">28dp</dimen>
     <dimen name="dp_large">32dp</dimen>

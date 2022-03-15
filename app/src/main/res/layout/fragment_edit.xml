@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.fragments.journey.edit.EditFragment">
+    tools:context=".views.fragments.home.journey.edit.EditFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -104,6 +104,7 @@
                     android:drawableLeft="@drawable/ic_gps"
                     android:drawableTint="@color/white"
                     android:gravity="center"
+                    android:textAllCaps="false"
                     android:text="@string/button_get_location"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -121,7 +122,8 @@
                 android:drawableLeft="@drawable/ic_edit"
                 android:drawableTint="@color/white"
                 android:gravity="center"
-                android:text="@string/button_update"
+                android:textAllCaps="false"
+                android:text="@string/page_update_journey"
                 android:textColor="@color/white" />
 
         </LinearLayout>
