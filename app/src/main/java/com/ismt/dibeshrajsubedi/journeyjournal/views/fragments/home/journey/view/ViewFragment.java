@@ -11,22 +11,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
-import com.ismt.dibeshrajsubedi.journeyjournal.views.components.CommonViewModel;
 
 /**
  * View journey Including Delete for itself
  */
 public class ViewFragment extends Fragment {
-    private CommonViewModel commonViewModel;
     private TextView tv_journey_title, tv_journey_date, tv_journey_location_name, tv_journey_description, btn_share;
     private Button btn_journey_edit, btn_journey_delete;
     private ImageView iv_journey_image;
 
     private void extractElements(ViewGroup view) {
-        commonViewModel = new ViewModelProvider(this).get(CommonViewModel.class);
         tv_journey_title = view.findViewById(R.id.tv_journey_title);
         tv_journey_date = view.findViewById(R.id.tv_journey_date);
         tv_journey_location_name = view.findViewById(R.id.tv_journey_location_name);
@@ -35,10 +31,6 @@ public class ViewFragment extends Fragment {
         btn_journey_delete = view.findViewById(R.id.btn_journey_delete);
         btn_share = view.findViewById(R.id.btn_journey_share);
         iv_journey_image = view.findViewById(R.id.iv_journey_image);
-    }
-
-    public ViewFragment() {
-        // Required empty public constructor
     }
 
     @Override

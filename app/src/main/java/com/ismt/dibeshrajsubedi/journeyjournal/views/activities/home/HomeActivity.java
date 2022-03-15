@@ -15,7 +15,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
-import com.ismt.dibeshrajsubedi.journeyjournal.views.components.CommonViewModel;
+import com.ismt.dibeshrajsubedi.journeyjournal.viewModels.CommonViewModel;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -26,7 +26,6 @@ public class HomeActivity extends AppCompatActivity {
     private View logout;
     private Toolbar toolbar;
     private NavController navController;
-    private FragmentManager fragmentManager;
 
     private void extractElements() {
         // Component Binding to Get Common Transactions
@@ -34,7 +33,7 @@ public class HomeActivity extends AppCompatActivity {
         // Extract Bottom Navigation View
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         // Extracting Fragment Manager
-        fragmentManager = getSupportFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         // Extracting NavHost Fragment to Get NavController
         navHostFragment = (NavHostFragment) fragmentManager.findFragmentById(R.id.home_nav_host_fragment);
         // Extracting Navigation Controller From NavHost Fragment
@@ -97,7 +96,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void triggerButtonClickEvents() {
         // Trigger Add Journey Button
-        fabButton.setOnClickListener(v ->  navController.navigate(R.id.addFragment));
+        fabButton.setOnClickListener(v ->  navController.navigate(R.id.action_global_addFragment));
         // Trigger Logout Button Click From Bottom Navigation
         logout.setOnClickListener(v -> commonViewModel.logoutConfirmation(HomeActivity.this));
     }

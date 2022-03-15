@@ -34,6 +34,10 @@
         app:defaultQueryHint="@string/message_query_hint"
         app:iconifiedByDefault="false" />
 
+    <include
+        android:id="@+id/cv_emptyCard"
+        layout="@layout/journey_card_empty" />
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/srl_refresh_list"
         android:layout_width="match_parent"
@@ -45,9 +49,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/dp_medium"
-            android:layout_marginRight="@dimen/dp_medium">
+            android:layout_marginRight="@dimen/dp_medium"
+            android:scrollbars="vertical" />
 
-        </androidx.recyclerview.widget.RecyclerView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

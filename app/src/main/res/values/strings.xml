@@ -59,7 +59,7 @@
     <string name="message_login_success">Login successful.</string>
     <string name="message_login_with">Or login with</string>
     <string name="message_register_using">Or register using</string>
-    <string name="message_journey_empty">No Journey Found in your Journal.</string>
+    <string name="message_journey_empty">Journey Not Found!</string>
     <string name="message_landing_get_started">Let\'s get started</string>
     <string name="message_reset_email">Don\'t Worry, We will send you a reset email.</string>
     <string name="message_remember_password">Remember password?</string>

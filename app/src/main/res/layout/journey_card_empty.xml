@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="@dimen/dp_small"
     app:cardCornerRadius="@dimen/dp_small"
+    app:cardElevation="@dimen/dp_small"
     app:cardUseCompatPadding="true">
 
     <LinearLayout
@@ -30,9 +30,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="@string/message_journey_empty"
                 android:textSize="@dimen/sp_medium"
-                android:gravity="center"
                 android:textStyle="bold" />
 
         </LinearLayout>

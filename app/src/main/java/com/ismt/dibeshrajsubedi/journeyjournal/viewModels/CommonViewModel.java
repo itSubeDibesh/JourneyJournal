@@ -1,4 +1,4 @@
-package com.ismt.dibeshrajsubedi.journeyjournal.views.components;
+package com.ismt.dibeshrajsubedi.journeyjournal.viewModels;
 
 import android.app.Activity;
 import android.app.Application;
@@ -13,7 +13,7 @@ import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.authentication.AuthenticationActivity;
 
 /**
- * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.views.components was
+ * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.viewModels was
  * Created by Dibesh Raj Subedi on 3/7/2022.
  */
 public class CommonViewModel extends AndroidViewModel {
@@ -103,12 +103,26 @@ public class CommonViewModel extends AndroidViewModel {
 
     /**
      * Shows or Hides Component based on condition passed
+     *
      * @param component View
      * @param condition boolean
      */
     public void setVisibility(View component, boolean condition) {
         // If Condition is true Show it Else Hide it
         component.setVisibility(condition ? View.VISIBLE : View.GONE);
+    }
+
+    /**
+     * Show recyclerView on false Condition and Show Empty Card View on True Condition
+     *
+     * @param view            View
+     * @param truthyCondition boolean
+     */
+    public void recyclerViewVisibility(View view, boolean truthyCondition) {
+        // Hide Card on True Condition
+        this.setVisibility(view.findViewById(R.id.cv_emptyCard), truthyCondition);
+        // Show Refresh Layout on False Condition
+        this.setVisibility(view.findViewById(R.id.srl_refresh_list), !truthyCondition);
     }
 
 }

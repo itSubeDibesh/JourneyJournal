@@ -19,16 +19,13 @@ import com.ismt.dibeshrajsubedi.journeyjournal.R;
  */
 public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerViewAdapter.HomeRecyclerViewHolder> {
 
-    private final Context context;
-
-    public HomeRecyclerViewAdapter(Context context) {
-        this.context = context;
-    }
+    public HomeRecyclerViewAdapter() { }
 
     @NonNull
     @Override
     public HomeRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(this.context).inflate(R.layout.journey_card_item, parent, false);
+        Context context = parent.getContext();
+        View view = LayoutInflater.from(context).inflate(R.layout.journey_card_item, parent, false);
         return new HomeRecyclerViewHolder(view);
     }
 
@@ -44,10 +41,11 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
 
     @Override
     public int getItemCount() {
-        return 0;
+        // ToDo: get size and return it
+        return 1;
     }
 
-    class HomeRecyclerViewHolder extends RecyclerView.ViewHolder {
+    static class HomeRecyclerViewHolder extends RecyclerView.ViewHolder {
         // Accessing Data Set from Fragment To Update elements in View.
         TextView title, description, date;
         ImageView imageView;

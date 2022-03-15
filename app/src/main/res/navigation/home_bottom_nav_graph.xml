@@ -18,15 +18,8 @@
             android:name="@string/args_show_bottom_navigation_view"
             android:defaultValue="true"
             app:argType="boolean" />
-        <action
-            android:id="@+id/action_aboutFragment_pop"
-            app:enterAnim="@anim/slide_in"
-            app:exitAnim="@anim/fade_out"
-            app:popUpTo="@id/aboutFragment"
-            app:popUpToInclusive="true"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/slide_out" />
     </fragment>
+
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.profile.ProfileFragment"
@@ -40,15 +33,8 @@
             android:name="@string/args_show_bottom_navigation_view"
             android:defaultValue="true"
             app:argType="boolean" />
-        <action
-            android:id="@+id/action_profileFragment_pop"
-            app:enterAnim="@anim/slide_in"
-            app:exitAnim="@anim/fade_out"
-            app:popUpTo="@id/profileFragment"
-            app:popUpToInclusive="true"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/slide_out" />
     </fragment>
+
     <fragment
         android:id="@+id/journeysFragment"
         android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.journey.home.HomeFragment"
@@ -63,14 +49,14 @@
             android:defaultValue="true"
             app:argType="boolean" />
         <action
-            android:id="@+id/action_journeysFragment_pop"
-            app:popUpTo="@id/journeysFragment"
-            app:popUpToInclusive="true"
-            app:enterAnim="@anim/slide_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/slide_out" />
+            android:id="@+id/action_journeysFragment_to_viewFragment"
+            app:destination="@id/viewFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+
     <fragment
         android:id="@+id/addFragment"
         android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.journey.add.AddFragment"
@@ -84,15 +70,8 @@
             android:name="@string/args_show_bottom_navigation_view"
             android:defaultValue="false"
             app:argType="boolean" />
-        <action
-            android:id="@+id/action_addFragment_pop"
-            app:enterAnim="@anim/slide_in"
-            app:exitAnim="@anim/fade_out"
-            app:popUpTo="@id/addFragment"
-            app:popUpToInclusive="true"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/slide_out" />
     </fragment>
+
     <fragment
         android:id="@+id/editFragment"
         android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.journey.edit.EditFragment"
@@ -106,15 +85,8 @@
             android:name="@string/args_show_bottom_navigation_view"
             android:defaultValue="false"
             app:argType="boolean" />
-        <action
-            android:id="@+id/action_editFragment_pop"
-            app:enterAnim="@anim/slide_in"
-            app:exitAnim="@anim/fade_out"
-            app:popUpTo="@id/editFragment"
-            app:popUpToInclusive="true"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/slide_out" />
     </fragment>
+
     <fragment
         android:id="@+id/viewFragment"
         android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.journey.view.ViewFragment"
@@ -129,13 +101,20 @@
             android:defaultValue="false"
             app:argType="boolean" />
         <action
-            android:id="@+id/action_viewFragment_pop"
-            app:enterAnim="@anim/slide_in"
-            app:exitAnim="@anim/fade_out"
-            app:popUpTo="@id/viewFragment"
-            app:popUpToInclusive="true"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/slide_out" />
+            android:id="@+id/action_viewFragment_to_editFragment"
+            app:destination="@id/editFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+
+    <action
+        android:id="@+id/action_global_addFragment"
+        app:destination="@id/addFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
 
 </navigation>

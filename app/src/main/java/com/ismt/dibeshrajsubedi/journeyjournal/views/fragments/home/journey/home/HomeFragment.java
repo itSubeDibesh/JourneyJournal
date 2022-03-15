@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
-import com.ismt.dibeshrajsubedi.journeyjournal.views.components.CommonViewModel;
+import com.ismt.dibeshrajsubedi.journeyjournal.viewModels.CommonViewModel;
 
 /**
  * Implements List of Journey's and respective events
@@ -29,6 +29,7 @@ public class HomeFragment extends Fragment {
     private LinearLayoutManager linearLayoutManager;
     private HomeRecyclerViewAdapter homeRecyclerViewAdapter;
 
+
     /**
      * Extracts Elements on Local Scope
      *
@@ -39,7 +40,7 @@ public class HomeFragment extends Fragment {
         this.recyclerView = viewGroup.findViewById(R.id.rv_journey_item);
         this.swipeRefreshLayout = viewGroup.findViewById(R.id.srl_refresh_list);
         this.linearLayoutManager = new LinearLayoutManager(context);
-        this.homeRecyclerViewAdapter = new HomeRecyclerViewAdapter(context);
+        this.homeRecyclerViewAdapter = new HomeRecyclerViewAdapter();
     }
 
     /**
@@ -52,6 +53,7 @@ public class HomeFragment extends Fragment {
         this.swipeRefreshLayout.setOnRefreshListener(() -> this.swipeRefreshLayout.setRefreshing(false));
         // TODO: Instantiating itemTouch helper and attaching to recycler view to handle swipe right and swipe left
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,8 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.initializeListElements();
+        // Show Hide Recycler View Based on Empty nature
+        commonViewModel.recyclerViewVisibility(view, homeRecyclerViewAdapter.getItemCount() == 0);
         // Handle Back pressed for exit confirmation
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override
