@@ -20,7 +20,7 @@ import androidx.navigation.Navigation;
 
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.home.HomeActivity;
-import com.ismt.dibeshrajsubedi.journeyjournal.view_models.CommonViewModel;
+import com.ismt.dibeshrajsubedi.journeyjournal.view_models.common.CommonViewModel;
 
 /**
  * Redirects to Home page or Register Fragment or Forgot Fragment
