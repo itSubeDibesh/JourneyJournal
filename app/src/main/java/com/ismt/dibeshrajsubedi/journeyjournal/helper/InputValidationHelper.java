@@ -78,7 +78,7 @@ public class InputValidationHelper {
      * @return boolean
      */
     public boolean strLenGreaterThan(String string, int greaterThan) {
-        return string.trim().length() > greaterThan;
+        return string.trim().length() >= greaterThan;
     }
 
     /**
@@ -89,7 +89,7 @@ public class InputValidationHelper {
      * @return boolean
      */
     public boolean strLenLesserThan(String string, int lessThan) {
-        return string.trim().length() < lessThan;
+        return string.trim().length() <= lessThan;
     }
 
     /**

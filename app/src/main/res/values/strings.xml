@@ -57,6 +57,7 @@
     <string name="button_register">@string/page_register</string>
     <!--  Message  -->
     <string name="message_login_success">Login successful.</string>
+    <string name="message_required">Required *</string>
     <string name="message_login_with">Or login with</string>
     <string name="message_register_using">Or register using</string>
     <string name="message_journey_empty">Journey Not Found!</string>
@@ -74,6 +75,7 @@
     <string name="error_invalid_name">Name is Required!</string>
     <string name="error_empty_email">Email Address is Required!!</string>
     <string name="error_invalid_email">Invalid Email Format!</string>
+    <string name="error_password_length">Password expects 6–20 characters.</string>
     <string name="error_empty_retype_password">Retype-Password is Empty!</string>
     <string name="error_empty_password">Password is Required!</string>
     <string name="error_password_not_match">Password Not Matched!</string>

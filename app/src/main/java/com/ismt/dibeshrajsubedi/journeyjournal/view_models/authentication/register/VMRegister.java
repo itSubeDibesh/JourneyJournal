@@ -37,7 +37,7 @@ public class VMRegister extends ViewModel {
         String Email = MRegistration.getEmail();
         if (MRegistration.isNullOrEmpty(Email))
             isEmailInValid.setValue(new MStatusHelper(true, R.string.error_empty_email));
-        else if (MRegistration.isValidEmail(Email))
+        else if (!MRegistration.isValidEmail(Email))
             isEmailInValid.setValue(new MStatusHelper(true, R.string.error_invalid_email));
         else isEmailInValid.setValue(new MStatusHelper(false));
 
@@ -47,14 +47,18 @@ public class VMRegister extends ViewModel {
             isPasswordInValid.setValue(new MStatusHelper(true, R.string.error_empty_password));
         else if (MRegistration.isValidPassword(Password, false))
             isPasswordInValid.setValue(new MStatusHelper(true, R.string.error_invalid_password_format));
+        else if (!MRegistration.strLenGreaterThan(Password, 6) || !MRegistration.strLenLesserThan(Password, 20))
+            isPasswordInValid.setValue(new MStatusHelper(true, R.string.error_password_length));
         else isPasswordInValid.setValue(new MStatusHelper(false));
 
         // Password Matched Check - [EmptyCheck, Password Pattern Check, Match Check]
         String RetypePassword = MRegistration.getRetypePassword();
         if (MRegistration.isNullOrEmpty(RetypePassword))
-            isRetypePasswordNotMatched.setValue(new MStatusHelper(true, R.string.error_empty_password));
-        else if (MRegistration.isValidPassword(RetypePassword, false))
             isRetypePasswordNotMatched.setValue(new MStatusHelper(true, R.string.error_empty_retype_password));
+        else if (!MRegistration.strLenGreaterThan(RetypePassword, 6) || !MRegistration.strLenLesserThan(RetypePassword, 20))
+            isRetypePasswordNotMatched.setValue(new MStatusHelper(true, R.string.error_password_length));
+        else if (MRegistration.isValidPassword(RetypePassword, false))
+            isRetypePasswordNotMatched.setValue(new MStatusHelper(true, R.string.error_invalid_password_format));
         else if (!MRegistration.strIsMatch(Password, RetypePassword))
             isRetypePasswordNotMatched.setValue(new MStatusHelper(true, R.string.error_password_not_match));
         else isRetypePasswordNotMatched.setValue(new MStatusHelper(false));

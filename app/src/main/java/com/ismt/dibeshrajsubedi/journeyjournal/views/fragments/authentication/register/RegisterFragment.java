@@ -12,14 +12,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
-import com.ismt.dibeshrajsubedi.journeyjournal.helper.MStatusHelper;
 import com.ismt.dibeshrajsubedi.journeyjournal.models.authentication.MRegistration;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.authentication.register.VMRegister;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.common.VMCommon;
@@ -37,11 +35,6 @@ public class RegisterFragment extends Fragment {
     private VMCommon vmCommon;
     private TextInputLayout rtil_name, rtil_email, rtil_password, rtil_retype_password;
 
-    /**
-     * Extract Elements Globally
-     *
-     * @param viewGroup ViewGroup
-     */
     public void extractElements(ViewGroup viewGroup) {
         login = viewGroup.findViewById(R.id.tv_login);
         register = viewGroup.findViewById(R.id.btn_register);
@@ -63,11 +56,11 @@ public class RegisterFragment extends Fragment {
         ));
         // Trigger Google Click event
         google.setOnClickListener(v -> {
-
+            // TODO: Implement Google Click Redirect
         });
         // Trigger Twitter Click event
         twitter.setOnClickListener(v -> {
-
+            // TODO: Implement Twitter Click Redirect
         });
     }
 
@@ -83,7 +76,7 @@ public class RegisterFragment extends Fragment {
         vmRegister.isRetypePasswordNotMatched.observe(getViewLifecycleOwner(), helper -> vmCommon.setObserverError(rtil_retype_password, helper));
         // Observer 5: isRegisterSuccess
         vmRegister.isRegisterSuccess.observe(getViewLifecycleOwner(), helper -> {
-
+            // TODO: Implement Register Success Redirect
         });
     }
 

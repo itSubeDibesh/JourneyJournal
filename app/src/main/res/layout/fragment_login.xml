@@ -60,8 +60,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_medium"
-                app:errorEnabled="true"
                 android:hint="@string/field_auth_email"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
                 app:startIconDrawable="@drawable/ic_email">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -76,16 +77,16 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:errorEnabled="true"
                 android:hint="@string/field_auth_password"
-                app:passwordToggleDrawable="@drawable/ic_password_toggle"
-                app:passwordToggleEnabled="true"
+                app:endIconMode="password_toggle"
+                app:errorEnabled="true"
                 app:startIconDrawable="@drawable/ic_lock">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:maxLength="@integer/tb_password_max_len" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

@@ -142,10 +142,12 @@ public class VMCommon extends AndroidViewModel {
 
     /**
      * Sets Observable Error
-     * @param input TextInputLayout
+     *
+     * @param input  TextInputLayout
      * @param helper MStatusHelper
      */
     public void setObserverError(TextInputLayout input, MStatusHelper helper) {
         if (helper.getStatus()) input.setError(getApplication().getString(helper.getMessage()));
+        else input.setError(null);
     }
 }
