@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD041 -->
 <!-- markdownlint-disable MD033 -->
-<div>
+<div style="margin-bottom:100px">
     <a href="https://www.sunderland.ac.uk/">
         <img src="./docs/sunderland.png" alt="University of Sunderland" align="left" height="100" >
     </a>
@@ -8,7 +8,7 @@
         <img src="./docs/ismt.png" alt="ismt College"  height="100" align="right">
     </a>
 </div>
-<div  align="center">
+<div  align="center" style="margin-bottom:50px">
     <a href="https://github.com/itSubeDibesh/JourneyJournal">
         <img src="./docs/app.png" alt="Journey Journal"  width="200" style="margin-bottom:-30px">
     </a>
