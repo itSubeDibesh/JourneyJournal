@@ -15,7 +15,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
-import com.ismt.dibeshrajsubedi.journeyjournal.view_models.common.CommonViewModel;
+import com.ismt.dibeshrajsubedi.journeyjournal.view_models.common.VMCommon;
 
 
 /**
@@ -23,7 +23,7 @@ import com.ismt.dibeshrajsubedi.journeyjournal.view_models.common.CommonViewMode
  */
 public class LandingFragment extends Fragment {
 
-    private CommonViewModel commonViewModel;
+    private VMCommon VMCommon;
     private Button login, register;
     private NavController navController;
 
@@ -40,7 +40,7 @@ public class LandingFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        commonViewModel = new ViewModelProvider(this).get(CommonViewModel.class);
+        VMCommon = new ViewModelProvider(this).get(VMCommon.class);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class LandingFragment extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                commonViewModel.exitConfirmation(requireActivity());
+                VMCommon.exitConfirmation(requireActivity());
             }
         });
     }

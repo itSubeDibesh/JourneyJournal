@@ -54,12 +54,13 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_name"
+                android:id="@+id/rtil_name"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_medium"
                 android:hint="@string/field_auth_name"
+                app:errorEnabled="true"
                 app:startIconDrawable="@drawable/ic_account">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -70,12 +71,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_email"
+                android:id="@+id/rtil_email"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_small"
                 android:hint="@string/field_auth_email"
+                app:errorEnabled="true"
                 app:startIconDrawable="@drawable/ic_email">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -86,12 +87,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_password"
+                android:id="@+id/rtil_password"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_small"
                 android:hint="@string/field_auth_password"
+                app:errorEnabled="true"
                 app:passwordToggleDrawable="@drawable/ic_password_toggle"
                 app:passwordToggleEnabled="true"
                 app:startIconDrawable="@drawable/ic_lock">
@@ -104,13 +105,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_retype_password"
+                android:id="@+id/rtil_retype_password"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_small"
-                android:layout_marginBottom="@dimen/dp_medium"
                 android:hint="@string/field_auth_retype_password"
+                app:errorEnabled="true"
                 app:passwordToggleDrawable="@drawable/ic_password_toggle"
                 app:passwordToggleEnabled="true"
                 app:startIconDrawable="@drawable/ic_lock">
@@ -141,11 +141,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/dp_small"
                 android:layout_marginBottom="@dimen/dp_small"
                 android:text="@string/message_register_using"
                 android:textStyle="bold" />
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -173,11 +171,10 @@
 
             </LinearLayout>
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_medium"
+                android:layout_marginTop="@dimen/dp_small"
                 android:gravity="center">
 
                 <TextView

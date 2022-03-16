@@ -16,11 +16,11 @@ import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
-import com.ismt.dibeshrajsubedi.journeyjournal.view_models.common.CommonViewModel;
+import com.ismt.dibeshrajsubedi.journeyjournal.view_models.common.VMCommon;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private CommonViewModel commonViewModel;
+    private VMCommon VMCommon;
     private BottomNavigationView bottomNavigationView;
     private FloatingActionButton fabButton;
     private NavHostFragment navHostFragment;
@@ -31,7 +31,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void extractElements() {
         // Component Binding to Get Common Transactions
-        commonViewModel = new ViewModelProvider(this).get(CommonViewModel.class);
+        VMCommon = new ViewModelProvider(this).get(VMCommon.class);
         // Extract Bottom Navigation View
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         // Extract Bottom Appbar
@@ -66,15 +66,15 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setNavigationViewBasedOnBundle(Bundle bundle) {
-        commonViewModel.setVisibility(bottomAppBar, bundle.getBoolean(getString(R.string.args_show_bottom_navigation_view), false));
-        commonViewModel.setVisibility(fabButton, bundle.getBoolean(getString(R.string.args_show_bottom_navigation_view), false));
+        VMCommon.setVisibility(bottomAppBar, bundle.getBoolean(getString(R.string.args_show_bottom_navigation_view), false));
+        VMCommon.setVisibility(fabButton, bundle.getBoolean(getString(R.string.args_show_bottom_navigation_view), false));
     }
 
     private void showViewsBasedOnNavigationArguments() {
         navController.addOnDestinationChangedListener((navController, navDestination, bundle) -> {
             if (bundle == null) return;
             // Condition 1: Show Toolbar Based on Argument passed
-            commonViewModel.setVisibility(toolbar, bundle.getBoolean(getString(R.string.args_show_toolbar), false));
+            VMCommon.setVisibility(toolbar, bundle.getBoolean(getString(R.string.args_show_toolbar), false));
             // Condition 2: Show Navigation View Based on Argument passed
             setNavigationViewBasedOnBundle(bundle);
         });
@@ -100,7 +100,7 @@ public class HomeActivity extends AppCompatActivity {
         // Trigger Add Journey Button
         fabButton.setOnClickListener(v -> navController.navigate(R.id.action_global_addFragment));
         // Trigger Logout Button Click From Bottom Navigation
-        logout.setOnClickListener(v -> commonViewModel.logoutConfirmation(HomeActivity.this));
+        logout.setOnClickListener(v -> VMCommon.logoutConfirmation(HomeActivity.this));
     }
 
 

@@ -14,10 +14,10 @@ public class MRegistration extends InputValidationHelper {
     private final String RetypePassword;
 
     public MRegistration(String name, String email, String password, String retypePassword) {
-        Name = name;
-        Email = email;
-        Password = password;
-        RetypePassword = retypePassword;
+        Name = name.trim();
+        Email = email.trim();
+        Password = password.trim();
+        RetypePassword = retypePassword.trim();
     }
 
     public String getName() {

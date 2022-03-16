@@ -55,11 +55,12 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_email"
+                android:id="@+id/ltil_email"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_medium"
+                app:errorEnabled="true"
                 android:hint="@string/field_auth_email"
                 app:startIconDrawable="@drawable/ic_email">
 
@@ -71,12 +72,11 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_password"
+                android:id="@+id/ltil_password"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_small"
-                android:layout_marginBottom="@dimen/dp_medium"
+                app:errorEnabled="true"
                 android:hint="@string/field_auth_password"
                 app:passwordToggleDrawable="@drawable/ic_password_toggle"
                 app:passwordToggleEnabled="true"
