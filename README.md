@@ -1,18 +1,17 @@
 <!-- markdownlint-disable MD041 -->
 <!-- markdownlint-disable MD033 -->
 <div>
-<a href="https://www.sunderland.ac.uk/">
-<img src="./docs/sunderland.png" alt="University of Sunderland"  height="100" >
-</a>
-    <a href="https://www.ismt.edu.np/" style="float:right;" >
-    <img src="./docs/ismt.png" alt="ismt College"  height="100" >
+    <a href="https://www.sunderland.ac.uk/">
+        <img src="./docs/sunderland.png" alt="University of Sunderland" align="left" height="100" >
+    </a>
+    <a href="https://www.ismt.edu.np/">
+        <img src="./docs/ismt.png" alt="ismt College"  height="100" align="right">
     </a>
 </div>
-
-<div align="center">
-<a href="https://github.com/itSubeDibesh/JourneyJournal">
-<img src="./docs/app.png" alt="Journey Journal"  width="200" style="margin-bottom:-30px">
-</a>
+<div  align="center">
+    <a href="https://github.com/itSubeDibesh/JourneyJournal">
+        <img src="./docs/app.png" alt="Journey Journal"  width="200" style="margin-bottom:-30px">
+    </a>
 </div>
 
 # **JourneyJournal** 📱
