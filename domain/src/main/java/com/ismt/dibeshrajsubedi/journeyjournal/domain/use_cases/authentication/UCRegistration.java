@@ -1,6 +1,6 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.domain.use_cases.authentication;
 
-import com.ismt.dibeshrajsubedi.journeyjournal.domain.classes.authentication.CRegistration;
+import com.ismt.dibeshrajsubedi.journeyjournal.domain.classes.authentication.DMCRegistration;
 import com.ismt.dibeshrajsubedi.journeyjournal.domain.models.authentication.DMRegistration;
 import com.ismt.dibeshrajsubedi.journeyjournal.domain.repository.authentication.RRegistration;
 
@@ -15,7 +15,7 @@ public class UCRegistration {
         this.RRegistration = RRegistration;
     }
 
-    public DMRegistration registerUser(CRegistration CRegistration) {
-        return RRegistration.registerUser(CRegistration);
+    public DMRegistration registerUser(DMCRegistration DMCRegistration) {
+        return RRegistration.registerUser(DMCRegistration);
     }
 }

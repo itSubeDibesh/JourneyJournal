@@ -1,6 +1,6 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.domain.repository.authentication;
 
-import com.ismt.dibeshrajsubedi.journeyjournal.domain.classes.authentication.CRegistration;
+import com.ismt.dibeshrajsubedi.journeyjournal.domain.classes.authentication.DMCRegistration;
 import com.ismt.dibeshrajsubedi.journeyjournal.domain.models.authentication.DMRegistration;
 
 /**
@@ -8,5 +8,5 @@ import com.ismt.dibeshrajsubedi.journeyjournal.domain.models.authentication.DMRe
  * Created by Dibesh Raj Subedi on 3/15/2022.
  */
 public interface RRegistration {
-    DMRegistration registerUser(CRegistration CRegistration);
+    DMRegistration registerUser(DMCRegistration DMCRegistration);
 }

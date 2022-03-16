@@ -9,14 +9,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.AndroidViewModel;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
+import com.ismt.dibeshrajsubedi.journeyjournal.helper.MStatusHelper;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.authentication.AuthenticationActivity;
+
+import java.util.Objects;
 
 /**
  * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.view_models.common was
  * Created by Dibesh Raj Subedi on 3/7/2022.
  */
-public class CommonViewModel extends AndroidViewModel {
+public class VMCommon extends AndroidViewModel {
 
     /**
      * Enum for Confirmation
@@ -66,7 +70,7 @@ public class CommonViewModel extends AndroidViewModel {
         alert.show();
     }
 
-    public CommonViewModel(@NonNull Application application) {
+    public VMCommon(@NonNull Application application) {
         super(application);
     }
 
@@ -126,4 +130,22 @@ public class CommonViewModel extends AndroidViewModel {
         this.setVisibility(view.findViewById(R.id.srl_refresh_list), !truthyCondition);
     }
 
+    /**
+     * Extract String From TextInputLayout
+     *
+     * @param input TextInputLayout
+     * @return String
+     */
+    public String til(TextInputLayout input) {
+        return Objects.requireNonNull(input.getEditText().getText()).toString();
+    }
+
+    /**
+     * Sets Observable Error
+     * @param input TextInputLayout
+     * @param helper MStatusHelper
+     */
+    public void setObserverError(TextInputLayout input, MStatusHelper helper) {
+        if (helper.getStatus()) input.setError(getApplication().getString(helper.getMessage()));
+    }
 }

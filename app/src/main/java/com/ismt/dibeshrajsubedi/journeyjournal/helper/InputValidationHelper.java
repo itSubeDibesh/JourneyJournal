@@ -100,6 +100,8 @@ public class InputValidationHelper {
      * @return boolean
      */
     public boolean strIsMatch(String string1, String string2) {
-        return string1.trim().equals(string2.trim());
+        string1 = string1.trim();
+        string2 = string2.trim();
+        return string1.equals(string2);
     }
 }

@@ -3,12 +3,14 @@ package com.ismt.dibeshrajsubedi.journeyjournal.view_models.authentication.regis
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.data.implementations.authentication.RIRegistration;
-import com.ismt.dibeshrajsubedi.journeyjournal.domain.classes.authentication.CRegistration;
+import com.ismt.dibeshrajsubedi.journeyjournal.domain.classes.authentication.DMCRegistration;
 import com.ismt.dibeshrajsubedi.journeyjournal.domain.models.authentication.DMRegistration;
 import com.ismt.dibeshrajsubedi.journeyjournal.domain.use_cases.authentication.UCRegistration;
 import com.ismt.dibeshrajsubedi.journeyjournal.frameworks.journeyjournal.authentication.registration.LSIRegister;
 import com.ismt.dibeshrajsubedi.journeyjournal.frameworks.journeyjournal.authentication.registration.RSIRegister;
+import com.ismt.dibeshrajsubedi.journeyjournal.helper.MStatusHelper;
 import com.ismt.dibeshrajsubedi.journeyjournal.models.authentication.MRegistration;
 
 /**
@@ -16,36 +18,52 @@ import com.ismt.dibeshrajsubedi.journeyjournal.models.authentication.MRegistrati
  * Created by Dibesh Raj Subedi on 3/15/2022.
  */
 public class VMRegister extends ViewModel {
+    public final MutableLiveData<MStatusHelper> isNameInValid = new MutableLiveData<>();
+    public final MutableLiveData<MStatusHelper> isEmailInValid = new MutableLiveData<>();
+    public final MutableLiveData<MStatusHelper> isPasswordInValid = new MutableLiveData<>();
+    public final MutableLiveData<MStatusHelper> isRetypePasswordNotMatched = new MutableLiveData<>();
+    public final MutableLiveData<MStatusHelper> isRegisterSuccess = new MutableLiveData<>();
 
-    final MutableLiveData<Boolean> isNameValid = new MutableLiveData<>();
-    final MutableLiveData<Boolean> isEmailValid = new MutableLiveData<>();
-    final MutableLiveData<Boolean> isPasswordValid = new MutableLiveData<>();
-    final MutableLiveData<Boolean> isRetypePasswordMatched = new MutableLiveData<>();
-    final MutableLiveData<Boolean> isRegisterSuccess = new MutableLiveData<>();
-
-    private final UCRegistration UCRegistration = new UCRegistration(
-            new RIRegistration(
-                    new RSIRegister(),
-                    new LSIRegister()
-            )
-    );
+    private final UCRegistration UCRegistration = new UCRegistration(new RIRegistration(new RSIRegister(), new LSIRegister()));
 
     public void registrationValidation(MRegistration MRegistration) {
         // Name Validation Checks - [Empty Check]
         String Name = MRegistration.getName();
-        isNameValid.setValue(MRegistration.isNullOrEmpty(Name));
+        if (MRegistration.isNullOrEmpty(Name))
+            isNameInValid.setValue(new MStatusHelper(true, R.string.error_invalid_name));
+        else isNameInValid.setValue(new MStatusHelper(false));
+
         // Email Validation Checks - [Empty Check, Email Pattern Check]
         String Email = MRegistration.getEmail();
-        isEmailValid.setValue(!MRegistration.isNullOrEmpty(Email) && MRegistration.isValidEmail(Email));
+        if (MRegistration.isNullOrEmpty(Email))
+            isEmailInValid.setValue(new MStatusHelper(true, R.string.error_empty_email));
+        else if (MRegistration.isValidEmail(Email))
+            isEmailInValid.setValue(new MStatusHelper(true, R.string.error_invalid_email));
+        else isEmailInValid.setValue(new MStatusHelper(false));
+
         // Password Validation Check - [EmptyCheck, Password Pattern Check]
         String Password = MRegistration.getPassword();
-        isPasswordValid.setValue(!MRegistration.isNullOrEmpty(Password) && MRegistration.isValidPassword(Password, false));
+        if (MRegistration.isNullOrEmpty(Password))
+            isPasswordInValid.setValue(new MStatusHelper(true, R.string.error_empty_password));
+        else if (MRegistration.isValidPassword(Password, false))
+            isPasswordInValid.setValue(new MStatusHelper(true, R.string.error_invalid_password_format));
+        else isPasswordInValid.setValue(new MStatusHelper(false));
+
         // Password Matched Check - [EmptyCheck, Password Pattern Check, Match Check]
         String RetypePassword = MRegistration.getRetypePassword();
-        isRetypePasswordMatched.setValue(!MRegistration.isNullOrEmpty(RetypePassword) && MRegistration.isValidPassword(RetypePassword, false) && MRegistration.strIsMatch(Password, RetypePassword));
+        if (MRegistration.isNullOrEmpty(RetypePassword))
+            isRetypePasswordNotMatched.setValue(new MStatusHelper(true, R.string.error_empty_password));
+        else if (MRegistration.isValidPassword(RetypePassword, false))
+            isRetypePasswordNotMatched.setValue(new MStatusHelper(true, R.string.error_empty_retype_password));
+        else if (!MRegistration.strIsMatch(Password, RetypePassword))
+            isRetypePasswordNotMatched.setValue(new MStatusHelper(true, R.string.error_password_not_match));
+        else isRetypePasswordNotMatched.setValue(new MStatusHelper(false));
+
         // Trigger Registration UseCase
-        DMRegistration DMRegistration = UCRegistration.registerUser(new CRegistration(Name, Email, Password));
+        DMRegistration DMRegistration = UCRegistration.registerUser(new DMCRegistration(Name, Email, Password));
         // Registration Success trigger
-        isRegisterSuccess.setValue(DMRegistration.isRegistrationSuccess());
+//        isRegisterSuccess.setValue(DMRegistration.isRegistrationSuccess());
+        isRegisterSuccess.setValue(new MStatusHelper(true));
     }
 }
+

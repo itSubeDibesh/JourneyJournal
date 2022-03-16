@@ -1,6 +1,6 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.domain.models.authentication;
 
-import com.ismt.dibeshrajsubedi.journeyjournal.domain.classes.authentication.CRegistration;
+import com.ismt.dibeshrajsubedi.journeyjournal.domain.classes.authentication.DMCRegistration;
 
 /**
  * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.domain.models.authentication was
@@ -9,7 +9,7 @@ import com.ismt.dibeshrajsubedi.journeyjournal.domain.classes.authentication.CRe
 public class DMRegistration {
     private final boolean isRegistrationSuccess;
     private final String message;
-    private CRegistration registration;
+    private DMCRegistration registration;
 
     public DMRegistration(boolean isRegistrationSuccess, String message) {
         this.isRegistrationSuccess = isRegistrationSuccess;
@@ -24,11 +24,11 @@ public class DMRegistration {
         return message;
     }
 
-    public CRegistration getRegistration() {
+    public DMCRegistration getRegistration() {
         return registration;
     }
 
-    public void setRegistration(CRegistration registration) {
+    public void setRegistration(DMCRegistration registration) {
         this.registration = registration;
     }
 }

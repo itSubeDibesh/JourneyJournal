@@ -33,7 +33,7 @@ dependencies {
 
     //----> Firebase Initialization Begins
     implementation 'com.google.firebase:firebase-auth:21.0.2'
-    implementation 'com.google.firebase:firebase-admin:8.1.0'
+//    implementation 'com.google.firebase:firebase-admin:8.1.0'
     //----> Firebase Initialization Begins
 
     //----> Constants Initialization Begins

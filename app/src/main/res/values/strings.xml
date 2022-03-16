@@ -68,6 +68,16 @@
     <string name="message_new_user">New user?</string>
     <string name="message_have_account">Have account?</string>
     <string name="message_back_to_login">Back to login?</string>
+    <!--  Success  -->
+    <string name="success_register">User Registered Successfully!</string>
+    <!--  Error  -->
+    <string name="error_invalid_name">Name is Required!</string>
+    <string name="error_empty_email">Email Address is Required!!</string>
+    <string name="error_invalid_email">Invalid Email Format!</string>
+    <string name="error_empty_retype_password">Retype-Password is Empty!</string>
+    <string name="error_empty_password">Password is Required!</string>
+    <string name="error_password_not_match">Password Not Matched!</string>
+    <string name="error_invalid_password_format">Invalid Password Format!</string>
     <!--  Redirects  -->
     <string name="redirect_reset">Reset</string>
     <string name="redirect_create">Create</string>

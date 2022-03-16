@@ -1,6 +1,6 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.data.sources.authentication.registration;
 
-import com.ismt.dibeshrajsubedi.journeyjournal.domain.classes.authentication.CRegistration;
+import com.ismt.dibeshrajsubedi.journeyjournal.domain.classes.authentication.DMCRegistration;
 import com.ismt.dibeshrajsubedi.journeyjournal.domain.models.authentication.DMRegistration;
 
 /**
@@ -10,5 +10,5 @@ import com.ismt.dibeshrajsubedi.journeyjournal.domain.models.authentication.DMRe
 public interface RSRegistration {
     boolean isInternetConnected();
 
-    DMRegistration registerUserRemote(CRegistration CRegistration);
+    DMRegistration registerUserRemote(DMCRegistration DMCRegistration);
 }
