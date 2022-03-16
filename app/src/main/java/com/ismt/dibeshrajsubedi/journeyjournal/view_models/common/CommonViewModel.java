@@ -1,4 +1,4 @@
-package com.ismt.dibeshrajsubedi.journeyjournal.view_models;
+package com.ismt.dibeshrajsubedi.journeyjournal.view_models.common;
 
 import android.app.Activity;
 import android.app.Application;
@@ -13,7 +13,7 @@ import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.authentication.AuthenticationActivity;
 
 /**
- * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.view_models was
+ * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.view_models.common was
  * Created by Dibesh Raj Subedi on 3/7/2022.
  */
 public class CommonViewModel extends AndroidViewModel {

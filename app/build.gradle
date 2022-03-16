@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'androidx.navigation.safeargs'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -29,6 +30,12 @@ android {
 }
 
 dependencies {
+
+    //----> Firebase Initialization Begins
+    implementation 'com.google.firebase:firebase-auth:21.0.2'
+    implementation 'com.google.firebase:firebase-admin:8.1.0'
+    //----> Firebase Initialization Begins
+
     //----> Constants Initialization Begins
     def lifecycle_version = "2.4.1"
     def nav_version = "2.4.1"
@@ -47,6 +54,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     // TODO: Implementation of Domain and Data Layer
+    implementation project(":data")
+    implementation project(":domain")
     //----> LiveData Implementation Ends
 
     //----> Navigation Implementation Begins
@@ -59,7 +68,7 @@ dependencies {
     // Jetpack Compose Integration
     implementation "androidx.navigation:navigation-compose:$nav_version"
     //----> Navigation Implementation Ends
-    
+
     //----> Test Implementation Begins
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
