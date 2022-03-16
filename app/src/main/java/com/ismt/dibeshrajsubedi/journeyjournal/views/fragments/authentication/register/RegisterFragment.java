@@ -28,7 +28,6 @@ public class RegisterFragment extends Fragment {
     private NavController navController;
     private ImageButton google, twitter;
 
-
     /**
      * Extract Elements Globally
      *
@@ -44,6 +43,10 @@ public class RegisterFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Step 1: Bind View Model using ViewModel Provider
+        // Step 2: Extract Elements from Views
+        // Step 3: Initialize Button Click Events
+        // Step 4: Observe Response Generated from Live Data
     }
 
     @Override

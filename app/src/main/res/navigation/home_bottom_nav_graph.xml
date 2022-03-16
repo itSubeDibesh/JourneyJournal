@@ -8,16 +8,113 @@
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.about.AboutFragment"
-        android:label="fragment_about"
-        tools:layout="@layout/fragment_about" />
+        android:label="@string/page_about"
+        tools:layout="@layout/fragment_about">
+        <argument
+            android:name="@string/args_show_toolbar"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <argument
+            android:name="@string/args_show_bottom_navigation_view"
+            android:defaultValue="true"
+            app:argType="boolean" />
+    </fragment>
+
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.profile.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        android:label="@string/page_profile"
+        tools:layout="@layout/fragment_profile">
+        <argument
+            android:name="@string/args_show_toolbar"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <argument
+            android:name="@string/args_show_bottom_navigation_view"
+            android:defaultValue="true"
+            app:argType="boolean" />
+    </fragment>
+
     <fragment
         android:id="@+id/journeysFragment"
-        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.home.HomeFragment"
-        android:label="fragment_journeys"
-        tools:layout="@layout/fragment_home" />
+        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.journey.home.HomeFragment"
+        android:label="@string/page_journey"
+        tools:layout="@layout/fragment_home">
+        <argument
+            android:name="@string/args_show_toolbar"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <argument
+            android:name="@string/args_show_bottom_navigation_view"
+            android:defaultValue="true"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_journeysFragment_to_viewFragment"
+            app:destination="@id/viewFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.journey.add.AddFragment"
+        android:label="@string/page_add_journey"
+        tools:layout="@layout/fragment_add">
+        <argument
+            android:name="@string/args_show_toolbar"
+            android:defaultValue="true"
+            app:argType="boolean" />
+        <argument
+            android:name="@string/args_show_bottom_navigation_view"
+            android:defaultValue="false"
+            app:argType="boolean" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.journey.edit.EditFragment"
+        android:label="@string/page_update_journey"
+        tools:layout="@layout/fragment_edit">
+        <argument
+            android:name="@string/args_show_toolbar"
+            android:defaultValue="true"
+            app:argType="boolean" />
+        <argument
+            android:name="@string/args_show_bottom_navigation_view"
+            android:defaultValue="false"
+            app:argType="boolean" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/viewFragment"
+        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.journey.view.ViewFragment"
+        android:label="@string/page_view_journey"
+        tools:layout="@layout/fragment_view">
+        <argument
+            android:name="@string/args_show_toolbar"
+            android:defaultValue="true"
+            app:argType="boolean" />
+        <argument
+            android:name="@string/args_show_bottom_navigation_view"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_viewFragment_to_editFragment"
+            app:destination="@id/editFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <action
+        android:id="@+id/action_global_addFragment"
+        app:destination="@id/addFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
+
 </navigation>

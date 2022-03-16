@@ -1,5 +1,7 @@
 plugins {
     id 'com.android.application'
+    id 'androidx.navigation.safeargs'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -7,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.ismt.dibeshrajsubedi.journeyjournal"
-        minSdk 24
+        minSdk 21
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -29,13 +31,50 @@ android {
 
 dependencies {
 
+    //----> Firebase Initialization Begins
+    implementation 'com.google.firebase:firebase-auth:21.0.2'
+    implementation 'com.google.firebase:firebase-admin:8.1.0'
+    //----> Firebase Initialization Begins
+
+    //----> Constants Initialization Begins
+    def lifecycle_version = "2.4.1"
+    def nav_version = "2.4.1"
+    //----> Constants Initialization Ends
+
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+
+    //----> ViewModel Implementation Begins
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    //----> ViewModel Implementation Ends
+
+    //----> LiveData Implementation Ends
+    implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    // TODO: Implementation of Domain and Data Layer
+    implementation project(":data")
+    implementation project(":domain")
+    //----> LiveData Implementation Ends
+
+    //----> Navigation Implementation Begins
     implementation 'androidx.navigation:navigation-fragment:2.4.1'
     implementation 'androidx.navigation:navigation-ui:2.4.1'
+    // Feature module Support
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+    // Testing Navigation
+    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+    // Jetpack Compose Integration
+    implementation "androidx.navigation:navigation-compose:$nav_version"
+    //----> Navigation Implementation Ends
+
+    //----> Test Implementation Begins
     testImplementation 'junit:junit:4.13.2'
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+    testImplementation "org.mockito:mockito-core:3.4.6"
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    //----> Test Implementation Ends
 }

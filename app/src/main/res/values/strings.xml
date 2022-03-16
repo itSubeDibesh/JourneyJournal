@@ -1,6 +1,10 @@
 <resources>
     <!--  Application Details  -->
     <string name="app_name">Journey Journal</string>
+    <!--  Args  -->
+    <string name="args_show_toolbar">showToolBar</string>
+    <string name="args_show_bottom_navigation_view">showBottomNavigation</string>
+    <string name="args_add_edit_isAdd">isAdd</string>
     <!--  Labels  -->
     <string name="label_journey">Journey\'s</string>
     <string name="label_send_reset_link">Reset Password</string>
@@ -55,7 +59,7 @@
     <string name="message_login_success">Login successful.</string>
     <string name="message_login_with">Or login with</string>
     <string name="message_register_using">Or register using</string>
-    <string name="message_journey_empty">No Journey Found in your Journal.</string>
+    <string name="message_journey_empty">Journey Not Found!</string>
     <string name="message_landing_get_started">Let\'s get started</string>
     <string name="message_reset_email">Don\'t Worry, We will send you a reset email.</string>
     <string name="message_remember_password">Remember password?</string>
@@ -81,4 +85,6 @@
     <string name="consent_sure_consent">Are you sure?</string>
     <!--  Dummy text  -->
     <string name="dummy_lorem">On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
