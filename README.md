@@ -2,22 +2,18 @@
 <!-- markdownlint-disable MD033 -->
 <div>
 <a href="https://www.sunderland.ac.uk/">
-<img src="./docs/University of Sunderland.png" alt="University of Sunderland"  height="100" >
+<img src="./docs/sunderland.png" alt="University of Sunderland"  height="100" >
 </a>
     <a href="https://www.ismt.edu.np/" style="float:right;" >
     <img src="./docs/ismt.png" alt="ismt College"  height="100" >
     </a>
 </div>
 
-<center>
+<div align="center">
 <a href="https://github.com/itSubeDibesh/JourneyJournal">
-<img src="./docs/Journey Journal.png" alt="Journey Journal"  width="200" style="margin-bottom:-30px">
+<img src="./docs/app.png" alt="Journey Journal"  width="200" style="margin-bottom:-30px">
 </a>
-</center>
-
-<h1 style="text-align:center"><strong>Journey Journal</strong></h1>
-
----
+</div>
 
 # **JourneyJournal** 📱
 
