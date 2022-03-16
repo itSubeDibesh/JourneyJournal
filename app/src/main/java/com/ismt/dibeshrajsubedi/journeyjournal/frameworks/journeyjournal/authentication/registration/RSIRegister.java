@@ -1,7 +1,7 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.frameworks.journeyjournal.authentication.registration;
 
 import com.ismt.dibeshrajsubedi.journeyjournal.data.sources.authentication.registration.RSRegistration;
-import com.ismt.dibeshrajsubedi.journeyjournal.domain.classes.authentication.CRegistration;
+import com.ismt.dibeshrajsubedi.journeyjournal.domain.classes.authentication.DMCRegistration;
 import com.ismt.dibeshrajsubedi.journeyjournal.domain.models.authentication.DMRegistration;
 
 /**
@@ -16,7 +16,7 @@ public class RSIRegister implements RSRegistration {
     }
 
     @Override
-    public DMRegistration registerUserRemote(CRegistration CRegistration) {
+    public DMRegistration registerUserRemote(DMCRegistration DMCRegistration) {
         return null;
     }
 }

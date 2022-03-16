@@ -1,7 +1,7 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.frameworks.journeyjournal.authentication.registration;
 
 import com.ismt.dibeshrajsubedi.journeyjournal.data.sources.authentication.registration.LSRegistration;
-import com.ismt.dibeshrajsubedi.journeyjournal.domain.classes.authentication.CRegistration;
+import com.ismt.dibeshrajsubedi.journeyjournal.domain.classes.authentication.DMCRegistration;
 import com.ismt.dibeshrajsubedi.journeyjournal.domain.models.authentication.DMRegistration;
 
 /**
@@ -11,7 +11,7 @@ import com.ismt.dibeshrajsubedi.journeyjournal.domain.models.authentication.DMRe
 public class LSIRegister implements LSRegistration {
 
     @Override
-    public DMRegistration registerUserLocal(CRegistration CRegistration) {
+    public DMRegistration registerUserLocal(DMCRegistration DMCRegistration) {
         return null;
     }
 }

@@ -2,7 +2,7 @@ package com.ismt.dibeshrajsubedi.journeyjournal.data.implementations.authenticat
 
 import com.ismt.dibeshrajsubedi.journeyjournal.data.sources.authentication.registration.LSRegistration;
 import com.ismt.dibeshrajsubedi.journeyjournal.data.sources.authentication.registration.RSRegistration;
-import com.ismt.dibeshrajsubedi.journeyjournal.domain.classes.authentication.CRegistration;
+import com.ismt.dibeshrajsubedi.journeyjournal.domain.classes.authentication.DMCRegistration;
 import com.ismt.dibeshrajsubedi.journeyjournal.domain.models.authentication.DMRegistration;
 import com.ismt.dibeshrajsubedi.journeyjournal.domain.repository.authentication.RRegistration;
 
@@ -21,8 +21,8 @@ public class RIRegistration implements RRegistration {
     }
 
     @Override
-    public DMRegistration registerUser(CRegistration CRegistration) {
+    public DMRegistration registerUser(DMCRegistration DMCRegistration) {
         // If Internet is working Remote else Local
-        return RSRegistration.isInternetConnected() ? RSRegistration.registerUserRemote(CRegistration) : LSRegistration.registerUserLocal(CRegistration);
+        return RSRegistration.isInternetConnected() ? RSRegistration.registerUserRemote(DMCRegistration) : LSRegistration.registerUserLocal(DMCRegistration);
     }
 }
