@@ -15,7 +15,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
-import com.ismt.dibeshrajsubedi.journeyjournal.view_models.common.VMCommon;
+import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.VMCommon;
 
 
 /**

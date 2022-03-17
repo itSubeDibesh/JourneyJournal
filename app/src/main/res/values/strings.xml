@@ -71,6 +71,10 @@
     <string name="message_back_to_login">Back to login?</string>
     <!--  Success  -->
     <string name="success_register">User Registered Successfully!</string>
+    <!--  Connectivity  -->
+    <string name="connection_offline">Internet Disconnected! Offline mode enabled</string>
+    <string name="connection_wifi">Wifi Connected! Online mode enabled</string>
+    <string name="connection_data">Mobile Data Connected! Online mode enabled</string>
     <!--  Error  -->
     <string name="error_invalid_name">Name is Required!</string>
     <string name="error_empty_email">Email Address is Required!!</string>

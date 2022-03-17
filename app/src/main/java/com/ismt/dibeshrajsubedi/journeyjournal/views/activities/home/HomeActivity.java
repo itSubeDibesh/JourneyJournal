@@ -16,7 +16,7 @@ import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
-import com.ismt.dibeshrajsubedi.journeyjournal.view_models.common.VMCommon;
+import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.VMCommon;
 
 public class HomeActivity extends AppCompatActivity {
 

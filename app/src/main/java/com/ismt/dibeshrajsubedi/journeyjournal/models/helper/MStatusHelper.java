@@ -1,7 +1,7 @@
-package com.ismt.dibeshrajsubedi.journeyjournal.helper;
+package com.ismt.dibeshrajsubedi.journeyjournal.models.helper;
 
 /**
- * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.helper was
+ * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.models.helper was
  * Created by Dibesh Raj Subedi on 3/16/2022.
  */
 public class MStatusHelper {

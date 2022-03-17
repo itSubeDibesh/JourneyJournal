@@ -11,7 +11,6 @@ import com.ismt.dibeshrajsubedi.journeyjournal.domain.repository.authentication.
  * Created by Dibesh Raj Subedi on 3/15/2022.
  */
 public class RIRegistration implements RRegistration {
-
     private final RSRegistration RSRegistration;
     private final LSRegistration LSRegistration;
 

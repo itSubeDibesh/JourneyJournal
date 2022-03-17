@@ -10,8 +10,8 @@ import com.ismt.dibeshrajsubedi.journeyjournal.domain.models.authentication.DMRe
 import com.ismt.dibeshrajsubedi.journeyjournal.domain.use_cases.authentication.UCRegistration;
 import com.ismt.dibeshrajsubedi.journeyjournal.frameworks.journeyjournal.authentication.registration.LSIRegister;
 import com.ismt.dibeshrajsubedi.journeyjournal.frameworks.journeyjournal.authentication.registration.RSIRegister;
-import com.ismt.dibeshrajsubedi.journeyjournal.helper.MStatusHelper;
 import com.ismt.dibeshrajsubedi.journeyjournal.models.authentication.MRegistration;
+import com.ismt.dibeshrajsubedi.journeyjournal.models.helper.MStatusHelper;
 
 /**
  * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.view_models.authentication.register was
@@ -24,9 +24,10 @@ public class VMRegister extends ViewModel {
     public final MutableLiveData<MStatusHelper> isRetypePasswordNotMatched = new MutableLiveData<>();
     public final MutableLiveData<MStatusHelper> isRegisterSuccess = new MutableLiveData<>();
 
-    private final UCRegistration UCRegistration = new UCRegistration(new RIRegistration(new RSIRegister(), new LSIRegister()));
+    public void registrationValidation(MRegistration MRegistration, boolean internetConnected) {
+        // Extracting And Passing elements
+        UCRegistration UCRegistration = new UCRegistration(new RIRegistration(new RSIRegister(internetConnected), new LSIRegister()));
 
-    public void registrationValidation(MRegistration MRegistration) {
         // Name Validation Checks - [Empty Check]
         String Name = MRegistration.getName();
         if (MRegistration.isNullOrEmpty(Name))
@@ -63,11 +64,13 @@ public class VMRegister extends ViewModel {
             isRetypePasswordNotMatched.setValue(new MStatusHelper(true, R.string.error_password_not_match));
         else isRetypePasswordNotMatched.setValue(new MStatusHelper(false));
 
-        // Trigger Registration UseCase
-        DMRegistration DMRegistration = UCRegistration.registerUser(new DMCRegistration(Name, Email, Password));
-        // Registration Success trigger
-//        isRegisterSuccess.setValue(DMRegistration.isRegistrationSuccess());
-        isRegisterSuccess.setValue(new MStatusHelper(true));
+        // Final Empty Check to Avoid Null Crash
+        if (!MRegistration.isNullOrEmpty(Name) && !MRegistration.isNullOrEmpty(Email) && !MRegistration.isNullOrEmpty(Password)) {
+            // Trigger Registration UseCase
+            DMRegistration DMRegistration = UCRegistration.registerUser(new DMCRegistration(Name, Email, Password));
+            // Registration Success trigger
+            isRegisterSuccess.setValue(new MStatusHelper(DMRegistration.isRegistrationSuccess(), R.string.success_register));
+        }
     }
 }
 
