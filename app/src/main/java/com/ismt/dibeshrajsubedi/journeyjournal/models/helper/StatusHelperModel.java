@@ -4,21 +4,21 @@ package com.ismt.dibeshrajsubedi.journeyjournal.models.helper;
  * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.models.helper was
  * Created by Dibesh Raj Subedi on 3/16/2022.
  */
-public class MStatusHelper {
+public class StatusHelperModel {
 
-    private final int message;
+    private final String message;
     private final boolean status;
 
-    public MStatusHelper(boolean status) {
-        this(status, 0);
+    public StatusHelperModel(boolean status) {
+        this(status, null);
     }
 
-    public MStatusHelper(boolean status, int message) {
+    public StatusHelperModel(boolean status, String message) {
         this.message = message;
         this.status = status;
     }
 
-    public int getMessage() {
+    public String getMessage() {
         return message;
     }
 

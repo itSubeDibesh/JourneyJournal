@@ -1,17 +1,17 @@
-package com.ismt.dibeshrajsubedi.journeyjournal.domain.models.authentication;
+package com.ismt.dibeshrajsubedi.journeyjournal.domain.models;
 
-import com.ismt.dibeshrajsubedi.journeyjournal.domain.classes.authentication.DMCRegistration;
+import com.ismt.dibeshrajsubedi.journeyjournal.domain.classes.Register;
 
 /**
  * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.domain.models.authentication was
  * Created by Dibesh Raj Subedi on 3/15/2022.
  */
-public class DMRegistration {
+public class RegistrationModel {
     private final boolean isRegistrationSuccess;
     private final String message;
-    private DMCRegistration registration;
+    private Register registration;
 
-    public DMRegistration(boolean isRegistrationSuccess, String message) {
+    public RegistrationModel(boolean isRegistrationSuccess, String message) {
         this.isRegistrationSuccess = isRegistrationSuccess;
         this.message = message;
     }
@@ -24,11 +24,11 @@ public class DMRegistration {
         return message;
     }
 
-    public DMCRegistration getRegistration() {
+    public Register getRegistration() {
         return registration;
     }
 
-    public void setRegistration(DMCRegistration registration) {
+    public void setRegistration(Register registration) {
         this.registration = registration;
     }
 }

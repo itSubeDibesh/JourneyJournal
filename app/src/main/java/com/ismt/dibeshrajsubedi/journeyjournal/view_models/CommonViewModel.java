@@ -1,4 +1,4 @@
-package com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper;
+package com.ismt.dibeshrajsubedi.journeyjournal.view_models;
 
 import android.app.Activity;
 import android.app.Application;
@@ -15,7 +15,7 @@ import androidx.lifecycle.AndroidViewModel;
 import com.google.android.material.textfield.TextInputLayout;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.models.helper.MConnectivityHelper;
-import com.ismt.dibeshrajsubedi.journeyjournal.models.helper.MStatusHelper;
+import com.ismt.dibeshrajsubedi.journeyjournal.models.helper.StatusHelperModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.authentication.AuthenticationActivity;
 
 import java.util.Objects;
@@ -24,7 +24,7 @@ import java.util.Objects;
  * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper was
  * Created by Dibesh Raj Subedi on 3/7/2022.
  */
-public class VMCommon extends AndroidViewModel {
+public class CommonViewModel extends AndroidViewModel {
 
     /**
      * Enum for Confirmation
@@ -74,7 +74,7 @@ public class VMCommon extends AndroidViewModel {
         alert.show();
     }
 
-    public VMCommon(@NonNull Application application) {
+    public CommonViewModel(@NonNull Application application) {
         super(application);
     }
 
@@ -148,11 +148,13 @@ public class VMCommon extends AndroidViewModel {
      * Sets Observable Error
      *
      * @param input  TextInputLayout
-     * @param helper MStatusHelper
+     * @param helper StatusHelperModel
      */
-    public void setObserverError(TextInputLayout input, MStatusHelper helper) {
-        if (helper.getStatus()) input.setError(getApplication().getString(helper.getMessage()));
-        else input.setError(null);
+    public void setObserverError(TextInputLayout input, StatusHelperModel helper) {
+        if (helper.getStatus()) {
+            input.setError(helper.getMessage());
+            input.requestFocus();
+        } else input.setError(null);
     }
 
     /**
@@ -181,7 +183,6 @@ public class VMCommon extends AndroidViewModel {
                     message = context.getString(R.string.connection_data);
                 }
             } else {
-                status = false;
                 message = context.getString(R.string.connection_offline);
             }
         } catch (Exception e) {

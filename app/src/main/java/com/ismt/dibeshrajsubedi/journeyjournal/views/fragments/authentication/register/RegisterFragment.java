@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -20,10 +21,10 @@ import androidx.navigation.Navigation;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
-import com.ismt.dibeshrajsubedi.journeyjournal.models.authentication.MRegistration;
+import com.ismt.dibeshrajsubedi.journeyjournal.models.authentication.RegistrationModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.models.helper.MConnectivityHelper;
-import com.ismt.dibeshrajsubedi.journeyjournal.view_models.authentication.register.VMRegister;
-import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.VMCommon;
+import com.ismt.dibeshrajsubedi.journeyjournal.view_models.CommonViewModel;
+import com.ismt.dibeshrajsubedi.journeyjournal.view_models.RegisterViewModel;
 
 /**
  * Navigates to Home Activity or Login Fragment
@@ -31,15 +32,17 @@ import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.VMCommon;
 public class RegisterFragment extends Fragment {
     private final String TAG = "JJ_RegisterFragment";
     private boolean internetConnected;
+    private LifecycleOwner owner;
     private Button register;
     private TextView login;
     private NavController navController;
     private ImageButton google, twitter;
-    private VMRegister vmRegister;
-    private VMCommon vmCommon;
+    private RegisterViewModel registerViewModel;
+    private CommonViewModel commonViewModel;
     private TextInputLayout rtil_name, rtil_email, rtil_password, rtil_retype_password;
 
     public void extractElements(ViewGroup viewGroup) {
+        owner = getViewLifecycleOwner();
         internetConnected = false;
         login = viewGroup.findViewById(R.id.tv_login);
         register = viewGroup.findViewById(R.id.btn_register);
@@ -58,12 +61,12 @@ public class RegisterFragment extends Fragment {
             // Step 2: Check is Internet Connected
             isInternetConnected();
             Log.d(TAG, "handleButtonTriggerEvents: Register Button triggered");
-            vmRegister.registrationValidation(new MRegistration(
-                            vmCommon.til(rtil_name),
-                            vmCommon.til(rtil_email),
-                            vmCommon.til(rtil_password),
-                            vmCommon.til(rtil_retype_password)),
-                    internetConnected
+            registerViewModel.registrationValidation(new RegistrationModel(
+                            commonViewModel.til(rtil_name),
+                            commonViewModel.til(rtil_email),
+                            commonViewModel.til(rtil_password),
+                            commonViewModel.til(rtil_retype_password)),
+                    internetConnected, owner
             );
         });
         // Trigger Google Click event
@@ -79,7 +82,7 @@ public class RegisterFragment extends Fragment {
     }
 
     public void isInternetConnected() {
-        MConnectivityHelper helper = vmCommon.checkInternetConnection(requireContext());
+        MConnectivityHelper helper = commonViewModel.checkInternetConnection(requireContext());
         internetConnected = helper.getStatus();
         Log.d(TAG, "onNetworkChanged: Triggered, Received " + internetConnected + " as Status and " + helper.getMessage() + " message.");
     }
@@ -88,19 +91,18 @@ public class RegisterFragment extends Fragment {
     private void observeMutableLiveData(View view) {
         Log.d(TAG, "observeMutableLiveData: Observing Mutable Live Data");
         // Observer 1: isNameInValid
-        vmRegister.isNameInValid.observe(getViewLifecycleOwner(), helper -> vmCommon.setObserverError(rtil_name, helper));
+        registerViewModel.isNameInValid.observe(owner, helper -> commonViewModel.setObserverError(rtil_name, helper));
         // Observer 2: isEmailInValid
-        vmRegister.isEmailInValid.observe(getViewLifecycleOwner(), helper -> vmCommon.setObserverError(rtil_email, helper));
+        registerViewModel.isEmailInValid.observe(owner, helper -> commonViewModel.setObserverError(rtil_email, helper));
         // Observer 3: isPasswordInValid
-        vmRegister.isPasswordInValid.observe(getViewLifecycleOwner(), helper -> vmCommon.setObserverError(rtil_password, helper));
+        registerViewModel.isPasswordInValid.observe(owner, helper -> commonViewModel.setObserverError(rtil_password, helper));
         // Observer 4: isRetypePasswordNotMatched
-        vmRegister.isRetypePasswordNotMatched.observe(getViewLifecycleOwner(), helper -> vmCommon.setObserverError(rtil_retype_password, helper));
+        registerViewModel.isRetypePasswordNotMatched.observe(owner, helper -> commonViewModel.setObserverError(rtil_retype_password, helper));
         // Observer 5: isRegisterSuccess
-        vmRegister.isRegisterSuccess.observe(getViewLifecycleOwner(), helper -> {
-            // TODO: Implement Register Success Redirect
-            if (helper.getStatus()) {
-                Snackbar.make(view, R.string.success_register, Snackbar.LENGTH_LONG).show();
-            }
+        registerViewModel.isRegisterSuccess.observe(owner, helper -> {
+            if (helper.getStatus())
+                navController.navigate(R.id.action_registerFragment_to_loginFragment);
+            Snackbar.make(view, helper.getMessage(), Snackbar.LENGTH_LONG).show();
         });
     }
 
@@ -109,8 +111,8 @@ public class RegisterFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate: onCreate Invoked");
         // Step 1: Bind View Model using ViewModel Provider
-        vmRegister = new ViewModelProvider(this).get(VMRegister.class);
-        vmCommon = new ViewModelProvider(this).get(VMCommon.class);
+        registerViewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
+        commonViewModel = new ViewModelProvider(this).get(CommonViewModel.class);
     }
 
     @Override
@@ -136,5 +138,4 @@ public class RegisterFragment extends Fragment {
         // Step 6: Handle Other Redirections -> Navigate to Login
         login.setOnClickListener(event -> navController.navigate(R.id.action_registerFragment_to_loginFragment));
     }
-
 }

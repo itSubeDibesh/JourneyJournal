@@ -41,7 +41,7 @@ public class InputValidationHelper {
         // Extracting Pattern According to #allowSpecialCharacters
         // PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})"; allowSpecialCharacters => true
         // PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,20})"; allowSpecialCharacters =>false
-        String PATTERN = allowSpecialCharacters ? "^[a-zA-Z@#$%]\\w{5,19}$" : "^[a-zA-Z]\\w{5,19}$";
+        String PATTERN = allowSpecialCharacters ? "^[a-zA-Z0-9@#$%]\\w{5,19}$" : "^[a-zA-Z0-9]\\w{5,19}$";
         // Compiling Pattern
         Pattern pattern = Pattern.compile(PATTERN);
         // Pattern Matching

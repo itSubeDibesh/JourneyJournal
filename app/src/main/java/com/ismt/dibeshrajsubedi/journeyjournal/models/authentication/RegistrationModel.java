@@ -6,14 +6,14 @@ import com.ismt.dibeshrajsubedi.journeyjournal.helper.InputValidationHelper;
  * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.models was
  * Created by Dibesh Raj Subedi on 3/15/2022.
  */
-public class MRegistration extends InputValidationHelper {
+public class RegistrationModel extends InputValidationHelper {
 
     private final String Name;
     private final String Email;
     private final String Password;
     private final String RetypePassword;
 
-    public MRegistration(String name, String email, String password, String retypePassword) {
+    public RegistrationModel(String name, String email, String password, String retypePassword) {
         Name = name.trim();
         Email = email.trim();
         Password = password.trim();

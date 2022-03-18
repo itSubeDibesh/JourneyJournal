@@ -20,14 +20,14 @@ import androidx.navigation.Navigation;
 
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.home.HomeActivity;
-import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.VMCommon;
+import com.ismt.dibeshrajsubedi.journeyjournal.view_models.CommonViewModel;
 
 /**
  * Redirects to Home page or Register Fragment or Forgot Fragment
  */
 public class LoginFragment extends Fragment {
 
-    private VMCommon VMCommon;
+    private CommonViewModel CommonViewModel;
     private Button login;
     private ImageButton google, twitter;
     private TextView forgot, register;
@@ -49,7 +49,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        VMCommon = new ViewModelProvider(this).get(VMCommon.class);
+        CommonViewModel = new ViewModelProvider(this).get(CommonViewModel.class);
     }
 
     @Override
@@ -81,7 +81,7 @@ public class LoginFragment extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                VMCommon.exitConfirmation(requireActivity());
+                CommonViewModel.exitConfirmation(requireActivity());
             }
         });
     }
