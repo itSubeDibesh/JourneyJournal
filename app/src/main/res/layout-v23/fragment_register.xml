@@ -140,8 +140,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_medium"
                 android:textStyle="bold"
-                tools:ignore="RtlHardcoded"
-                tools:targetApi="m" />
+                tools:ignore="RtlHardcoded" />
 
             <TextView
                 android:layout_width="wrap_content"

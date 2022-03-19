@@ -36,7 +36,8 @@
 
     <include
         android:id="@+id/cv_emptyCard"
-        layout="@layout/journey_card_empty" />
+        layout="@layout/journey_card_empty"
+        android:visibility="gone" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/srl_refresh_list"
@@ -50,7 +51,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/dp_medium"
             android:layout_marginRight="@dimen/dp_medium"
-            android:scrollbars="vertical" />
+            tools:listitem="@layout/journey_card_item" />
 
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
