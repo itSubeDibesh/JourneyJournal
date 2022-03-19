@@ -58,7 +58,6 @@ public class RegisterFragment extends Fragment {
     private void handleButtonTriggerEvents() {
         // Trigger Register Click event
         register.setOnClickListener(view -> {
-            // Step 2: Check is Internet Connected
             isInternetConnected();
             Log.d(TAG, "handleButtonTriggerEvents: Register Button triggered");
             registerViewModel.registrationValidation(new RegistrationModel(

@@ -88,6 +88,8 @@ public class FirebaseAuthImpl {
         });
     }
 
+    // TODO: Login Handel
+
     public void logOut() {
         Log.d(TAG, "logOut: At Logout, Triggered by " + auth.getCurrentUser().getEmail());
         auth.signOut();
