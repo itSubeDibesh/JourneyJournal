@@ -21,10 +21,10 @@ import androidx.navigation.Navigation;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
-import com.ismt.dibeshrajsubedi.journeyjournal.models.authentication.RegistrationModel;
-import com.ismt.dibeshrajsubedi.journeyjournal.models.helper.MConnectivityHelper;
-import com.ismt.dibeshrajsubedi.journeyjournal.view_models.CommonViewModel;
-import com.ismt.dibeshrajsubedi.journeyjournal.view_models.RegisterViewModel;
+import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.register.RegisterFormDAO;
+import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.ConnectivityHelperDAO;
+import com.ismt.dibeshrajsubedi.journeyjournal.view_models.authentication.RegisterViewModel;
+import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.CommonViewModel;
 
 /**
  * Navigates to Home Activity or Login Fragment
@@ -60,7 +60,7 @@ public class RegisterFragment extends Fragment {
         register.setOnClickListener(view -> {
             isInternetConnected();
             Log.d(TAG, "handleButtonTriggerEvents: Register Button triggered");
-            registerViewModel.registrationValidation(new RegistrationModel(
+            registerViewModel.registrationValidation(new RegisterFormDAO(
                             commonViewModel.til(rtil_name),
                             commonViewModel.til(rtil_email),
                             commonViewModel.til(rtil_password),
@@ -81,7 +81,7 @@ public class RegisterFragment extends Fragment {
     }
 
     public void isInternetConnected() {
-        MConnectivityHelper helper = commonViewModel.checkInternetConnection(requireContext());
+        ConnectivityHelperDAO helper = commonViewModel.checkInternetConnection(requireContext());
         internetConnected = helper.getStatus();
         Log.d(TAG, "onNetworkChanged: Triggered, Received " + internetConnected + " as Status and " + helper.getMessage() + " message.");
     }
@@ -99,9 +99,10 @@ public class RegisterFragment extends Fragment {
         registerViewModel.isRetypePasswordNotMatched.observe(owner, helper -> commonViewModel.setObserverError(rtil_retype_password, helper));
         // Observer 5: isRegisterSuccess
         registerViewModel.isRegisterSuccess.observe(owner, helper -> {
-            if (helper.getStatus())
-                navController.navigate(R.id.action_registerFragment_to_loginFragment);
             Snackbar.make(view, helper.getMessage(), Snackbar.LENGTH_LONG).show();
+            if (helper.getStatus()) {
+                navController.navigate(R.id.action_registerFragment_to_loginFragment);
+            }
         });
     }
 

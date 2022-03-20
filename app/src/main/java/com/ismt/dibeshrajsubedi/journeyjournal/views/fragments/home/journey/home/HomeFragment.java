@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
-import com.ismt.dibeshrajsubedi.journeyjournal.view_models.CommonViewModel;
+import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.CommonViewModel;
 
 /**
  * Implements List of Journey's and respective events
