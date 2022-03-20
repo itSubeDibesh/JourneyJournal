@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -19,7 +20,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.LoginDAO;
@@ -84,7 +84,7 @@ public class LoginFragment extends Fragment {
         });
     }
 
-    private void observeMutableLiveData(View view) {
+    private void observeMutableLiveData() {
         Log.d(TAG, "observeMutableLiveData: Observing Mutable Live Data");
         // Observer 1: isEmailInValid
         loginViewModel.isEmailInValid.observe(owner, helper -> commonViewModel.setObserverError(ltil_email, helper));
@@ -93,25 +93,25 @@ public class LoginFragment extends Fragment {
         // Observer 3: isLoginSuccess
         loginViewModel.isLoginSuccess.observe(owner, helper -> {
             // TODO: isLoginSuccess
-            Log.d(TAG, "observeMutableLiveData: loginViewModel.isLoginSuccess invoked with isLoginSuccess as " + helper.isLoginSuccess());
-            if (helper.isLoginSuccess()) {
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("User", helper.getFirebaseUser());
-                startActivity(new Intent(requireActivity(), HomeActivity.class), bundle);
+            Log.d(TAG, "observeMutableLiveData: loginViewModel.isLoginSuccess invoked with isLoginSuccess as " + helper.isSuccess());
+            Toast.makeText(getContext(), helper.getMessage(), Toast.LENGTH_LONG).show();
+            if (helper.isSuccess()) {
+                Intent intent = new Intent(requireActivity(), HomeActivity.class);
+                intent.putExtra("USER", helper.getFirebaseUser());
+                startActivity(intent);
                 requireActivity().finish();
             }
-            Snackbar.make(view, helper.getMessage(), Snackbar.LENGTH_LONG).show();
         });
         // Observer 4: isUserLoggedIn
         loginViewModel.isUserLoggedIn.observe(owner, helper -> {
-            Log.d(TAG, "observeMutableLiveData: loginViewModel.isUserLoggedIn invoked with isUserLoggedIn as " + helper.isLoginSuccess());
-            if (helper.isLoginSuccess()) {
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("User", helper.getFirebaseUser());
-                startActivity(new Intent(requireActivity(), HomeActivity.class), bundle);
+            Log.d(TAG, "observeMutableLiveData: loginViewModel.isUserLoggedIn invoked with isUserLoggedIn as " + helper.isSuccess());
+            Toast.makeText(getContext(), helper.getMessage(), Toast.LENGTH_LONG).show();
+            if (helper.isSuccess()) {
+                Intent intent = new Intent(requireActivity(), HomeActivity.class);
+                intent.putExtra("USER", helper.getFirebaseUser());
+                startActivity(intent);
                 requireActivity().finish();
             }
-            Snackbar.make(view, helper.getMessage(), Snackbar.LENGTH_LONG).show();
         });
     }
 
@@ -142,7 +142,7 @@ public class LoginFragment extends Fragment {
         // Step 4: Trigger is User Already LoggedIn
         loginViewModel.isUseAlreadyLoggedIn(owner);
         // Step 5: Observe Response Generated from Live Data
-        this.observeMutableLiveData(view);
+        this.observeMutableLiveData();
         // Step 6: Initialize Button Click Events
         this.handleButtonTriggerEvents();
         // Step 7:  Handle Other Redirections

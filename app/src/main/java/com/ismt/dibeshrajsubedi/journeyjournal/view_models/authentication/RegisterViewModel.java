@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.register.RegisterFormDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.StatusHelperDAO;
+import com.ismt.dibeshrajsubedi.journeyjournal.models.authentication.LoginModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.JourneyJournalViewModel;
 
 /**
@@ -20,7 +21,7 @@ public class RegisterViewModel extends JourneyJournalViewModel {
     private final String TAG = "JJ_RegisterViewModel";
     public final MutableLiveData<StatusHelperDAO> isNameInValid = new MutableLiveData<>();
     public final MutableLiveData<StatusHelperDAO> isRetypePasswordNotMatched = new MutableLiveData<>();
-    public final MutableLiveData<StatusHelperDAO> isRegisterSuccess = new MutableLiveData<>();
+    public final MutableLiveData<LoginModel> isRegisterSuccess = new MutableLiveData<>();
 
     public RegisterViewModel(@NonNull Application application) {
         super(application);
@@ -71,8 +72,8 @@ public class RegisterViewModel extends JourneyJournalViewModel {
         if (internetConnected) {
             firebaseAuthImpl.register(registerFormDAO);
             firebaseAuthImpl.getRegisterModelMutableLiveData().observe(owner, regModel -> {
-                Log.d(TAG, "registrationValidation: firebaseAuthImpl.getDmRegistrationMutableLiveData invoked with isRegistrationSuccess as " + regModel.isRegistrationSuccess());
-                isRegisterSuccess.setValue(new StatusHelperDAO(regModel.isRegistrationSuccess(), regModel.getMessage()));
+                Log.d(TAG, "registrationValidation: firebaseAuthImpl.getDmRegistrationMutableLiveData invoked with isRegistrationSuccess as " + regModel.isSuccess());
+                isRegisterSuccess.setValue(regModel);
             });
         }
     }

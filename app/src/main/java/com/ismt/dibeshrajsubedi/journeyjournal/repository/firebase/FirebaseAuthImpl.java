@@ -11,7 +11,6 @@ import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.LoginDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.register.RegisterDetailsDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.register.RegisterFormDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.models.authentication.LoginModel;
-import com.ismt.dibeshrajsubedi.journeyjournal.models.authentication.RegisterModel;
 
 import java.util.Objects;
 
@@ -22,10 +21,10 @@ import java.util.Objects;
 public class FirebaseAuthImpl {
     private final String TAG = "JJ_RIFirebaseAuth";
     private final MutableLiveData<FirebaseUser> firebaseUserMutableLiveData;
-    private final MutableLiveData<RegisterModel> registerModelMutableLiveData;
+    private final MutableLiveData<LoginModel> registerModelMutableLiveData;
     private final MutableLiveData<LoginModel> userLoggedMutableLiveData;
     private final MutableLiveData<Boolean> resetSuccessMutableLiveData;
-    private final  MutableLiveData<Boolean> userLoggedIn;
+    private final MutableLiveData<Boolean> userLoggedIn;
     private final FirebaseAuth auth;
     private final FirebaseDatabase database;
 
@@ -39,11 +38,11 @@ public class FirebaseAuthImpl {
     }
 
     /**
-     * Returns  MutableLiveData<RegisterFormDAO>
+     * Returns  MutableLiveData<LoginModel>
      *
-     * @return MutableLiveData<RegisterFormDAO>
+     * @return MutableLiveData<LoginModel>
      */
-    public MutableLiveData<RegisterModel> getRegisterModelMutableLiveData() {
+    public MutableLiveData<LoginModel> getRegisterModelMutableLiveData() {
         return registerModelMutableLiveData;
     }
 
@@ -57,9 +56,9 @@ public class FirebaseAuthImpl {
     }
 
     /**
-     * Returns  MutableLiveData<Boolean>
+     * Returns  MutableLiveData<LoginModel>
      *
-     * @return MutableLiveData<Boolean>
+     * @return MutableLiveData<LoginModel>
      */
     public MutableLiveData<LoginModel> getUserLoggedMutableLiveData() {
         return userLoggedMutableLiveData;
@@ -114,11 +113,9 @@ public class FirebaseAuthImpl {
                 registerFormDAO.getEmail(),
                 registerFormDAO.getPassword()
         ).addOnCompleteListener(create_auth -> {
-            RegisterModel registration;
             Log.d(TAG, "register: Inside addOnCompleteListener of createUserWithEmailAndPassword ");
             //Step 2: Success Condition Check
             if (create_auth.isSuccessful()) {
-                registration = new RegisterModel(true, "User Registered Successfully");
                 // Step 3: Create New user
                 RegisterDetailsDAO user = new RegisterDetailsDAO(registerFormDAO.getEmail(), registerFormDAO.getName());
                 // Step 4: Create User in Database as well
@@ -127,17 +124,18 @@ public class FirebaseAuthImpl {
                         .setValue(user)
                         .addOnCompleteListener(create_database -> {
                             // Step 5: Success Condition Check
-                            if (!create_database.isSuccessful()) {
-                                RegisterModel registration_db = new RegisterModel(false, Objects.requireNonNull(create_auth.getException()).getMessage());
-                                registration_db.setRegistration(user);
+                            LoginModel login_db;
+                            if (create_database.isSuccessful()) {
+                                login_db = new LoginModel(true, "User Registered Successfully");
+                                login_db.setFirebaseUser(create_auth.getResult().getUser());
+                            } else {
+                                login_db = new LoginModel(false, Objects.requireNonNull(create_auth.getException()).getMessage());
                             }
+                            registerModelMutableLiveData.postValue(login_db);
+                            Log.d(TAG, "register: At registration.setRegistration received isRegistrationSuccess as " + login_db.isSuccess());
                         });
-            } else {
-                registration = new RegisterModel(false, Objects.requireNonNull(create_auth.getException()).getMessage());
-            }
-            registration.setRegistration(new RegisterDetailsDAO(registerFormDAO.getEmail(), registerFormDAO.getName()));
-            Log.d(TAG, "register: At registration.setRegistration received isRegistrationSuccess as " + registration.isRegistrationSuccess());
-            registerModelMutableLiveData.postValue(registration);
+            } else
+                registerModelMutableLiveData.postValue(new LoginModel(false, Objects.requireNonNull(create_auth.getException()).getMessage()));
         });
     }
 

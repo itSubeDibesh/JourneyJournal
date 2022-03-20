@@ -70,7 +70,7 @@ public class LoginViewModel extends JourneyJournalViewModel {
             firebaseAuthImpl.getUserLoggedMutableLiveData().observe(owner, user -> {
                 // Check if firebase User is Not Null
                 LoginModel loginModel;
-                if (user.isLoginSuccess()) {
+                if (user.isSuccess()) {
                     Log.d(TAG, "loginValidation: Login Success With Email as " + user.getFirebaseUser().getEmail());
                     loginModel = new LoginModel(true, getString(R.string.message_login_success));
                     loginModel.setFirebaseUser(user.getFirebaseUser());

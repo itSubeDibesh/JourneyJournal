@@ -1,6 +1,7 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.views.activities.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,11 +16,12 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseUser;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.CommonViewModel;
 
 public class HomeActivity extends AppCompatActivity {
-
+    private final String TAG = "JJ_HomeActivity";
     private CommonViewModel CommonViewModel;
     private BottomNavigationView bottomNavigationView;
     private FloatingActionButton fabButton;
@@ -28,6 +30,15 @@ public class HomeActivity extends AppCompatActivity {
     private View logout;
     private Toolbar toolbar;
     private NavController navController;
+    private FirebaseUser user;
+
+
+    private void extractDetailsFromIntent() {
+        if (getIntent() != null) {
+            user = getIntent().getParcelableExtra("USER");
+        }
+        Log.d(TAG, "extractDetailsFromIntent: fetched User Data from Login Fragment and email as " + user.getEmail());
+    }
 
     private void extractElements() {
         // Component Binding to Get Common Transactions
@@ -108,6 +119,8 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        // Step 0: Extract Data Passed From Intent
+        extractDetailsFromIntent();
         // Step 1: Extract Elements To Use Globally
         extractElements();
         // Step 2: Setup Components

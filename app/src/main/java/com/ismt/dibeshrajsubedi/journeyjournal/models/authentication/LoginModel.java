@@ -7,22 +7,22 @@ import com.google.firebase.auth.FirebaseUser;
  * Created by Dibesh Raj Subedi on 3/20/2022.
  */
 public class LoginModel {
-    private final boolean isLoginSuccess;
+    private final boolean isSuccess;
     private final String message;
     private FirebaseUser firebaseUser;
 
-    public LoginModel(boolean isLoginSuccess) {
-        this.isLoginSuccess = isLoginSuccess;
+    public LoginModel(boolean isSuccess) {
+        this.isSuccess = isSuccess;
         this.message = null;
     }
 
-    public LoginModel(boolean isLoginSuccess, String message) {
-        this.isLoginSuccess = isLoginSuccess;
+    public LoginModel(boolean isSuccess, String message) {
+        this.isSuccess = isSuccess;
         this.message = message;
     }
 
-    public boolean isLoginSuccess() {
-        return isLoginSuccess;
+    public boolean isSuccess() {
+        return isSuccess;
     }
 
     public String getMessage() {

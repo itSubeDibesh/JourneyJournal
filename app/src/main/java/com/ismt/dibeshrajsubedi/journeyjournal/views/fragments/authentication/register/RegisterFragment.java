@@ -1,6 +1,7 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.authentication.register;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,13 +20,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.register.RegisterFormDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.ConnectivityHelperDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.authentication.RegisterViewModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.CommonViewModel;
+import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.home.HomeActivity;
 
 /**
  * Navigates to Home Activity or Login Fragment
@@ -87,7 +89,7 @@ public class RegisterFragment extends Fragment {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private void observeMutableLiveData(View view) {
+    private void observeMutableLiveData() {
         Log.d(TAG, "observeMutableLiveData: Observing Mutable Live Data");
         // Observer 1: isNameInValid
         registerViewModel.isNameInValid.observe(owner, helper -> commonViewModel.setObserverError(rtil_name, helper));
@@ -99,9 +101,12 @@ public class RegisterFragment extends Fragment {
         registerViewModel.isRetypePasswordNotMatched.observe(owner, helper -> commonViewModel.setObserverError(rtil_retype_password, helper));
         // Observer 5: isRegisterSuccess
         registerViewModel.isRegisterSuccess.observe(owner, helper -> {
-            Snackbar.make(view, helper.getMessage(), Snackbar.LENGTH_LONG).show();
-            if (helper.getStatus()) {
-                navController.navigate(R.id.action_registerFragment_to_loginFragment);
+            Toast.makeText(requireContext(), helper.getMessage(), Toast.LENGTH_LONG).show();
+            if (helper.isSuccess()) {
+                Intent intent = new Intent(requireActivity(), HomeActivity.class);
+                intent.putExtra("USER", helper.getFirebaseUser());
+                startActivity(intent);
+                requireActivity().finish();
             }
         });
     }
@@ -134,7 +139,7 @@ public class RegisterFragment extends Fragment {
         // Step 4: Initialize Button Click Events
         this.handleButtonTriggerEvents();
         // Step 5: Observe Response Generated from Live Data
-        this.observeMutableLiveData(view);
+        this.observeMutableLiveData();
         // Step 6: Handle Other Redirections -> Navigate to Login
         login.setOnClickListener(event -> navController.navigate(R.id.action_registerFragment_to_loginFragment));
     }
