@@ -10,7 +10,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.LoginDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.register.RegisterDetailsDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.register.RegisterFormDAO;
-import com.ismt.dibeshrajsubedi.journeyjournal.models.authentication.LoginModel;
+import com.ismt.dibeshrajsubedi.journeyjournal.models.helper.LoginProfileHelperModel;
 
 import java.util.Objects;
 
@@ -21,12 +21,32 @@ import java.util.Objects;
 public class FirebaseAuthImpl {
     private final String TAG = "JJ_RIFirebaseAuth";
     private final MutableLiveData<FirebaseUser> firebaseUserMutableLiveData = new MutableLiveData<>();
-    private final MutableLiveData<LoginModel> registerModelMutableLiveData = new MutableLiveData<>();
-    private final MutableLiveData<LoginModel> userLoggedMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<LoginProfileHelperModel> registerModelMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<LoginProfileHelperModel> userLoggedMutableLiveData = new MutableLiveData<>();
     private final MutableLiveData<Boolean> resetSuccessMutableLiveData = new MutableLiveData<>();
     private final MutableLiveData<Boolean> userLoggedIn = new MutableLiveData<>();
     private final FirebaseAuth auth;
     private final FirebaseDatabase database;
+
+    /**
+     * Constructor and Initializer for FirebaseAuthImpl
+     */
+    public FirebaseAuthImpl() {
+        // Extracting Firebase instance
+        auth = FirebaseAuth.getInstance();
+        // Extracting Database instance
+        database = FirebaseDatabase.getInstance();
+        // Retrieves User if Null
+        if (auth.getCurrentUser() != null) {
+            database.getReference("User").child(auth.getCurrentUser().getUid()).get().addOnCompleteListener(data -> {
+                LoginProfileHelperModel model = new LoginProfileHelperModel(true, "Welcome Back, " + auth.getCurrentUser().getEmail());
+                model.setFirebaseUser(auth.getCurrentUser());
+                model.setRegisterDetailsDAO(data.getResult().getValue(RegisterDetailsDAO.class));
+                userLoggedMutableLiveData.postValue(model);
+                Log.d(TAG, "FirebaseAuthImpl: Received Current user Email as " + Objects.requireNonNull(auth.getCurrentUser()).getEmail());
+            });
+        } else Log.d(TAG, "FirebaseAuthImpl: Null Current User, Needs Login or Register");
+    }
 
     /**
      * Returns Firebase Auth
@@ -38,11 +58,11 @@ public class FirebaseAuthImpl {
     }
 
     /**
-     * Returns  MutableLiveData<LoginModel>
+     * Returns  MutableLiveData<LoginProfileHelperModel>
      *
-     * @return MutableLiveData<LoginModel>
+     * @return MutableLiveData<LoginProfileHelperModel>
      */
-    public MutableLiveData<LoginModel> getRegisterModelMutableLiveData() {
+    public MutableLiveData<LoginProfileHelperModel> getRegisterModelMutableLiveData() {
         return registerModelMutableLiveData;
     }
 
@@ -56,11 +76,11 @@ public class FirebaseAuthImpl {
     }
 
     /**
-     * Returns  MutableLiveData<LoginModel>
+     * Returns  MutableLiveData<LoginProfileHelperModel>
      *
-     * @return MutableLiveData<LoginModel>
+     * @return MutableLiveData<LoginProfileHelperModel>
      */
-    public MutableLiveData<LoginModel> getUserLoggedMutableLiveData() {
+    public MutableLiveData<LoginProfileHelperModel> getUserLoggedMutableLiveData() {
         return userLoggedMutableLiveData;
     }
 
@@ -73,7 +93,6 @@ public class FirebaseAuthImpl {
         return userLoggedIn;
     }
 
-
     /**
      * Returns  MutableLiveData<Boolean>
      *
@@ -81,23 +100,6 @@ public class FirebaseAuthImpl {
      */
     public MutableLiveData<Boolean> getResetSuccessMutableLiveData() {
         return resetSuccessMutableLiveData;
-    }
-
-    /**
-     * Constructor and Initializer for FirebaseAuthImpl
-     */
-    public FirebaseAuthImpl() {
-        // Extracting Firebase instance
-        auth = FirebaseAuth.getInstance();
-        // Extracting Database instance
-        database = FirebaseDatabase.getInstance();
-        // Retrieves User if Null
-        if (auth.getCurrentUser() != null) {
-            LoginModel model = new LoginModel(true, "Welcome Back, " + auth.getCurrentUser().getEmail());
-            model.setFirebaseUser(auth.getCurrentUser());
-            userLoggedMutableLiveData.postValue(model);
-            Log.d(TAG, "FirebaseAuthImpl: Received Current user Email as " + auth.getCurrentUser().getEmail());
-        } else Log.d(TAG, "FirebaseAuthImpl: Null Current User, Needs Login or Register");
     }
 
     /**
@@ -123,18 +125,19 @@ public class FirebaseAuthImpl {
                         .setValue(user)
                         .addOnCompleteListener(create_database -> {
                             // Step 5: Success Condition Check
-                            LoginModel login_db;
+                            LoginProfileHelperModel login_db;
                             if (create_database.isSuccessful()) {
-                                login_db = new LoginModel(true, "User Registered Successfully");
+                                login_db = new LoginProfileHelperModel(true, "User Registered Successfully");
+                                login_db.setRegisterDetailsDAO(user);
                                 login_db.setFirebaseUser(create_auth.getResult().getUser());
                             } else {
-                                login_db = new LoginModel(false, Objects.requireNonNull(create_auth.getException()).getMessage());
+                                login_db = new LoginProfileHelperModel(false, Objects.requireNonNull(create_auth.getException()).getMessage());
                             }
                             registerModelMutableLiveData.postValue(login_db);
                             Log.d(TAG, "register: At registration.setRegistration received isRegistrationSuccess as " + login_db.isSuccess());
                         });
             } else
-                registerModelMutableLiveData.postValue(new LoginModel(false, Objects.requireNonNull(create_auth.getException()).getMessage()));
+                registerModelMutableLiveData.postValue(new LoginProfileHelperModel(false, Objects.requireNonNull(create_auth.getException()).getMessage()));
         });
     }
 
@@ -149,15 +152,23 @@ public class FirebaseAuthImpl {
         auth.signInWithEmailAndPassword(loginDAO.getEmail(), loginDAO.getPassword())
                 .addOnCompleteListener(login -> {
                     // Step 2: Set userLoggedMutableLiveData
-                    LoginModel loginModel;
+                    LoginProfileHelperModel loginModel;
                     userLoggedIn.postValue(login.isSuccessful());
                     if (login.isSuccessful()) {
-                        loginModel = new LoginModel(true);
-                        loginModel.setFirebaseUser(login.getResult().getUser());
-                        userLoggedMutableLiveData.postValue(loginModel);
-                        Log.d(TAG, "login: User logged in Successfully with UUID as " + Objects.requireNonNull(auth.getCurrentUser()).getUid());
+                        database.getReference("User").child(Objects.requireNonNull(login.getResult().getUser()).getUid()).get().addOnCompleteListener(dataset -> {
+                            LoginProfileHelperModel login_dataset_Model;
+                            if (dataset.isSuccessful()) {
+                                login_dataset_Model = new LoginProfileHelperModel(true);
+                                login_dataset_Model.setFirebaseUser(login.getResult().getUser());
+                                login_dataset_Model.setRegisterDetailsDAO(dataset.getResult().getValue(RegisterDetailsDAO.class));
+                                userLoggedMutableLiveData.postValue(login_dataset_Model);
+                                Log.d(TAG, "login: User logged in Successfully with UUID as " + Objects.requireNonNull(auth.getCurrentUser()).getUid());
+                            } else {
+                                userLoggedMutableLiveData.postValue(new LoginProfileHelperModel(false, Objects.requireNonNull(login.getException()).getMessage()));
+                            }
+                        });
                     } else
-                        userLoggedMutableLiveData.postValue(new LoginModel(false, Objects.requireNonNull(login.getException()).getMessage()));
+                        userLoggedMutableLiveData.postValue(new LoginProfileHelperModel(false, Objects.requireNonNull(login.getException()).getMessage()));
                 });
     }
 

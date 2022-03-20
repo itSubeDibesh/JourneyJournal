@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.LoginDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.models.authentication.LoginModel;
+import com.ismt.dibeshrajsubedi.journeyjournal.models.helper.LoginProfileHelperModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.JourneyJournalViewModel;
 
 /**
@@ -17,9 +18,9 @@ import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.JourneyJournal
  * Created by Dibesh Raj Subedi on 3/19/2022.
  */
 public class LoginViewModel extends JourneyJournalViewModel {
-    private final String TAG = "JJ_LoginViewModel";
     public final MutableLiveData<LoginModel> isLoginSuccess = new MutableLiveData<>();
     public final MutableLiveData<LoginModel> isUserLoggedIn = new MutableLiveData<>();
+    private final String TAG = "JJ_LoginViewModel";
 
     public LoginViewModel(@NonNull Application application) {
         super(application);
@@ -70,14 +71,16 @@ public class LoginViewModel extends JourneyJournalViewModel {
                 // Get firebase Logged in User Details
                 firebaseAuthImpl.getUserLoggedMutableLiveData().observe(owner, user -> {
                     // Check if firebase User is Not Null
-                    LoginModel loginModel;
+                    LoginProfileHelperModel loginModel;
                     if (user.isSuccess()) {
                         Log.d(TAG, "loginValidation: Login Success With Email as " + user.getFirebaseUser().getEmail());
-                        loginModel = new LoginModel(true, getString(R.string.message_login_success));
+                        Log.d(TAG, "loginValidation: Login Success With Email as " + user.getRegisterDetailsDAO().getEmail());
+                        loginModel = new LoginProfileHelperModel(true, getString(R.string.message_login_success));
                         loginModel.setFirebaseUser(user.getFirebaseUser());
+                        loginModel.setRegisterDetailsDAO(user.getRegisterDetailsDAO());
                         isLoginSuccess.postValue(loginModel);
                     } else {
-                        isLoginSuccess.postValue(new LoginModel(false, user.getMessage()));
+                        isLoginSuccess.postValue(new LoginProfileHelperModel(false, user.getMessage()));
                     }
                 });
             }

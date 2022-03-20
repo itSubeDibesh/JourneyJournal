@@ -117,7 +117,6 @@ public class LoginFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate: onCreate Invoked");
         // Step 1: Bind View Model using ViewModel Provider
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         commonViewModel = new ViewModelProvider(this).get(CommonViewModel.class);
@@ -125,7 +124,6 @@ public class LoginFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView: onCreateView Invoked");
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_login, container, false);
         // Step 2: Extract Elements from Views
         extractElements(viewGroup);
@@ -135,7 +133,6 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d(TAG, "onViewCreated: onViewCreated Invoked");
         // Step 3: Initialize Navigation Controller
         navController = Navigation.findNavController(view);
         // Step 4: Trigger is User Already LoggedIn

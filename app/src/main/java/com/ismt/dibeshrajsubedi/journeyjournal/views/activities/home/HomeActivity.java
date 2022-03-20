@@ -3,7 +3,6 @@ package com.ismt.dibeshrajsubedi.journeyjournal.views.activities.home;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,6 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseUser;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
+import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.register.RegisterDetailsDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.CommonViewModel;
 
 public class HomeActivity extends AppCompatActivity {
@@ -32,10 +32,12 @@ public class HomeActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavController navController;
     private FirebaseUser user;
+    private RegisterDetailsDAO registerDetailsDAO;
 
     private void extractDetailsFromIntent() {
         if (getIntent() != null) {
             user = getIntent().getParcelableExtra("USER");
+            registerDetailsDAO = (RegisterDetailsDAO) getIntent().getSerializableExtra("PROFILE");
             Log.d(TAG, "extractDetailsFromIntent: fetched User Data from Login Fragment and email as " + user.getEmail());
         }
     }
@@ -85,8 +87,11 @@ public class HomeActivity extends AppCompatActivity {
         navController.addOnDestinationChangedListener((navController, navDestination, bundle) -> {
             if (bundle == null) return;
             // Condition 1: Show Toolbar Based on Argument passed
-            commonViewModel.setVisibility(toolbar, bundle.getBoolean(getString(R.string.args_show_toolbar), false));
             // Condition 2: Show Navigation View Based on Argument passed
+            commonViewModel.setVisibility(toolbar, bundle.getBoolean(getString(R.string.args_show_toolbar), false));
+            // Passing User Details Via Bundle
+            bundle.putParcelable("USER", user);
+            bundle.putSerializable("PROFILE", registerDetailsDAO);
             setNavigationViewBasedOnBundle(bundle);
         });
     }
@@ -109,13 +114,14 @@ public class HomeActivity extends AppCompatActivity {
 
     private void triggerButtonClickEvents() {
         // Trigger Add Journey Button
-        fabButton.setOnClickListener(v -> navController.navigate(R.id.action_global_addFragment));
+        fabButton.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("USER", user);
+//            bundle.putSerializable("PROFILE", registerDetailsDAO);
+            navController.navigate(R.id.action_global_addFragment, bundle);
+        });
         // Trigger Logout Button Click From Bottom Navigation
         logout.setOnClickListener(v -> commonViewModel.logoutConfirmation(HomeActivity.this, this));
-        fabButton.setOnLongClickListener(listener -> {
-            Toast.makeText(HomeActivity.this, user.getEmail(), Toast.LENGTH_SHORT).show();
-            return true;
-        });
     }
 
     @Override

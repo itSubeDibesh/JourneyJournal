@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 
@@ -120,6 +121,7 @@ public class CommonViewModel extends AndroidViewModel {
             if (loginModel.getFirebaseUser() != null) {
                 Intent intent = new Intent(activity.getApplicationContext(), HomeActivity.class);
                 intent.putExtra("USER", loginModel.getFirebaseUser());
+                intent.putExtra("PROFILE", loginModel.getRegisterDetailsDAO());
                 activity.startActivity(intent);
                 activity.finish();
             }
