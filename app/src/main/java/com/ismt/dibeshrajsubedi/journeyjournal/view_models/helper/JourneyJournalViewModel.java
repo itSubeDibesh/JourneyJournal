@@ -8,8 +8,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.StatusHelperDAO;
-import com.ismt.dibeshrajsubedi.journeyjournal.repository.firebase.FirebaseAuthImpl;
 import com.ismt.dibeshrajsubedi.journeyjournal.helper.InputValidationHelper;
+import com.ismt.dibeshrajsubedi.journeyjournal.repository.firebase.FirebaseAuthImpl;
 
 /**
  * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.view_models was
@@ -53,9 +53,10 @@ public class JourneyJournalViewModel extends AndroidViewModel {
 
     /**
      * Validates Input and sets isEmailInValid MutableLiveData
+     *
      * @param Email String
      */
-    protected void EmailInValid(String Email){
+    protected void EmailInValid(String Email) {
         // Email Validation Checks - [Empty Check, Email Pattern Check]
         if (validationHelper.isNullOrEmpty(Email)) {
             isEmailInValid.setValue(new StatusHelperDAO(true, getString(R.string.error_empty_email)));
@@ -68,9 +69,10 @@ public class JourneyJournalViewModel extends AndroidViewModel {
 
     /**
      * Validates Input and sets isPasswordInValid MutableLiveData
+     *
      * @param Password String
      */
-    protected void PasswordInValid(String Password){
+    protected void PasswordInValid(String Password) {
         // Password Validation Check - [EmptyCheck, Password Pattern Check]
         if (validationHelper.isNullOrEmpty(Password)) {
             isPasswordInValid.setValue(new StatusHelperDAO(true, getString(R.string.error_empty_password)));

@@ -3,6 +3,7 @@ package com.ismt.dibeshrajsubedi.journeyjournal.views.activities.home;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -22,7 +23,7 @@ import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.CommonViewMode
 
 public class HomeActivity extends AppCompatActivity {
     private final String TAG = "JJ_HomeActivity";
-    private CommonViewModel CommonViewModel;
+    private CommonViewModel commonViewModel;
     private BottomNavigationView bottomNavigationView;
     private FloatingActionButton fabButton;
     private NavHostFragment navHostFragment;
@@ -32,17 +33,16 @@ public class HomeActivity extends AppCompatActivity {
     private NavController navController;
     private FirebaseUser user;
 
-
     private void extractDetailsFromIntent() {
         if (getIntent() != null) {
             user = getIntent().getParcelableExtra("USER");
+            Log.d(TAG, "extractDetailsFromIntent: fetched User Data from Login Fragment and email as " + user.getEmail());
         }
-        Log.d(TAG, "extractDetailsFromIntent: fetched User Data from Login Fragment and email as " + user.getEmail());
     }
 
     private void extractElements() {
         // Component Binding to Get Common Transactions
-        CommonViewModel = new ViewModelProvider(this).get(CommonViewModel.class);
+        commonViewModel = new ViewModelProvider(this).get(CommonViewModel.class);
         // Extract Bottom Navigation View
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         // Extract Bottom Appbar
@@ -77,15 +77,15 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setNavigationViewBasedOnBundle(Bundle bundle) {
-        CommonViewModel.setVisibility(bottomAppBar, bundle.getBoolean(getString(R.string.args_show_bottom_navigation_view), false));
-        CommonViewModel.setVisibility(fabButton, bundle.getBoolean(getString(R.string.args_show_bottom_navigation_view), false));
+        commonViewModel.setVisibility(bottomAppBar, bundle.getBoolean(getString(R.string.args_show_bottom_navigation_view), false));
+        commonViewModel.setVisibility(fabButton, bundle.getBoolean(getString(R.string.args_show_bottom_navigation_view), false));
     }
 
     private void showViewsBasedOnNavigationArguments() {
         navController.addOnDestinationChangedListener((navController, navDestination, bundle) -> {
             if (bundle == null) return;
             // Condition 1: Show Toolbar Based on Argument passed
-            CommonViewModel.setVisibility(toolbar, bundle.getBoolean(getString(R.string.args_show_toolbar), false));
+            commonViewModel.setVisibility(toolbar, bundle.getBoolean(getString(R.string.args_show_toolbar), false));
             // Condition 2: Show Navigation View Based on Argument passed
             setNavigationViewBasedOnBundle(bundle);
         });
@@ -111,23 +111,26 @@ public class HomeActivity extends AppCompatActivity {
         // Trigger Add Journey Button
         fabButton.setOnClickListener(v -> navController.navigate(R.id.action_global_addFragment));
         // Trigger Logout Button Click From Bottom Navigation
-        logout.setOnClickListener(v -> CommonViewModel.logoutConfirmation(HomeActivity.this));
+        logout.setOnClickListener(v -> commonViewModel.logoutConfirmation(HomeActivity.this, this));
+        fabButton.setOnLongClickListener(listener -> {
+            Toast.makeText(HomeActivity.this, user.getEmail(), Toast.LENGTH_SHORT).show();
+            return true;
+        });
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        // Step 0: Extract Data Passed From Intent
+        // Step 1: Extract Data Passed From Intent
         extractDetailsFromIntent();
-        // Step 1: Extract Elements To Use Globally
+        // Step 2: Extract Elements To Use Globally
         extractElements();
-        // Step 2: Setup Components
+        // Step 3: Setup Components
         setUpComponents();
-        // Step 3: Bugfix Navigation UI
+        // Step 4: Bugfix Navigation UI
         bugFixBottomNavigationUI();
-        // Step 4: Trigger Button Click Events
+        // Step 5: Trigger Button Click Events
         triggerButtonClickEvents();
     }
 

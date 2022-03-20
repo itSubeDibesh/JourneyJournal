@@ -66,7 +66,7 @@ public class LoginFragment extends Fragment {
         // Navigate to Login
         login.setOnClickListener(event -> {
             isInternetConnected();
-            Log.d(TAG, "handleButtonTriggerEvents: Register Button triggered");
+            Log.d(TAG, "handleButtonTriggerEvents: Login Button triggered");
             loginViewModel.loginValidation(new LoginDAO(
                             commonViewModel.til(ltil_email),
                             commonViewModel.til(ltil_password)),
@@ -92,7 +92,6 @@ public class LoginFragment extends Fragment {
         loginViewModel.isPasswordInValid.observe(owner, helper -> commonViewModel.setObserverError(ltil_password, helper));
         // Observer 3: isLoginSuccess
         loginViewModel.isLoginSuccess.observe(owner, helper -> {
-            // TODO: isLoginSuccess
             Log.d(TAG, "observeMutableLiveData: loginViewModel.isLoginSuccess invoked with isLoginSuccess as " + helper.isSuccess());
             Toast.makeText(getContext(), helper.getMessage(), Toast.LENGTH_LONG).show();
             if (helper.isSuccess()) {
@@ -120,8 +119,8 @@ public class LoginFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate: onCreate Invoked");
         // Step 1: Bind View Model using ViewModel Provider
-        commonViewModel = new ViewModelProvider(this).get(CommonViewModel.class);
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        commonViewModel = new ViewModelProvider(this).get(CommonViewModel.class);
     }
 
     @Override
@@ -154,7 +153,7 @@ public class LoginFragment extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                commonViewModel.exitConfirmation(requireActivity());
+                commonViewModel.exitConfirmation(requireActivity(), getViewLifecycleOwner());
             }
         });
     }

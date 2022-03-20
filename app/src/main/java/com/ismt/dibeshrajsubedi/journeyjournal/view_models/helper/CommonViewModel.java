@@ -6,17 +6,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LifecycleOwner;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.ConnectivityHelperDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.StatusHelperDAO;
+import com.ismt.dibeshrajsubedi.journeyjournal.repository.firebase.FirebaseAuthImpl;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.authentication.AuthenticationActivity;
+import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.home.HomeActivity;
 
 import java.util.Objects;
 
@@ -25,6 +29,8 @@ import java.util.Objects;
  * Created by Dibesh Raj Subedi on 3/7/2022.
  */
 public class CommonViewModel extends AndroidViewModel {
+    private final String TAG = "JJ_CommonViewModel";
+    private final FirebaseAuthImpl firebaseAuth = new FirebaseAuthImpl();
 
     /**
      * Enum for Confirmation
@@ -42,8 +48,9 @@ public class CommonViewModel extends AndroidViewModel {
      * @param title        int
      * @param message      int
      * @param confirmation Confirmation
+     * @param owner        LifecycleOwner
      */
-    private void confirmation(Activity activity, int title, int message, Confirmation confirmation) {
+    private void confirmation(Activity activity, int title, int message, Confirmation confirmation, LifecycleOwner owner) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(title);
         builder.setIcon(R.drawable.ic_launcher_foreground);
@@ -58,8 +65,8 @@ public class CommonViewModel extends AndroidViewModel {
                 builder
                         .setMessage(message).setCancelable(true)
                         .setPositiveButton(R.string.option_yes, (dialog, id) -> {
-                            activity.startActivity(new Intent(activity.getApplicationContext(), AuthenticationActivity.class));
-                            activity.finish();
+                            firebaseAuth.logOut();
+                            this.observeLogout(owner, activity);
                         })
                         .setNegativeButton(R.string.option_no, (dialog, id) -> dialog.cancel());
                 break;
@@ -83,10 +90,11 @@ public class CommonViewModel extends AndroidViewModel {
      * Alert Dialogue Builder Implementation
      *
      * @param activity Activity
+     * @param owner    LifecycleOwner
      */
-    public void deleteConfirmation(Activity activity) {
+    public void deleteConfirmation(Activity activity, LifecycleOwner owner) {
         // TODO -> Take Delete Details and trigger Deleter From Here Itself
-        this.confirmation(activity, R.string.confirmation_delete, R.string.consent_delete_journey, Confirmation.DELETE);
+        this.confirmation(activity, R.string.confirmation_delete, R.string.consent_delete_journey, Confirmation.DELETE, owner);
     }
 
     /**
@@ -94,9 +102,28 @@ public class CommonViewModel extends AndroidViewModel {
      * Alert Dialogue Builder Implementation
      *
      * @param activity Activity
+     * @param owner    LifecycleOwner
      */
-    public void exitConfirmation(Activity activity) {
-        this.confirmation(activity, R.string.confirmation_exit, R.string.consent_exit, Confirmation.EXIT);
+    public void exitConfirmation(Activity activity, LifecycleOwner owner) {
+        this.confirmation(activity, R.string.confirmation_exit, R.string.consent_exit, Confirmation.EXIT, owner);
+    }
+
+    /**
+     * Checks if User Login Details is Cached and Act Accordingly
+     *
+     * @param activity Activity
+     * @param owner    LifecycleOwner
+     */
+    public void cacheLoggedIn(Activity activity, LifecycleOwner owner) {
+        firebaseAuth.getUserLoggedMutableLiveData().observe(owner, loginModel -> {
+            Log.d(TAG, "cacheLoggedIn: login cached received email as " + loginModel.getFirebaseUser().getEmail());
+            if (loginModel.getFirebaseUser() != null) {
+                Intent intent = new Intent(activity.getApplicationContext(), HomeActivity.class);
+                intent.putExtra("USER", loginModel.getFirebaseUser());
+                activity.startActivity(intent);
+                activity.finish();
+            }
+        });
     }
 
     /**
@@ -104,9 +131,25 @@ public class CommonViewModel extends AndroidViewModel {
      * Alert Dialogue Builder Implementation
      *
      * @param activity Activity
+     * @param owner    LifecycleOwner
      */
-    public void logoutConfirmation(Activity activity) {
-        this.confirmation(activity, R.string.confirmation_logout, R.string.consent_logout, Confirmation.LOGOUT);
+    public void logoutConfirmation(Activity activity, LifecycleOwner owner) {
+        this.confirmation(activity, R.string.confirmation_logout, R.string.consent_logout, Confirmation.LOGOUT, owner);
+    }
+
+    /**
+     * Observes Logout and triggers accordingly
+     *
+     * @param owner    LifecycleOwner
+     * @param activity Activity
+     */
+    public void observeLogout(LifecycleOwner owner, Activity activity) {
+        firebaseAuth.getUserLoggedIn().observe(owner, UserLoggedIn -> {
+            if (!UserLoggedIn) {
+                activity.startActivity(new Intent(activity.getApplicationContext(), AuthenticationActivity.class));
+                activity.finish();
+            }
+        });
     }
 
     /**
@@ -118,7 +161,6 @@ public class CommonViewModel extends AndroidViewModel {
     public void setVisibility(View component, boolean condition) {
         // If Condition is true Show it Else Hide it
         component.setVisibility(condition ? View.VISIBLE : View.GONE);
-
     }
 
     /**
@@ -141,7 +183,7 @@ public class CommonViewModel extends AndroidViewModel {
      * @return String
      */
     public String til(TextInputLayout input) {
-        return Objects.requireNonNull(input.getEditText().getText()).toString();
+        return Objects.requireNonNull(Objects.requireNonNull(input.getEditText()).getText()).toString();
     }
 
     /**

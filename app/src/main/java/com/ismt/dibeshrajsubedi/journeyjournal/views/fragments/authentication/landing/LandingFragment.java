@@ -63,7 +63,7 @@ public class LandingFragment extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                CommonViewModel.exitConfirmation(requireActivity());
+                CommonViewModel.exitConfirmation(requireActivity(), getViewLifecycleOwner());
             }
         });
     }

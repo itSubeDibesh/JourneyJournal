@@ -74,6 +74,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/field_auth_password"
+                app:counterEnabled="true"
+                app:counterMaxLength="@integer/tb_password_max_len"
                 app:endIconMode="password_toggle"
                 app:errorEnabled="true"
                 app:startIconDrawable="@drawable/ic_lock">

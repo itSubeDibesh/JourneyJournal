@@ -64,21 +64,23 @@ public class LoginViewModel extends JourneyJournalViewModel {
 
         // ToDo: Implement UseCase and Other elements of clean architecture
         if (internetConnected) {
-            // Checking User LoggedIn Success
-            firebaseAuthImpl.login(loginDAO);
-            // Get firebase Logged in User Details
-            firebaseAuthImpl.getUserLoggedMutableLiveData().observe(owner, user -> {
-                // Check if firebase User is Not Null
-                LoginModel loginModel;
-                if (user.isSuccess()) {
-                    Log.d(TAG, "loginValidation: Login Success With Email as " + user.getFirebaseUser().getEmail());
-                    loginModel = new LoginModel(true, getString(R.string.message_login_success));
-                    loginModel.setFirebaseUser(user.getFirebaseUser());
-                    isLoginSuccess.postValue(loginModel);
-                } else {
-                    isLoginSuccess.postValue(new LoginModel(false, user.getMessage()));
-                }
-            });
+            if (!loginDAO.isNullOrEmpty(Email) && !loginDAO.isNullOrEmpty(Password)) {
+                // Checking User LoggedIn Success
+                firebaseAuthImpl.login(loginDAO);
+                // Get firebase Logged in User Details
+                firebaseAuthImpl.getUserLoggedMutableLiveData().observe(owner, user -> {
+                    // Check if firebase User is Not Null
+                    LoginModel loginModel;
+                    if (user.isSuccess()) {
+                        Log.d(TAG, "loginValidation: Login Success With Email as " + user.getFirebaseUser().getEmail());
+                        loginModel = new LoginModel(true, getString(R.string.message_login_success));
+                        loginModel.setFirebaseUser(user.getFirebaseUser());
+                        isLoginSuccess.postValue(loginModel);
+                    } else {
+                        isLoginSuccess.postValue(new LoginModel(false, user.getMessage()));
+                    }
+                });
+            }
 
         }
     }
