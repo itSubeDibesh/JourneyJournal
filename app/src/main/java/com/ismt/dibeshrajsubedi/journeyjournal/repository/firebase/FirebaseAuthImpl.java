@@ -8,8 +8,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.LoginDAO;
+import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.ResetDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.register.RegisterDetailsDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.register.RegisterFormDAO;
+import com.ismt.dibeshrajsubedi.journeyjournal.models.authentication.ForgetPasswordModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.models.helper.LoginProfileHelperModel;
 
 import java.util.Objects;
@@ -23,7 +25,7 @@ public class FirebaseAuthImpl {
     private final MutableLiveData<FirebaseUser> firebaseUserMutableLiveData = new MutableLiveData<>();
     private final MutableLiveData<LoginProfileHelperModel> registerModelMutableLiveData = new MutableLiveData<>();
     private final MutableLiveData<LoginProfileHelperModel> userLoggedMutableLiveData = new MutableLiveData<>();
-    private final MutableLiveData<Boolean> resetSuccessMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<ForgetPasswordModel> resetSuccessMutableLiveData = new MutableLiveData<>();
     private final MutableLiveData<Boolean> userLoggedIn = new MutableLiveData<>();
     private final FirebaseAuth auth;
     private final FirebaseDatabase database;
@@ -98,7 +100,7 @@ public class FirebaseAuthImpl {
      *
      * @return MutableLiveData<Boolean>
      */
-    public MutableLiveData<Boolean> getResetSuccessMutableLiveData() {
+    public MutableLiveData<ForgetPasswordModel> getResetSuccessMutableLiveData() {
         return resetSuccessMutableLiveData;
     }
 
@@ -182,4 +184,24 @@ public class FirebaseAuthImpl {
     }
 
     // TODO: User Profile Update
+
+    // TODO: Reset Password
+
+    /**
+     * Reset Password Sends FireBase Reset Email
+     *
+     * @param resetDAO ResetDAO
+     */
+    public void resetPassword(ResetDAO resetDAO) {
+        auth.sendPasswordResetEmail(resetDAO.getEmail())
+                .addOnCompleteListener(task -> {
+                    ForgetPasswordModel model;
+                    if (task.isSuccessful())
+                        model = new ForgetPasswordModel(true);
+                    else
+                        model = new ForgetPasswordModel(false, task.getException().getMessage());
+                    model.setResetDAO(resetDAO);
+                    resetSuccessMutableLiveData.postValue(model);
+                });
+    }
 }

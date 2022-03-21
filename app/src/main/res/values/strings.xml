@@ -62,6 +62,7 @@
     <string name="message_register_using">Or register using</string>
     <string name="message_journey_empty">Journey Not Found!</string>
     <string name="message_landing_get_started">Let\'s get started</string>
+    <string name="message_reset_email_sent">Email sent Successfully, Check your email.</string>
     <string name="message_reset_email">Don\'t Worry, We will send you a reset email.</string>
     <string name="message_remember_password">Remember password?</string>
     <string name="message_welcome">Welcome your memories and expeditions.</string>
