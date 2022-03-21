@@ -22,7 +22,6 @@ import java.util.Objects;
  */
 public class FirebaseAuthImpl {
     private final String TAG = "JJ_RIFirebaseAuth";
-    private final MutableLiveData<FirebaseUser> firebaseUserMutableLiveData = new MutableLiveData<>();
     private final MutableLiveData<LoginProfileHelperModel> registerModelMutableLiveData = new MutableLiveData<>();
     private final MutableLiveData<LoginProfileHelperModel> userLoggedMutableLiveData = new MutableLiveData<>();
     private final MutableLiveData<ForgetPasswordModel> resetSuccessMutableLiveData = new MutableLiveData<>();
@@ -60,21 +59,22 @@ public class FirebaseAuthImpl {
     }
 
     /**
+     * Returns Firebase Database
+     *
+     * @return FirebaseDatabase
+     */
+    public FirebaseDatabase getDatabase() {
+        return database;
+    }
+
+
+    /**
      * Returns  MutableLiveData<LoginProfileHelperModel>
      *
      * @return MutableLiveData<LoginProfileHelperModel>
      */
     public MutableLiveData<LoginProfileHelperModel> getRegisterModelMutableLiveData() {
         return registerModelMutableLiveData;
-    }
-
-    /**
-     * Returns  MutableLiveData<FirebaseUser>
-     *
-     * @return MutableLiveData<FirebaseUser>
-     */
-    public MutableLiveData<FirebaseUser> getFirebaseUserMutableLiveData() {
-        return firebaseUserMutableLiveData;
     }
 
     /**

@@ -9,17 +9,19 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.LoginDAO;
-import com.ismt.dibeshrajsubedi.journeyjournal.models.authentication.LoginModel;
+import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.register.RegisterDetailsDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.models.helper.LoginProfileHelperModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.JourneyJournalViewModel;
+
+import java.util.Objects;
 
 /**
  * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.view_models was
  * Created by Dibesh Raj Subedi on 3/19/2022.
  */
 public class LoginViewModel extends JourneyJournalViewModel {
-    public final MutableLiveData<LoginModel> isLoginSuccess = new MutableLiveData<>();
-    public final MutableLiveData<LoginModel> isUserLoggedIn = new MutableLiveData<>();
+    public final MutableLiveData<LoginProfileHelperModel> isLoginSuccess = new MutableLiveData<>();
+    public final MutableLiveData<LoginProfileHelperModel> isUserLoggedIn = new MutableLiveData<>();
     private final String TAG = "JJ_LoginViewModel";
 
     public LoginViewModel(@NonNull Application application) {
@@ -34,13 +36,15 @@ public class LoginViewModel extends JourneyJournalViewModel {
     public void isUseAlreadyLoggedIn(LifecycleOwner owner) {
         firebaseAuthImpl.getUserLoggedIn().observe(owner, isLoggedIn -> {
             Log.d(TAG, "isUseAlreadyLoggedIn: Received isLoggedIn as " + isLoggedIn);
-            LoginModel loginModel;
             if (isLoggedIn) {
-                loginModel = new LoginModel(true, getString(R.string.message_welcome_back));
-                loginModel.setFirebaseUser(firebaseAuthImpl.getAuth().getCurrentUser());
-                isUserLoggedIn.postValue(loginModel);
+                firebaseAuthImpl.getDatabase().getReference("User").child(Objects.requireNonNull(firebaseAuthImpl.getAuth().getCurrentUser()).getUid()).get().addOnCompleteListener(dataset -> {
+                    LoginProfileHelperModel loginModel = new LoginProfileHelperModel(true, getString(R.string.message_welcome_back));
+                    loginModel.setFirebaseUser(firebaseAuthImpl.getAuth().getCurrentUser());
+                    loginModel.setRegisterDetailsDAO(dataset.getResult().getValue(RegisterDetailsDAO.class));
+                    isUserLoggedIn.postValue(loginModel);
+                });
             } else
-                isUserLoggedIn.postValue(new LoginModel(false, getString(R.string.message_login)));
+                isUserLoggedIn.postValue(new LoginProfileHelperModel(false, getString(R.string.message_login)));
         });
 
     }
@@ -74,7 +78,7 @@ public class LoginViewModel extends JourneyJournalViewModel {
                     LoginProfileHelperModel loginModel;
                     if (user.isSuccess()) {
                         Log.d(TAG, "loginValidation: Login Success With Email as " + user.getFirebaseUser().getEmail());
-                        Log.d(TAG, "loginValidation: Login Success With Email as " + user.getRegisterDetailsDAO().getEmail());
+                        Log.d(TAG, "loginValidation: Login Success With Name as " + user.getRegisterDetailsDAO().getDisplayName());
                         loginModel = new LoginProfileHelperModel(true, getString(R.string.message_login_success));
                         loginModel.setFirebaseUser(user.getFirebaseUser());
                         loginModel.setRegisterDetailsDAO(user.getRegisterDetailsDAO());
@@ -84,7 +88,6 @@ public class LoginViewModel extends JourneyJournalViewModel {
                     }
                 });
             }
-
         }
     }
 

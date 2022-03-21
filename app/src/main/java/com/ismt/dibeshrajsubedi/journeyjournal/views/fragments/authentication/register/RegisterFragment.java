@@ -3,6 +3,7 @@ package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.authentication.r
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,8 @@ import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.ConnectivityHelperDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.authentication.RegisterViewModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.CommonViewModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.home.HomeActivity;
+
+import java.io.Serializable;
 
 /**
  * Navigates to Home Activity or Login Fragment
@@ -104,7 +107,7 @@ public class RegisterFragment extends Fragment {
             Toast.makeText(requireContext(), helper.getMessage(), Toast.LENGTH_LONG).show();
             if (helper.isSuccess()) {
                 Intent intent = new Intent(requireActivity(), HomeActivity.class);
-                intent.putExtra("USER", helper.getFirebaseUser());
+                intent.putExtra("USER_PROFILE", (Parcelable) helper);
                 startActivity(intent);
                 requireActivity().finish();
             }

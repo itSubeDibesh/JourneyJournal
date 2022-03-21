@@ -97,6 +97,7 @@ public class LoginFragment extends Fragment {
             if (helper.isSuccess()) {
                 Intent intent = new Intent(requireActivity(), HomeActivity.class);
                 intent.putExtra("USER", helper.getFirebaseUser());
+                intent.putExtra("PROFILE", helper.getRegisterDetailsDAO());
                 startActivity(intent);
                 requireActivity().finish();
             }
@@ -108,6 +109,7 @@ public class LoginFragment extends Fragment {
             if (helper.isSuccess()) {
                 Intent intent = new Intent(requireActivity(), HomeActivity.class);
                 intent.putExtra("USER", helper.getFirebaseUser());
+                intent.putExtra("PROFILE", helper.getRegisterDetailsDAO());
                 startActivity(intent);
                 requireActivity().finish();
             }

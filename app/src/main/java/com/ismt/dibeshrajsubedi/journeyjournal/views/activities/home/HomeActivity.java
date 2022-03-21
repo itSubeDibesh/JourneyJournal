@@ -117,7 +117,7 @@ public class HomeActivity extends AppCompatActivity {
         fabButton.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putParcelable("USER", user);
-//            bundle.putSerializable("PROFILE", registerDetailsDAO);
+            bundle.putSerializable("PROFILE", registerDetailsDAO);
             navController.navigate(R.id.action_global_addFragment, bundle);
         });
         // Trigger Logout Button Click From Bottom Navigation

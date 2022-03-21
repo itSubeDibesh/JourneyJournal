@@ -11,19 +11,19 @@ public class LoginProfileHelperModel extends LoginModel {
 
     private RegisterDetailsDAO registerDetailsDAO;
 
-    public RegisterDetailsDAO getRegisterDetailsDAO() {
-        return registerDetailsDAO;
-    }
-
-    public void setRegisterDetailsDAO(RegisterDetailsDAO registerDetailsDAO) {
-        this.registerDetailsDAO = registerDetailsDAO;
-    }
-
     public LoginProfileHelperModel(boolean isSuccess) {
         super(isSuccess);
     }
 
     public LoginProfileHelperModel(boolean isSuccess, String message) {
         super(isSuccess, message);
+    }
+
+    public RegisterDetailsDAO getRegisterDetailsDAO() {
+        return registerDetailsDAO;
+    }
+
+    public void setRegisterDetailsDAO(RegisterDetailsDAO registerDetailsDAO) {
+        this.registerDetailsDAO = registerDetailsDAO;
     }
 }

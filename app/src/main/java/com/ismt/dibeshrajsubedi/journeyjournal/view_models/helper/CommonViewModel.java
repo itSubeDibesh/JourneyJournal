@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 
@@ -33,13 +32,8 @@ public class CommonViewModel extends AndroidViewModel {
     private final String TAG = "JJ_CommonViewModel";
     private final FirebaseAuthImpl firebaseAuth = new FirebaseAuthImpl();
 
-    /**
-     * Enum for Confirmation
-     */
-    private enum Confirmation {
-        EXIT,
-        LOGOUT,
-        DELETE
+    public CommonViewModel(@NonNull Application application) {
+        super(application);
     }
 
     /**
@@ -65,10 +59,7 @@ public class CommonViewModel extends AndroidViewModel {
             case LOGOUT:
                 builder
                         .setMessage(message).setCancelable(true)
-                        .setPositiveButton(R.string.option_yes, (dialog, id) -> {
-                            firebaseAuth.logOut();
-                            this.observeLogout(owner, activity);
-                        })
+                        .setPositiveButton(R.string.option_yes, (dialog, id) -> logout(owner, activity))
                         .setNegativeButton(R.string.option_no, (dialog, id) -> dialog.cancel());
                 break;
             case DELETE:
@@ -82,10 +73,6 @@ public class CommonViewModel extends AndroidViewModel {
         alert.show();
     }
 
-    public CommonViewModel(@NonNull Application application) {
-        super(application);
-    }
-
     /**
      * Application Journey Delete Confirmation
      * Alert Dialogue Builder Implementation
@@ -96,6 +83,17 @@ public class CommonViewModel extends AndroidViewModel {
     public void deleteConfirmation(Activity activity, LifecycleOwner owner) {
         // TODO -> Take Delete Details and trigger Deleter From Here Itself
         this.confirmation(activity, R.string.confirmation_delete, R.string.consent_delete_journey, Confirmation.DELETE, owner);
+    }
+
+    /**
+     * Logs User Out
+     *
+     * @param owner    LifecycleOwner
+     * @param activity Activity
+     */
+    public void logout(LifecycleOwner owner, Activity activity) {
+        firebaseAuth.logOut();
+        this.observeLogout(owner, activity);
     }
 
     /**
@@ -235,5 +233,14 @@ public class CommonViewModel extends AndroidViewModel {
         }
         // Step 4: Implement Helper to Pass Data and return
         return new ConnectivityHelperDAO(status, message);
+    }
+
+    /**
+     * Enum for Confirmation
+     */
+    private enum Confirmation {
+        EXIT,
+        LOGOUT,
+        DELETE
     }
 }
