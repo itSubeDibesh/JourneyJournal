@@ -41,7 +41,7 @@ public class InputValidationHelper {
         // Extracting Pattern According to #allowSpecialCharacters
         // PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})"; allowSpecialCharacters => true
         // PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,20})"; allowSpecialCharacters =>false
-        String PATTERN = allowSpecialCharacters ? "^[a-zA-Z@#$%]\\w{5,19}$" : "^[a-zA-Z]\\w{5,19}$";
+        String PATTERN = allowSpecialCharacters ? "^[a-zA-Z0-9@#$%]\\w{5,19}$" : "^[a-zA-Z0-9]\\w{5,19}$";
         // Compiling Pattern
         Pattern pattern = Pattern.compile(PATTERN);
         // Pattern Matching
@@ -78,7 +78,7 @@ public class InputValidationHelper {
      * @return boolean
      */
     public boolean strLenGreaterThan(String string, int greaterThan) {
-        return string.trim().length() > greaterThan;
+        return string.trim().length() >= greaterThan;
     }
 
     /**
@@ -89,7 +89,7 @@ public class InputValidationHelper {
      * @return boolean
      */
     public boolean strLenLesserThan(String string, int lessThan) {
-        return string.trim().length() < lessThan;
+        return string.trim().length() <= lessThan;
     }
 
     /**

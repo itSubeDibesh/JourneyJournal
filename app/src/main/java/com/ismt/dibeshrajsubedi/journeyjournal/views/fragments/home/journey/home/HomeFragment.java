@@ -16,14 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
-import com.ismt.dibeshrajsubedi.journeyjournal.view_models.common.VMCommon;
+import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.CommonViewModel;
 
 /**
  * Implements List of Journey's and respective events
  */
 public class HomeFragment extends Fragment {
 
-    private VMCommon VMCommon;
+    private CommonViewModel CommonViewModel;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private LinearLayoutManager linearLayoutManager;
@@ -58,7 +58,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        VMCommon = new ViewModelProvider(this).get(VMCommon.class);
+        CommonViewModel = new ViewModelProvider(this).get(CommonViewModel.class);
     }
 
     @Override
@@ -73,12 +73,12 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         this.initializeListElements();
         // Show Hide Recycler View Based on Empty nature
-        VMCommon.recyclerViewVisibility(view, homeRecyclerViewAdapter.getItemCount() == 0);
+        CommonViewModel.recyclerViewVisibility(view, homeRecyclerViewAdapter.getItemCount() == 0);
         // Handle Back pressed for exit confirmation
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                VMCommon.exitConfirmation(requireActivity());
+                CommonViewModel.exitConfirmation(requireActivity(), getViewLifecycleOwner());
             }
         });
     }

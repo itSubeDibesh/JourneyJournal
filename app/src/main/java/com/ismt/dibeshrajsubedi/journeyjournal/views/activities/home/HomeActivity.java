@@ -1,6 +1,8 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.views.activities.home;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,12 +17,14 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseUser;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
-import com.ismt.dibeshrajsubedi.journeyjournal.view_models.common.VMCommon;
+import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.register.RegisterDetailsDAO;
+import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.CommonViewModel;
 
 public class HomeActivity extends AppCompatActivity {
-
-    private VMCommon VMCommon;
+    private final String TAG = "JJ_HomeActivity";
+    private CommonViewModel commonViewModel;
     private BottomNavigationView bottomNavigationView;
     private FloatingActionButton fabButton;
     private NavHostFragment navHostFragment;
@@ -28,10 +32,24 @@ public class HomeActivity extends AppCompatActivity {
     private View logout;
     private Toolbar toolbar;
     private NavController navController;
+    private FirebaseUser user;
+    private RegisterDetailsDAO registerDetailsDAO;
+    private Uri extractedUri;
+
+    private void extractDetailsFromIntent() {
+        if (getIntent() != null) {
+            user = getIntent().getParcelableExtra("USER");
+            registerDetailsDAO = (RegisterDetailsDAO) getIntent().getSerializableExtra("PROFILE");
+            if (getIntent().getStringExtra("ImageURI") != null) {
+                extractedUri = Uri.parse(getIntent().getStringExtra("ImageURI"));
+            }
+            Log.d(TAG, "extractDetailsFromIntent: fetched User Data from Login Fragment and email as " + user.getEmail() + " user image as " + user.getPhotoUrl());
+        }
+    }
 
     private void extractElements() {
         // Component Binding to Get Common Transactions
-        VMCommon = new ViewModelProvider(this).get(VMCommon.class);
+        commonViewModel = new ViewModelProvider(this).get(CommonViewModel.class);
         // Extract Bottom Navigation View
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         // Extract Bottom Appbar
@@ -66,16 +84,22 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setNavigationViewBasedOnBundle(Bundle bundle) {
-        VMCommon.setVisibility(bottomAppBar, bundle.getBoolean(getString(R.string.args_show_bottom_navigation_view), false));
-        VMCommon.setVisibility(fabButton, bundle.getBoolean(getString(R.string.args_show_bottom_navigation_view), false));
+        commonViewModel.setVisibility(bottomAppBar, bundle.getBoolean(getString(R.string.args_show_bottom_navigation_view), false));
+        commonViewModel.setVisibility(fabButton, bundle.getBoolean(getString(R.string.args_show_bottom_navigation_view), false));
     }
 
     private void showViewsBasedOnNavigationArguments() {
         navController.addOnDestinationChangedListener((navController, navDestination, bundle) -> {
             if (bundle == null) return;
             // Condition 1: Show Toolbar Based on Argument passed
-            VMCommon.setVisibility(toolbar, bundle.getBoolean(getString(R.string.args_show_toolbar), false));
             // Condition 2: Show Navigation View Based on Argument passed
+            commonViewModel.setVisibility(toolbar, bundle.getBoolean(getString(R.string.args_show_toolbar), false));
+            // Passing User Details Via Bundle
+            bundle.putParcelable("USER", user);
+            bundle.putSerializable("PROFILE", registerDetailsDAO);
+            if (extractedUri != null) {
+                bundle.putString("ImageURI", extractedUri.toString());
+            }
             setNavigationViewBasedOnBundle(bundle);
         });
     }
@@ -98,23 +122,32 @@ public class HomeActivity extends AppCompatActivity {
 
     private void triggerButtonClickEvents() {
         // Trigger Add Journey Button
-        fabButton.setOnClickListener(v -> navController.navigate(R.id.action_global_addFragment));
+        fabButton.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("USER", user);
+            bundle.putSerializable("PROFILE", registerDetailsDAO);
+            if (extractedUri != null) {
+                bundle.putString("ImageURI", extractedUri.toString());
+            }
+            navController.navigate(R.id.action_global_addFragment, bundle);
+        });
         // Trigger Logout Button Click From Bottom Navigation
-        logout.setOnClickListener(v -> VMCommon.logoutConfirmation(HomeActivity.this));
+        logout.setOnClickListener(v -> commonViewModel.logoutConfirmation(HomeActivity.this, this));
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        // Step 1: Extract Elements To Use Globally
+        // Step 1: Extract Data Passed From Intent
+        extractDetailsFromIntent();
+        // Step 2: Extract Elements To Use Globally
         extractElements();
-        // Step 2: Setup Components
+        // Step 3: Setup Components
         setUpComponents();
-        // Step 3: Bugfix Navigation UI
+        // Step 4: Bugfix Navigation UI
         bugFixBottomNavigationUI();
-        // Step 4: Trigger Button Click Events
+        // Step 5: Trigger Button Click Events
         triggerButtonClickEvents();
     }
 

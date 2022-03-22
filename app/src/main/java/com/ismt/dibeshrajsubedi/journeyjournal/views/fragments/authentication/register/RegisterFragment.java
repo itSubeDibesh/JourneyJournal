@@ -1,48 +1,52 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.authentication.register;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
-import com.ismt.dibeshrajsubedi.journeyjournal.helper.MStatusHelper;
-import com.ismt.dibeshrajsubedi.journeyjournal.models.authentication.MRegistration;
-import com.ismt.dibeshrajsubedi.journeyjournal.view_models.authentication.register.VMRegister;
-import com.ismt.dibeshrajsubedi.journeyjournal.view_models.common.VMCommon;
+import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.register.RegisterFormDAO;
+import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.ConnectivityHelperDAO;
+import com.ismt.dibeshrajsubedi.journeyjournal.view_models.authentication.RegisterViewModel;
+import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.CommonViewModel;
+import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.home.HomeActivity;
 
 /**
  * Navigates to Home Activity or Login Fragment
  */
 public class RegisterFragment extends Fragment {
-
+    private final String TAG = "JJ_RegisterFragment";
+    private boolean internetConnected;
+    private LifecycleOwner owner;
     private Button register;
     private TextView login;
     private NavController navController;
     private ImageButton google, twitter;
-    private VMRegister vmRegister;
-    private VMCommon vmCommon;
+    private RegisterViewModel registerViewModel;
+    private CommonViewModel commonViewModel;
     private TextInputLayout rtil_name, rtil_email, rtil_password, rtil_retype_password;
 
-    /**
-     * Extract Elements Globally
-     *
-     * @param viewGroup ViewGroup
-     */
     public void extractElements(ViewGroup viewGroup) {
+        owner = getViewLifecycleOwner();
+        internetConnected = false;
         login = viewGroup.findViewById(R.id.tv_login);
         register = viewGroup.findViewById(R.id.btn_register);
         google = viewGroup.findViewById(R.id.btn_google);
@@ -51,52 +55,76 @@ public class RegisterFragment extends Fragment {
         rtil_email = viewGroup.findViewById(R.id.rtil_email);
         rtil_password = viewGroup.findViewById(R.id.rtil_password);
         rtil_retype_password = viewGroup.findViewById(R.id.rtil_retype_password);
+        Log.d(TAG, "extractElements: Elements extraction complete");
     }
 
     private void handleButtonTriggerEvents() {
         // Trigger Register Click event
-        register.setOnClickListener(view -> vmRegister.registrationValidation(new MRegistration(
-                vmCommon.til(rtil_name),
-                vmCommon.til(rtil_email),
-                vmCommon.til(rtil_password),
-                vmCommon.til(rtil_retype_password))
-        ));
+        register.setOnClickListener(view -> {
+            isInternetConnected();
+            Log.d(TAG, "handleButtonTriggerEvents: Register Button triggered");
+            registerViewModel.registrationValidation(new RegisterFormDAO(
+                            commonViewModel.til(rtil_name),
+                            commonViewModel.til(rtil_email),
+                            commonViewModel.til(rtil_password),
+                            commonViewModel.til(rtil_retype_password)),
+                    internetConnected, owner
+            );
+        });
         // Trigger Google Click event
         google.setOnClickListener(v -> {
-
+            Log.d(TAG, "handleButtonTriggerEvents: Google Button triggered");
+            // TODO: Implement Google Click Redirect
         });
         // Trigger Twitter Click event
         twitter.setOnClickListener(v -> {
-
+            Log.d(TAG, "handleButtonTriggerEvents: Twitter Button triggered");
+            // TODO: Implement Twitter Click Redirect
         });
+    }
+
+    public void isInternetConnected() {
+        ConnectivityHelperDAO helper = commonViewModel.checkInternetConnection(requireContext());
+        internetConnected = helper.getStatus();
+        Log.d(TAG, "onNetworkChanged: Triggered, Received " + internetConnected + " as Status and " + helper.getMessage() + " message.");
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private void observeMutableLiveData() {
+        Log.d(TAG, "observeMutableLiveData: Observing Mutable Live Data");
         // Observer 1: isNameInValid
-        vmRegister.isNameInValid.observe(getViewLifecycleOwner(), helper -> vmCommon.setObserverError(rtil_name, helper));
+        registerViewModel.isNameInValid.observe(owner, helper -> commonViewModel.setObserverError(rtil_name, helper));
         // Observer 2: isEmailInValid
-        vmRegister.isEmailInValid.observe(getViewLifecycleOwner(), helper -> vmCommon.setObserverError(rtil_email, helper));
+        registerViewModel.isEmailInValid.observe(owner, helper -> commonViewModel.setObserverError(rtil_email, helper));
         // Observer 3: isPasswordInValid
-        vmRegister.isPasswordInValid.observe(getViewLifecycleOwner(), helper -> vmCommon.setObserverError(rtil_password, helper));
+        registerViewModel.isPasswordInValid.observe(owner, helper -> commonViewModel.setObserverError(rtil_password, helper));
         // Observer 4: isRetypePasswordNotMatched
-        vmRegister.isRetypePasswordNotMatched.observe(getViewLifecycleOwner(), helper -> vmCommon.setObserverError(rtil_retype_password, helper));
+        registerViewModel.isRetypePasswordNotMatched.observe(owner, helper -> commonViewModel.setObserverError(rtil_retype_password, helper));
         // Observer 5: isRegisterSuccess
-        vmRegister.isRegisterSuccess.observe(getViewLifecycleOwner(), helper -> {
-
+        registerViewModel.isRegisterSuccess.observe(owner, helper -> {
+            Toast.makeText(requireContext(), helper.getMessage(), Toast.LENGTH_LONG).show();
+            if (helper.getStatus()) {
+                Intent intent = new Intent(requireActivity(), HomeActivity.class);
+                intent.putExtra("USER", helper.getFirebaseUser());
+                intent.putExtra("PROFILE", helper.getRegisterDetailsDAO());
+                startActivity(intent);
+                requireActivity().finish();
+            }
         });
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: onCreate Invoked");
         // Step 1: Bind View Model using ViewModel Provider
-        vmRegister = new ViewModelProvider(this).get(VMRegister.class);
-        vmCommon = new ViewModelProvider(this).get(VMCommon.class);
+        registerViewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
+        commonViewModel = new ViewModelProvider(this).get(CommonViewModel.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView: onCreateView Invoked");
         // Inflating View
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_register, container, false);
         // Step 2: Extract Elements from Views
@@ -107,6 +135,7 @@ public class RegisterFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d(TAG, "onViewCreated: onViewCreated Invoked");
         // Step 3: Initialize Navigation Controller
         navController = Navigation.findNavController(view);
         // Step 4: Initialize Button Click Events

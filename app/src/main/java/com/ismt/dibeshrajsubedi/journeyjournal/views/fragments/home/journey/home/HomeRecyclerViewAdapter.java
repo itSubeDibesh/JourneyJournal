@@ -19,7 +19,8 @@ import com.ismt.dibeshrajsubedi.journeyjournal.R;
  */
 public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerViewAdapter.HomeRecyclerViewHolder> {
 
-    public HomeRecyclerViewAdapter() { }
+    public HomeRecyclerViewAdapter() {
+    }
 
     @NonNull
     @Override
@@ -42,10 +43,10 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
     @Override
     public int getItemCount() {
         // ToDo: get size and return it
-        return 10;
+        return 0;
     }
 
-    static class HomeRecyclerViewHolder extends RecyclerView.ViewHolder {
+    public static class HomeRecyclerViewHolder extends RecyclerView.ViewHolder {
         // Accessing Data Set from Fragment To Update elements in View.
         TextView title, description, date;
         ImageView imageView;
@@ -56,7 +57,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
             description = itemView.findViewById(R.id.tv_item_description);
             date = itemView.findViewById(R.id.tv_item_date);
             imageView = itemView.findViewById(R.id.iv_item_image);
-            // TODO: Handle On Item Click Event
+            // TODO: Handle On Item Click Event https://github.com/itSubeDibesh/JourneyJournal/blob/2681249d0b38abd9f2c1784bb4d8dd044c75380a/app/src/main/java/com/ismt/dibeshrajsubedi/journeyjournal/views/fragments/home/home/HomeRecyclerViewAdapter.java
             itemView.setOnClickListener(view -> Snackbar.make(view, "Item Clicked", Snackbar.LENGTH_LONG).show());
         }
     }

@@ -7,6 +7,7 @@
     <string name="args_add_edit_isAdd">isAdd</string>
     <!--  Labels  -->
     <string name="label_journey">Journey\'s</string>
+    <string name="label_uploading">Uploading Image...</string>
     <string name="label_send_reset_link">Reset Password</string>
     <string name="label_update_profile">Update Profile</string>
     <!--  Page Labels  -->
@@ -30,7 +31,6 @@
     <string name="field_auth_name">Name</string>
     <string name="field_page_title"> </string>
     <string name="field_auth_email">Email</string>
-    <string name="field_auth_phone_number">Phone number</string>
     <string name="field_auth_image">Image</string>
     <string name="field_auth_password">Password</string>
     <string name="field_auth_retype_password">Retype-password</string>
@@ -44,6 +44,8 @@
     <string name="option_no">No</string>
     <!--  Buttons  -->
     <string name="button_name">Add</string>
+    <string name="button_camera">Camera</string>
+    <string name="button_gallery">Gallery</string>
     <string name="button_google">Google</string>
     <string name="button_twitter">Twitter</string>
     <string name="button_update">Update</string>
@@ -57,27 +59,39 @@
     <string name="button_register">@string/page_register</string>
     <!--  Message  -->
     <string name="message_login_success">Login successful.</string>
+    <string name="message_login">Please Login First.</string>
+    <string name="message_required">Required *</string>
     <string name="message_login_with">Or login with</string>
     <string name="message_register_using">Or register using</string>
     <string name="message_journey_empty">Journey Not Found!</string>
     <string name="message_landing_get_started">Let\'s get started</string>
+    <string name="message_reset_email_sent">Email sent Successfully, Check your email.</string>
+    <string name="message_reset_email_sent_and_logout">Logging Out, Check your email.</string>
     <string name="message_reset_email">Don\'t Worry, We will send you a reset email.</string>
     <string name="message_remember_password">Remember password?</string>
     <string name="message_welcome">Welcome your memories and expeditions.</string>
+    <string name="message_welcome_back">Welcome back, Let\'s get started.</string>
     <string name="message_login_invalid_credentials">Invalid email or password.</string>
     <string name="message_new_user">New user?</string>
     <string name="message_have_account">Have account?</string>
     <string name="message_back_to_login">Back to login?</string>
     <!--  Success  -->
-    <string name="success_register">User Registered Successfully!</string>
+    <string name="success_register">User Registered Successfully, Please Login!</string>
+    <!--  Failure  -->
+    <string name="failure_register">Problem Registering User! Please try again later</string>
+    <!--  Connectivity  -->
+    <string name="connection_offline">Internet Disconnected! Offline mode enabled</string>
+    <string name="connection_wifi">Wifi Connected! Online mode enabled</string>
+    <string name="connection_data">Mobile Data Connected! Online mode enabled</string>
     <!--  Error  -->
     <string name="error_invalid_name">Name is Required!</string>
     <string name="error_empty_email">Email Address is Required!!</string>
     <string name="error_invalid_email">Invalid Email Format!</string>
+    <string name="error_password_length">Password expects 6–20 characters.</string>
     <string name="error_empty_retype_password">Retype-Password is Empty!</string>
     <string name="error_empty_password">Password is Required!</string>
     <string name="error_password_not_match">Password Not Matched!</string>
-    <string name="error_invalid_password_format">Invalid Password Format!</string>
+    <string name="error_invalid_password_format">Invalid Password Format! Expect [a-zA-Z0-9@#$%] from 6-20.</string>
     <!--  Redirects  -->
     <string name="redirect_reset">Reset</string>
     <string name="redirect_create">Create</string>
@@ -95,6 +109,4 @@
     <string name="consent_sure_consent">Are you sure?</string>
     <!--  Dummy text  -->
     <string name="dummy_lorem">On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

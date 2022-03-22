@@ -8,6 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/dp_extra_large"
         android:layout_height="@dimen/ib">
 
         <ImageView
