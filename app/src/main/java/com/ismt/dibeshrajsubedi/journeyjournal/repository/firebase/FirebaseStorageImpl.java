@@ -2,6 +2,8 @@ package com.ismt.dibeshrajsubedi.journeyjournal.repository.firebase;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 
 import androidx.lifecycle.MutableLiveData;
@@ -11,6 +13,9 @@ import com.google.firebase.storage.StorageReference;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.StatusHelperDAO;
 
+import java.io.File;
+import java.io.IOException;
+
 /**
  * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.repository.firebase was
  * Created by Dibesh Raj Subedi on 3/21/2022.
@@ -19,9 +24,19 @@ public class FirebaseStorageImpl {
     private final FirebaseStorage storage = FirebaseStorage.getInstance();
     private final StorageReference reference = storage.getReference();
     private final MutableLiveData<StatusHelperDAO> isUploadSuccess = new MutableLiveData<>();
+    private final MutableLiveData<Uri> imageUri = new MutableLiveData<>();
+    private final MutableLiveData<Bitmap> imageFile = new MutableLiveData<>();
 
     public MutableLiveData<StatusHelperDAO> getIsUploadSuccess() {
         return isUploadSuccess;
+    }
+
+    public MutableLiveData<Uri> getImageUri() {
+        return imageUri;
+    }
+
+    public MutableLiveData<Bitmap> getImageFile() {
+        return imageFile;
     }
 
     public FirebaseStorage getStorage() {
@@ -30,6 +45,25 @@ public class FirebaseStorageImpl {
 
     public StorageReference getReference() {
         return reference;
+    }
+
+    public void getImageURL(String imagePath) {
+        reference.child(imagePath).getDownloadUrl().addOnSuccessListener(uri -> {
+            imageUri.postValue(uri);
+        });
+    }
+
+    public void getLocalImage(String imagePath) {
+        try {
+            final File localFile = File.createTempFile("images", "png");
+            reference.child(imagePath).getFile(localFile).addOnSuccessListener(taskSnapshot -> {
+                Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                imageFile.postValue(bitmap);
+            });
+        } catch (IOException e) {
+            imageFile.postValue(null);
+            e.printStackTrace();
+        }
     }
 
     public void UploadImage(Uri image, String filePath, String fileName, Context context) {

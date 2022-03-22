@@ -98,6 +98,9 @@ public class LoginFragment extends Fragment {
                 Intent intent = new Intent(requireActivity(), HomeActivity.class);
                 intent.putExtra("USER", helper.getFirebaseUser());
                 intent.putExtra("PROFILE", helper.getRegisterDetailsDAO());
+                if (helper.getFirebaseUser().getPhotoUrl() != null) {
+                    intent.putExtra("ImageURI", helper.getFirebaseUser().getPhotoUrl().toString());
+                }
                 startActivity(intent);
                 requireActivity().finish();
             }
@@ -110,6 +113,9 @@ public class LoginFragment extends Fragment {
                 Intent intent = new Intent(requireActivity(), HomeActivity.class);
                 intent.putExtra("USER", helper.getFirebaseUser());
                 intent.putExtra("PROFILE", helper.getRegisterDetailsDAO());
+                if (helper.getFirebaseUser().getPhotoUrl() != null) {
+                    intent.putExtra("ImageURI", helper.getFirebaseUser().getPhotoUrl().toString());
+                }
                 startActivity(intent);
                 requireActivity().finish();
             }

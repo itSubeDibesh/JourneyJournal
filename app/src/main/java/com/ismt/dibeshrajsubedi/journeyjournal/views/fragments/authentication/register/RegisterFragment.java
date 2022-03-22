@@ -105,7 +105,8 @@ public class RegisterFragment extends Fragment {
             Toast.makeText(requireContext(), helper.getMessage(), Toast.LENGTH_LONG).show();
             if (helper.getStatus()) {
                 Intent intent = new Intent(requireActivity(), HomeActivity.class);
-                intent.putExtra("USER_PROFILE", (Parcelable) helper);
+                intent.putExtra("USER", helper.getFirebaseUser());
+                intent.putExtra("PROFILE", helper.getRegisterDetailsDAO());
                 startActivity(intent);
                 requireActivity().finish();
             }

@@ -50,12 +50,16 @@ public class ProfileFragment extends Fragment {
     private CommonViewModel commonViewModel;
     private ProfileViewModel profileViewModel;
     private Uri image;
+    private Uri extractedUri;
 
     private void extractDetailsFromIntent() {
         if (requireActivity().getIntent() != null) {
             user = requireActivity().getIntent().getParcelableExtra("USER");
+            if (requireActivity().getIntent().getStringExtra("ImageURI") != null) {
+                extractedUri = Uri.parse(requireActivity().getIntent().getStringExtra("ImageURI"));
+            }
             registerDetailsDAO = (RegisterDetailsDAO) requireActivity().getIntent().getSerializableExtra("PROFILE");
-            Log.d(TAG, "extractDetailsFromIntent: fetched User Data from Login Fragment and email as " + user.getEmail());
+            Log.d(TAG, "extractDetailsFromIntent: fetched User Data from Login Fragment and email as " + user.getEmail() + " And Image URI as " + user.getPhotoUrl() + " and extractedUri as " + extractedUri);
         }
     }
 
@@ -103,12 +107,13 @@ public class ProfileFragment extends Fragment {
         if (registerDetailsDAO != null) {
             Objects.requireNonNull(til_name.getEditText()).setText(registerDetailsDAO.getDisplayName());
         }
-        Log.d(TAG, "populateDetailsOnLoad: User PhotoUrl "+user.getPhotoUrl());
-        if (user.getPhotoUrl() != null) {
-            iv_profile_image.setImageURI(user.getPhotoUrl());
-        } else {
-            iv_profile_image.setImageResource(R.drawable.ic_img_profile);
-        }
+        profileViewModel.getFirebaseImageURI(extractedUri.getPath()).observe(owner, bitmap -> {
+            if (bitmap != null) {
+                iv_profile_image.setImageBitmap(bitmap);
+            } else {
+                iv_profile_image.setImageResource(R.drawable.ic_img_profile);
+            }
+        });
     }
 
     private void handleTriggerEvent() {
@@ -126,7 +131,6 @@ public class ProfileFragment extends Fragment {
                     commonViewModel.til(til_name)
             ), image, internetConnected, requireContext(), owner);
         });
-
         // Click on Reset Password Click Event
         tv_reset_password.setOnClickListener(event -> {
             isInternetConnected();

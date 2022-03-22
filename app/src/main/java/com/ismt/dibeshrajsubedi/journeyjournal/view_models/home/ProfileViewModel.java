@@ -2,6 +2,7 @@ package com.ismt.dibeshrajsubedi.journeyjournal.view_models.home;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
 
@@ -35,6 +36,10 @@ public class ProfileViewModel extends JourneyJournalViewModel {
 
     public MutableLiveData<StatusHelperDAO> getIsNameInValid() {
         return isNameInValid;
+    }
+
+    public MutableLiveData<Bitmap> getFirebaseImageURI(String Path){
+        return firebaseAuthImpl.getImageFile(Path);
     }
 
     public void validateProfile(FirebaseUser user, RegisterDetailsDAO registerDetailsDAO, Uri image, boolean internetConnected, Context context, LifecycleOwner owner) {

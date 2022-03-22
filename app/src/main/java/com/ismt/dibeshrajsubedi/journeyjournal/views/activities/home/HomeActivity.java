@@ -1,5 +1,6 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.views.activities.home;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,12 +34,16 @@ public class HomeActivity extends AppCompatActivity {
     private NavController navController;
     private FirebaseUser user;
     private RegisterDetailsDAO registerDetailsDAO;
+    private Uri extractedUri;
 
     private void extractDetailsFromIntent() {
         if (getIntent() != null) {
             user = getIntent().getParcelableExtra("USER");
             registerDetailsDAO = (RegisterDetailsDAO) getIntent().getSerializableExtra("PROFILE");
-            Log.d(TAG, "extractDetailsFromIntent: fetched User Data from Login Fragment and email as " + user.getEmail());
+            if (getIntent().getStringExtra("ImageURI") != null) {
+                extractedUri = Uri.parse(getIntent().getStringExtra("ImageURI"));
+            }
+            Log.d(TAG, "extractDetailsFromIntent: fetched User Data from Login Fragment and email as " + user.getEmail() + " user image as " + user.getPhotoUrl());
         }
     }
 
@@ -92,6 +97,9 @@ public class HomeActivity extends AppCompatActivity {
             // Passing User Details Via Bundle
             bundle.putParcelable("USER", user);
             bundle.putSerializable("PROFILE", registerDetailsDAO);
+            if (extractedUri != null) {
+                bundle.putString("ImageURI", extractedUri.toString());
+            }
             setNavigationViewBasedOnBundle(bundle);
         });
     }
@@ -118,6 +126,9 @@ public class HomeActivity extends AppCompatActivity {
             Bundle bundle = new Bundle();
             bundle.putParcelable("USER", user);
             bundle.putSerializable("PROFILE", registerDetailsDAO);
+            if (extractedUri != null) {
+                bundle.putString("ImageURI", extractedUri.toString());
+            }
             navController.navigate(R.id.action_global_addFragment, bundle);
         });
         // Trigger Logout Button Click From Bottom Navigation

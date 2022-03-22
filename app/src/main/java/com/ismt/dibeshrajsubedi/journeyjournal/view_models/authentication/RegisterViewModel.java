@@ -11,6 +11,7 @@ import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.register.RegisterFormDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.StatusHelperDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.models.authentication.LoginModel;
+import com.ismt.dibeshrajsubedi.journeyjournal.models.helper.LoginProfileHelperModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.JourneyJournalViewModel;
 
 /**
@@ -21,7 +22,7 @@ public class RegisterViewModel extends JourneyJournalViewModel {
     private final String TAG = "JJ_RegisterViewModel";
     public final MutableLiveData<StatusHelperDAO> isNameInValid = new MutableLiveData<>();
     public final MutableLiveData<StatusHelperDAO> isRetypePasswordNotMatched = new MutableLiveData<>();
-    public final MutableLiveData<LoginModel> isRegisterSuccess = new MutableLiveData<>();
+    public final MutableLiveData<LoginProfileHelperModel> isRegisterSuccess = new MutableLiveData<>();
 
     public RegisterViewModel(@NonNull Application application) {
         super(application);
