@@ -1,10 +1,11 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.profile;
 
-import static android.app.Activity.RESULT_OK;
-
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +36,8 @@ import com.ismt.dibeshrajsubedi.journeyjournal.view_models.home.ProfileViewModel
 import java.util.Objects;
 
 public class ProfileFragment extends Fragment {
-    public final int PICK_IMAGE_REQUEST = 71;
+    public static final int CAMERA_REQUEST_CODE = 102;
+    public static final int GALLERY_REQUEST_CODE = 105;
     private final String TAG = "JJ_ProfileFragment";
     private FirebaseUser user;
     private LifecycleOwner owner;
@@ -50,7 +52,9 @@ public class ProfileFragment extends Fragment {
     private CommonViewModel commonViewModel;
     private ProfileViewModel profileViewModel;
     private Uri image;
+    private Bitmap imageBitmap;
     private Uri extractedUri;
+    private boolean isCamera = false;
 
     private void extractDetailsFromIntent() {
         if (requireActivity().getIntent() != null) {
@@ -92,6 +96,7 @@ public class ProfileFragment extends Fragment {
     private void extractElements(View view) {
         owner = getViewLifecycleOwner();
         image = null;
+        imageBitmap = null;
         fab_profile_image_camera = view.findViewById(R.id.fab_profile_image_camera);
         fab_profile_image_gallery = view.findViewById(R.id.fab_profile_image_gallery);
         iv_profile_image = view.findViewById(R.id.iv_profile_image);
@@ -100,7 +105,6 @@ public class ProfileFragment extends Fragment {
         tv_reset_password = view.findViewById(R.id.tv_reset_password);
         btn_journey_edit = view.findViewById(R.id.btn_journey_edit);
     }
-
 
     private void populateDetailsOnLoad() {
         Objects.requireNonNull(til_email.getEditText()).setText(user.getEmail());
@@ -119,17 +123,23 @@ public class ProfileFragment extends Fragment {
     private void handleTriggerEvent() {
         // Camera Image
         fab_profile_image_camera.setOnClickListener(event -> {
-
+            isCamera = true;
+            Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(camera, CAMERA_REQUEST_CODE);
         });
         // Gallery Image
-        fab_profile_image_gallery.setOnClickListener(event -> chooseImageFromGallery());
+        fab_profile_image_gallery.setOnClickListener(event -> {
+            isCamera = false;
+            Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(gallery, GALLERY_REQUEST_CODE);
+        });
         // Click on Update Button
         btn_journey_edit.setOnClickListener(event -> {
             isInternetConnected();
             profileViewModel.validateProfile(user, new RegisterDetailsDAO(
                     registerDetailsDAO.getEmail(),
                     commonViewModel.til(til_name)
-            ), image, internetConnected, requireContext(), owner);
+            ), image, internetConnected, requireContext(), owner, isCamera, imageBitmap);
         });
         // Click on Reset Password Click Event
         tv_reset_password.setOnClickListener(event -> {
@@ -138,19 +148,23 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    public void chooseImageFromGallery() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            image = data.getData();
-            iv_profile_image.setImageURI(image);
+        if (requestCode == CAMERA_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                imageBitmap = (Bitmap) data.getExtras().get("data");
+                image = null;
+                iv_profile_image.setImageBitmap(imageBitmap);
+            }
+        }
+
+        if (requestCode == GALLERY_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                image = data.getData();
+                imageBitmap = null;
+                iv_profile_image.setImageURI(image);
+            }
         }
     }
 

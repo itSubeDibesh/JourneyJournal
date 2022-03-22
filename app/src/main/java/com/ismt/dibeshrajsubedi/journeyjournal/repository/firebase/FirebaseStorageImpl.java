@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.util.Base64;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -13,6 +14,7 @@ import com.google.firebase.storage.StorageReference;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.StatusHelperDAO;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -63,6 +65,35 @@ public class FirebaseStorageImpl {
         } catch (IOException e) {
             imageFile.postValue(null);
             e.printStackTrace();
+        }
+    }
+
+    public void UploadBitMap(Bitmap image, String filePath, String fileName, Context context) {
+        if (image != null && fileName != null && filePath != null) {
+            final ProgressDialog progressDialog = new ProgressDialog(context);
+            progressDialog.setTitle(R.string.label_uploading);
+            progressDialog.setIcon(R.drawable.ic_launcher_foreground);
+            progressDialog.show();
+
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] data = baos.toByteArray();
+
+            StorageReference ref = reference.child(filePath + fileName);
+            ref.putBytes(data)
+                    .addOnSuccessListener(taskSnapshot -> {
+                        progressDialog.dismiss();
+                        isUploadSuccess.postValue(new StatusHelperDAO(true));
+                    })
+                    .addOnFailureListener(failure -> {
+                        progressDialog.dismiss();
+                        isUploadSuccess.postValue(new StatusHelperDAO(false, failure.getMessage()));
+                    })
+                    .addOnProgressListener(task -> {
+                        double progress = (100.0 * task.getBytesTransferred() / task.getTotalByteCount());
+                        progressDialog.setMessage("Uploaded " + (int) progress + "%");
+                    });
+
         }
     }
 

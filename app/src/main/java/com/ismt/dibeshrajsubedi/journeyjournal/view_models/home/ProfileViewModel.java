@@ -42,7 +42,7 @@ public class ProfileViewModel extends JourneyJournalViewModel {
         return firebaseAuthImpl.getImageFile(Path);
     }
 
-    public void validateProfile(FirebaseUser user, RegisterDetailsDAO registerDetailsDAO, Uri image, boolean internetConnected, Context context, LifecycleOwner owner) {
+    public void validateProfile(FirebaseUser user, RegisterDetailsDAO registerDetailsDAO, Uri image, boolean internetConnected, Context context, LifecycleOwner owner, boolean isCamera, Bitmap bitmap) {
         Log.d(TAG, "validateProfile: Triggered validateProfile with internetConnected as " + internetConnected);
 
         // Name Validation Checks - [Empty Check]
@@ -55,7 +55,7 @@ public class ProfileViewModel extends JourneyJournalViewModel {
         // TODO : Implement Offline Code Using Room
         if (internetConnected) {
             if (!registerDetailsDAO.isNullOrEmpty(Name)) {
-                firebaseAuthImpl.updateProfile(user, registerDetailsDAO, image, context, owner);
+                firebaseAuthImpl.updateProfile(user, registerDetailsDAO, image, context, owner,isCamera, bitmap);
                 firebaseAuthImpl.getUpdateSuccessMutableLiveData().observe(owner, profileModel -> {
                     Log.d(TAG, "validateProfile: firebaseAuthImpl.getUpdateSuccessMutableLiveData invoked with getStatus as " + profileModel.getStatus());
                     isProfileUpdated.postValue(profileModel);
