@@ -72,7 +72,7 @@ public class RegisterViewModel extends JourneyJournalViewModel {
         if (internetConnected) {
             firebaseAuthImpl.register(registerFormDAO);
             firebaseAuthImpl.getRegisterModelMutableLiveData().observe(owner, regModel -> {
-                Log.d(TAG, "registrationValidation: firebaseAuthImpl.getDmRegistrationMutableLiveData invoked with isRegistrationSuccess as " + regModel.isSuccess());
+                Log.d(TAG, "registrationValidation: firebaseAuthImpl.getDmRegistrationMutableLiveData invoked with isRegistrationSuccess as " + regModel.getStatus());
                 isRegisterSuccess.setValue(regModel);
             });
         }

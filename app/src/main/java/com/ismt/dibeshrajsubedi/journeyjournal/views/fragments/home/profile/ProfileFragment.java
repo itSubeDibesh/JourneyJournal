@@ -1,12 +1,15 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.profile;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,22 +30,26 @@ import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.register.Regis
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.ConnectivityHelperDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.authentication.ForgetPasswordViewModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.CommonViewModel;
+import com.ismt.dibeshrajsubedi.journeyjournal.view_models.home.ProfileViewModel;
 
 import java.util.Objects;
 
 public class ProfileFragment extends Fragment {
+    public final int PICK_IMAGE_REQUEST = 71;
     private final String TAG = "JJ_ProfileFragment";
     private FirebaseUser user;
     private LifecycleOwner owner;
     private boolean internetConnected;
     private RegisterDetailsDAO registerDetailsDAO;
-    private ImageButton fab_profile_image_add;
+    private FloatingActionButton fab_profile_image_camera, fab_profile_image_gallery;
     private ImageView iv_profile_image;
     private TextInputLayout til_email, til_name;
     private TextView tv_reset_password;
     private Button btn_journey_edit;
     private ForgetPasswordViewModel forgetPasswordViewModel;
     private CommonViewModel commonViewModel;
+    private ProfileViewModel profileViewModel;
+    private Uri image;
 
     private void extractDetailsFromIntent() {
         if (requireActivity().getIntent() != null) {
@@ -57,27 +65,31 @@ public class ProfileFragment extends Fragment {
         Log.d(TAG, "onNetworkChanged: Triggered, Received " + internetConnected + " as Status and " + helper.getMessage() + " message.");
     }
 
-    private void handleTriggerEvent() {
-        tv_reset_password.setOnClickListener(event -> {
-            isInternetConnected();
-            forgetPasswordViewModel.resetValidation(new ResetDAO(user.getEmail()), internetConnected, owner);
-        });
-    }
-
     private void observeMutableLiveData(View view) {
         forgetPasswordViewModel.getForgetPasswordViewModelMutableLiveData().observe(owner, forgetPasswordModel -> {
-            if (forgetPasswordModel.isSuccess()) {
+            if (forgetPasswordModel.getStatus()) {
                 Toast.makeText(requireContext(), forgetPasswordModel.getMessage(), Toast.LENGTH_LONG).show();
                 commonViewModel.logout(owner, requireActivity());
             } else {
                 Snackbar.make(view, forgetPasswordModel.getMessage(), Snackbar.LENGTH_LONG).show();
             }
         });
+        profileViewModel.getIsProfileUpdated().observe(owner, profileModel -> {
+            if (profileModel.getStatus()) {
+                Toast.makeText(requireContext(), profileModel.getMessage(), Toast.LENGTH_LONG).show();
+                commonViewModel.logout(owner, requireActivity());
+            } else {
+                Snackbar.make(view, profileModel.getMessage(), Snackbar.LENGTH_LONG).show();
+            }
+        });
+        profileViewModel.getIsNameInValid().observe(owner, helper -> commonViewModel.setObserverError(til_email, helper));
     }
 
     private void extractElements(View view) {
         owner = getViewLifecycleOwner();
-        fab_profile_image_add = view.findViewById(R.id.fab_profile_image_add);
+        image = null;
+        fab_profile_image_camera = view.findViewById(R.id.fab_profile_image_camera);
+        fab_profile_image_gallery = view.findViewById(R.id.fab_profile_image_gallery);
         iv_profile_image = view.findViewById(R.id.iv_profile_image);
         til_email = view.findViewById(R.id.til_email);
         til_name = view.findViewById(R.id.til_name);
@@ -85,9 +97,9 @@ public class ProfileFragment extends Fragment {
         btn_journey_edit = view.findViewById(R.id.btn_journey_edit);
     }
 
+
     private void populateDetailsOnLoad() {
         Objects.requireNonNull(til_email.getEditText()).setText(user.getEmail());
-        // ToDo: Bug On Initial Load might be data handling from Intent
         if (registerDetailsDAO != null) {
             Objects.requireNonNull(til_name.getEditText()).setText(registerDetailsDAO.getDisplayName());
         }
@@ -98,12 +110,52 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+    private void handleTriggerEvent() {
+        // Camera Image
+        fab_profile_image_camera.setOnClickListener(event -> {
+
+        });
+        // Gallery Image
+        fab_profile_image_gallery.setOnClickListener(event -> chooseImageFromGallery());
+        // Click on Update Button
+        btn_journey_edit.setOnClickListener(event -> {
+            isInternetConnected();
+            profileViewModel.validateProfile(user, new RegisterDetailsDAO(
+                    registerDetailsDAO.getEmail(),
+                    commonViewModel.til(til_name)
+            ), image, internetConnected, owner);
+        });
+
+        // Click on Reset Password Click Event
+        tv_reset_password.setOnClickListener(event -> {
+            isInternetConnected();
+            forgetPasswordViewModel.resetValidation(new ResetDAO(user.getEmail()), internetConnected, owner);
+        });
+    }
+
+    public void chooseImageFromGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            image = data.getData();
+            iv_profile_image.setImageURI(image);
+        }
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Step 0: Binding View Model
         forgetPasswordViewModel = new ViewModelProvider(this).get(ForgetPasswordViewModel.class);
         commonViewModel = new ViewModelProvider(this).get(CommonViewModel.class);
+        profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
     }
 
     @Override

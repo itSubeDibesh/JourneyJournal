@@ -39,7 +39,7 @@ public class ForgetPasswordViewModel extends JourneyJournalViewModel {
                 firebaseAuthImpl.resetPassword(resetDAO);
                 firebaseAuthImpl.getResetSuccessMutableLiveData().observe(owner, forgetPassword -> {
                     ForgetPasswordModel forgetPasswordModel;
-                    if (forgetPassword.isSuccess()) {
+                    if (forgetPassword.getStatus()) {
                         forgetPasswordModel = new ForgetPasswordModel(true, getString(R.string.message_reset_email_sent));
                         forgetPasswordModel.setResetDAO(forgetPassword.getResetDAO());
                     } else {

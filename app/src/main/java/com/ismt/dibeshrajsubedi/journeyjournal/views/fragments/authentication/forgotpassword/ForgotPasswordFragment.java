@@ -74,7 +74,7 @@ public class ForgotPasswordFragment extends Fragment {
         // Observer 2: Forget Password Observer
         forgetPasswordViewModel.getForgetPasswordViewModelMutableLiveData().observe(owner, forgetPasswordModel -> {
             Toast.makeText(requireContext(), forgetPasswordModel.getMessage(), Toast.LENGTH_LONG).show();
-            if (forgetPasswordModel.isSuccess()) {
+            if (forgetPasswordModel.getStatus()) {
                 navController.navigate(R.id.action_forgotPasswordFragment_to_loginFragment);
             }
         });

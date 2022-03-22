@@ -14,5 +14,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "JourneyJournal"
 include ':app'
-include ':data'
-include ':domain'

@@ -92,9 +92,9 @@ public class LoginFragment extends Fragment {
         loginViewModel.isPasswordInValid.observe(owner, helper -> commonViewModel.setObserverError(ltil_password, helper));
         // Observer 3: isLoginSuccess
         loginViewModel.isLoginSuccess.observe(owner, helper -> {
-            Log.d(TAG, "observeMutableLiveData: loginViewModel.isLoginSuccess invoked with isLoginSuccess as " + helper.isSuccess());
+            Log.d(TAG, "observeMutableLiveData: loginViewModel.isLoginSuccess invoked with isLoginSuccess as " + helper.getStatus());
             Toast.makeText(getContext(), helper.getMessage(), Toast.LENGTH_LONG).show();
-            if (helper.isSuccess()) {
+            if (helper.getStatus()) {
                 Intent intent = new Intent(requireActivity(), HomeActivity.class);
                 intent.putExtra("USER", helper.getFirebaseUser());
                 intent.putExtra("PROFILE", helper.getRegisterDetailsDAO());
@@ -104,9 +104,9 @@ public class LoginFragment extends Fragment {
         });
         // Observer 4: isUserLoggedIn
         loginViewModel.isUserLoggedIn.observe(owner, helper -> {
-            Log.d(TAG, "observeMutableLiveData: loginViewModel.isUserLoggedIn invoked with isUserLoggedIn as " + helper.isSuccess());
+            Log.d(TAG, "observeMutableLiveData: loginViewModel.isUserLoggedIn invoked with isUserLoggedIn as " + helper.getStatus());
             Toast.makeText(getContext(), helper.getMessage(), Toast.LENGTH_LONG).show();
-            if (helper.isSuccess()) {
+            if (helper.getStatus()) {
                 Intent intent = new Intent(requireActivity(), HomeActivity.class);
                 intent.putExtra("USER", helper.getFirebaseUser());
                 intent.putExtra("PROFILE", helper.getRegisterDetailsDAO());

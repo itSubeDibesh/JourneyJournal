@@ -29,8 +29,6 @@ import com.ismt.dibeshrajsubedi.journeyjournal.view_models.authentication.Regist
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.CommonViewModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.home.HomeActivity;
 
-import java.io.Serializable;
-
 /**
  * Navigates to Home Activity or Login Fragment
  */
@@ -105,7 +103,7 @@ public class RegisterFragment extends Fragment {
         // Observer 5: isRegisterSuccess
         registerViewModel.isRegisterSuccess.observe(owner, helper -> {
             Toast.makeText(requireContext(), helper.getMessage(), Toast.LENGTH_LONG).show();
-            if (helper.isSuccess()) {
+            if (helper.getStatus()) {
                 Intent intent = new Intent(requireActivity(), HomeActivity.class);
                 intent.putExtra("USER_PROFILE", (Parcelable) helper);
                 startActivity(intent);

@@ -1,32 +1,21 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.models.authentication;
 
 import com.google.firebase.auth.FirebaseUser;
+import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.StatusHelperDAO;
 
 /**
  * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.models.authentication.register was
  * Created by Dibesh Raj Subedi on 3/20/2022.
  */
-public class LoginModel {
-    private final boolean isSuccess;
-    private final String message;
+public class LoginModel extends StatusHelperDAO {
     private FirebaseUser firebaseUser;
 
     public LoginModel(boolean isSuccess) {
-        this.isSuccess = isSuccess;
-        this.message = null;
+        super(isSuccess);
     }
 
     public LoginModel(boolean isSuccess, String message) {
-        this.isSuccess = isSuccess;
-        this.message = message;
-    }
-
-    public boolean isSuccess() {
-        return isSuccess;
-    }
-
-    public String getMessage() {
-        return message;
+        super(isSuccess, message);
     }
 
     public FirebaseUser getFirebaseUser() {

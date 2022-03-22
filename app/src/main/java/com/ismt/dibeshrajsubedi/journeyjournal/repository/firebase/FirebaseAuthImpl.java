@@ -1,11 +1,13 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.repository.firebase;
 
+import android.net.Uri;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.FirebaseDatabase;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.LoginDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.ResetDAO;
@@ -13,6 +15,7 @@ import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.register.Regis
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.register.RegisterFormDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.models.authentication.ForgetPasswordModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.models.helper.LoginProfileHelperModel;
+import com.ismt.dibeshrajsubedi.journeyjournal.models.home.ProfileModel;
 
 import java.util.Objects;
 
@@ -25,18 +28,15 @@ public class FirebaseAuthImpl {
     private final MutableLiveData<LoginProfileHelperModel> registerModelMutableLiveData = new MutableLiveData<>();
     private final MutableLiveData<LoginProfileHelperModel> userLoggedMutableLiveData = new MutableLiveData<>();
     private final MutableLiveData<ForgetPasswordModel> resetSuccessMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<ProfileModel> updateSuccessMutableLiveData = new MutableLiveData<>();
     private final MutableLiveData<Boolean> userLoggedIn = new MutableLiveData<>();
-    private final FirebaseAuth auth;
-    private final FirebaseDatabase database;
+    private final FirebaseAuth auth = FirebaseAuth.getInstance();
+    private final FirebaseDatabase database = new FirebaseDatabaseImpl().getDatabase();
 
     /**
      * Constructor and Initializer for FirebaseAuthImpl
      */
     public FirebaseAuthImpl() {
-        // Extracting Firebase instance
-        auth = FirebaseAuth.getInstance();
-        // Extracting Database instance
-        database = FirebaseDatabase.getInstance();
         // Retrieves User if Null
         if (auth.getCurrentUser() != null) {
             database.getReference("User").child(auth.getCurrentUser().getUid()).get().addOnCompleteListener(data -> {
@@ -84,6 +84,15 @@ public class FirebaseAuthImpl {
      */
     public MutableLiveData<LoginProfileHelperModel> getUserLoggedMutableLiveData() {
         return userLoggedMutableLiveData;
+    }
+
+    /**
+     * Returns  MutableLiveData<ProfileModel>
+     *
+     * @return MutableLiveData<ProfileModel>
+     */
+    public MutableLiveData<ProfileModel> getUpdateSuccessMutableLiveData() {
+        return updateSuccessMutableLiveData;
     }
 
     /**
@@ -136,7 +145,7 @@ public class FirebaseAuthImpl {
                                 login_db = new LoginProfileHelperModel(false, Objects.requireNonNull(create_auth.getException()).getMessage());
                             }
                             registerModelMutableLiveData.postValue(login_db);
-                            Log.d(TAG, "register: At registration.setRegistration received isRegistrationSuccess as " + login_db.isSuccess());
+                            Log.d(TAG, "register: At registration.setRegistration received isRegistrationSuccess as " + login_db.getStatus());
                         });
             } else
                 registerModelMutableLiveData.postValue(new LoginProfileHelperModel(false, Objects.requireNonNull(create_auth.getException()).getMessage()));
@@ -184,8 +193,31 @@ public class FirebaseAuthImpl {
     }
 
     // TODO: User Profile Update
-
-    // TODO: Reset Password
+    public void updateProfile(FirebaseUser user, RegisterDetailsDAO registerDetailsDAO, Uri image) {
+        Log.d(TAG, "updateProfile: triggered with UUID " + user.getUid() + " and image uri as " + image);
+        UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
+                .setDisplayName(registerDetailsDAO.getDisplayName())
+                .setPhotoUri(image)
+                .build();
+        user.updateProfile(profileChangeRequest)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        // Update Name In Profile
+                        database.getReference("User").child(user.getUid()).setValue(registerDetailsDAO).addOnCompleteListener(status -> {
+                            ProfileModel profileModel;
+                            if (status.isSuccessful()) {
+                                profileModel = new ProfileModel(true, "Profile Updated Successfully, Logging Out");
+                                profileModel.setRegisterDetailsDAO(registerDetailsDAO);
+                            } else {
+                                profileModel = new ProfileModel(false, status.getException().getMessage());
+                            }
+                            updateSuccessMutableLiveData.postValue(profileModel);
+                        });
+                    } else {
+                        updateSuccessMutableLiveData.postValue(new ProfileModel(false, task.getException().getMessage()));
+                    }
+                });
+    }
 
     /**
      * Reset Password Sends FireBase Reset Email

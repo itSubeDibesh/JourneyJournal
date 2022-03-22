@@ -1,31 +1,21 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.models.authentication;
 
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.ResetDAO;
+import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.StatusHelperDAO;
 
 /**
  * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.models.authentication was
  * Created by Dibesh Raj Subedi on 3/21/2022.
  */
-public class ForgetPasswordModel {
-    private final boolean isSuccess;
-    private final String message;
+public class ForgetPasswordModel extends StatusHelperDAO {
     private ResetDAO resetDAO;
 
     public ForgetPasswordModel(boolean isSuccess) {
-        this.isSuccess = isSuccess;
-        this.message = null;
+        super(isSuccess);
     }
+
     public ForgetPasswordModel(boolean isSuccess, String message) {
-        this.isSuccess = isSuccess;
-        this.message = message;
-    }
-
-    public boolean isSuccess() {
-        return isSuccess;
-    }
-
-    public String getMessage() {
-        return message;
+        super(isSuccess, message);
     }
 
     public ResetDAO getResetDAO() {

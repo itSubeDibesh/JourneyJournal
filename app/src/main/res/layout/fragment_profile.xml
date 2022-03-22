@@ -52,7 +52,7 @@
         app:layout_constraintTop_toBottomOf="@+id/label_page_name" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_profile_image_add"
+        android:id="@+id/fab_profile_image_camera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp_medium"
@@ -65,13 +65,27 @@
         app:layout_constraintBottom_toBottomOf="@+id/iv_profile_image"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_profile_image_gallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_small"
+        android:clickable="true"
+        android:contentDescription="@string/field_journey_image"
+        android:focusable="true"
+        android:src="@drawable/ic_image"
+        android:theme="@style/Theme.JourneyJournal.FAB"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toTopOf="@+id/fab_profile_image_camera"
+        app:layout_constraintEnd_toEndOf="@+id/iv_profile_image" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp_medium"
-        android:paddingBottom="@dimen/dp_medium"
         android:orientation="vertical"
+        android:paddingBottom="@dimen/dp_medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_profile_image">
