@@ -1,8 +1,10 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.repository.firebase;
 
+import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,6 +34,7 @@ public class FirebaseAuthImpl {
     private final MutableLiveData<Boolean> userLoggedIn = new MutableLiveData<>();
     private final FirebaseAuth auth = FirebaseAuth.getInstance();
     private final FirebaseDatabase database = new FirebaseDatabaseImpl().getDatabase();
+    private final FirebaseStorageImpl storageImpl = new FirebaseStorageImpl();
 
     /**
      * Constructor and Initializer for FirebaseAuthImpl
@@ -44,7 +47,6 @@ public class FirebaseAuthImpl {
                 model.setFirebaseUser(auth.getCurrentUser());
                 model.setRegisterDetailsDAO(data.getResult().getValue(RegisterDetailsDAO.class));
                 userLoggedMutableLiveData.postValue(model);
-                Log.d(TAG, "FirebaseAuthImpl: Received Current user Email as " + Objects.requireNonNull(auth.getCurrentUser()).getEmail());
             });
         } else Log.d(TAG, "FirebaseAuthImpl: Null Current User, Needs Login or Register");
     }
@@ -193,30 +195,53 @@ public class FirebaseAuthImpl {
     }
 
     // TODO: User Profile Update
-    public void updateProfile(FirebaseUser user, RegisterDetailsDAO registerDetailsDAO, Uri image) {
+    public void updateProfile(FirebaseUser user, RegisterDetailsDAO registerDetailsDAO, Uri image, Context context, LifecycleOwner owner) {
         Log.d(TAG, "updateProfile: triggered with UUID " + user.getUid() + " and image uri as " + image);
-        UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
-                .setDisplayName(registerDetailsDAO.getDisplayName())
-                .setPhotoUri(image)
-                .build();
-        user.updateProfile(profileChangeRequest)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        // Update Name In Profile
-                        database.getReference("User").child(user.getUid()).setValue(registerDetailsDAO).addOnCompleteListener(status -> {
-                            ProfileModel profileModel;
-                            if (status.isSuccessful()) {
-                                profileModel = new ProfileModel(true, "Profile Updated Successfully, Logging Out");
-                                profileModel.setRegisterDetailsDAO(registerDetailsDAO);
-                            } else {
-                                profileModel = new ProfileModel(false, status.getException().getMessage());
-                            }
-                            updateSuccessMutableLiveData.postValue(profileModel);
-                        });
-                    } else {
-                        updateSuccessMutableLiveData.postValue(new ProfileModel(false, task.getException().getMessage()));
-                    }
-                });
+        // Step 1: Upload Image if Exists
+        if (image != null) {
+            storageImpl.UploadImage(image, "images/profiles/", user.getEmail(), context);
+            // Step 2: Check getIsUploadSuccess
+            storageImpl.getIsUploadSuccess().observe(owner, statusHelperDAO -> {
+                if (statusHelperDAO.getStatus()) {
+                    // Step 3: Update profileChangeRequest
+                    UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
+                            .setPhotoUri(Uri.parse("gs://journeyjournal-app.appspot.com/images/profiles/" + user.getEmail()))
+                            .build();
+                    // Step 4: updateProfile
+                    user.updateProfile(profileChangeRequest)
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    // Update Name In Profile
+                                    database.getReference("User").child(user.getUid()).setValue(registerDetailsDAO).addOnCompleteListener(status -> {
+                                        ProfileModel profileModel;
+                                        if (status.isSuccessful()) {
+                                            profileModel = new ProfileModel(true, "Profile Updated Successfully, Logging Out");
+                                            profileModel.setRegisterDetailsDAO(registerDetailsDAO);
+                                        } else {
+                                            profileModel = new ProfileModel(false, status.getException().getMessage());
+                                        }
+                                        updateSuccessMutableLiveData.postValue(profileModel);
+                                    });
+                                } else {
+                                    updateSuccessMutableLiveData.postValue(new ProfileModel(false, task.getException().getMessage()));
+                                }
+                            });
+                } else
+                    updateSuccessMutableLiveData.postValue(new ProfileModel(false, statusHelperDAO.getMessage()));
+            });
+        } else {
+            //  Update Database Only
+            database.getReference("User").child(user.getUid()).setValue(registerDetailsDAO).addOnCompleteListener(status -> {
+                ProfileModel profileModel;
+                if (status.isSuccessful()) {
+                    profileModel = new ProfileModel(true, "Profile Updated Successfully, Logging Out");
+                    profileModel.setRegisterDetailsDAO(registerDetailsDAO);
+                } else {
+                    profileModel = new ProfileModel(false, status.getException().getMessage());
+                }
+                updateSuccessMutableLiveData.postValue(profileModel);
+            });
+        }
     }
 
     /**

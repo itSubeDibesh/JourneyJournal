@@ -115,7 +115,7 @@ public class CommonViewModel extends AndroidViewModel {
      */
     public void cacheLoggedIn(Activity activity, LifecycleOwner owner) {
         firebaseAuth.getUserLoggedMutableLiveData().observe(owner, loginModel -> {
-            Log.d(TAG, "cacheLoggedIn: login cached received email as " + loginModel.getFirebaseUser().getEmail());
+            Log.d(TAG, "cacheLoggedIn: login cached received email as " + loginModel.getFirebaseUser().getEmail() + " and Image as " + loginModel.getFirebaseUser().getPhotoUrl());
             if (loginModel.getFirebaseUser() != null) {
                 Intent intent = new Intent(activity.getApplicationContext(), HomeActivity.class);
                 intent.putExtra("USER", loginModel.getFirebaseUser());

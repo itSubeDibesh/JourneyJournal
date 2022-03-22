@@ -103,6 +103,7 @@ public class ProfileFragment extends Fragment {
         if (registerDetailsDAO != null) {
             Objects.requireNonNull(til_name.getEditText()).setText(registerDetailsDAO.getDisplayName());
         }
+        Log.d(TAG, "populateDetailsOnLoad: User PhotoUrl "+user.getPhotoUrl());
         if (user.getPhotoUrl() != null) {
             iv_profile_image.setImageURI(user.getPhotoUrl());
         } else {
@@ -123,7 +124,7 @@ public class ProfileFragment extends Fragment {
             profileViewModel.validateProfile(user, new RegisterDetailsDAO(
                     registerDetailsDAO.getEmail(),
                     commonViewModel.til(til_name)
-            ), image, internetConnected, owner);
+            ), image, internetConnected, requireContext(), owner);
         });
 
         // Click on Reset Password Click Event

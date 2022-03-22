@@ -3,6 +3,8 @@
     package="com.ismt.dibeshrajsubedi.journeyjournal">
     <!--  Permission For Internet  -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--  Permission For Reading External Source  -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!--  Permission Network Status  -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!--  Permission Camera Hardware  -->
