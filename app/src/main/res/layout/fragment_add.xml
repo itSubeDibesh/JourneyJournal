@@ -93,7 +93,6 @@
                     android:text="@string/field_journey_address"
                     android:textSize="@dimen/sp_medium"
                     app:drawableLeftCompat="@drawable/ic_gps"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -108,9 +107,8 @@
                     android:text="@string/button_get_location"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/til_journey_address" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ismt.dibeshrajsubedi.journeyjournal">
-    <!--  Permission For Internet  -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!--  Permission For Reading External Source  -->
+
+    <!-- Permission For Internet -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- Permission For Reading External Source -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!--  Permission Network Status  -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!--  Permission Camera Hardware  -->
-    <uses-feature android:name="android.hardware.camera" android:required="true"></uses-feature>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Permission Network Status -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,16 +21,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.JourneyJournal.NoActionBar">
+
+        <!--
+             TODO: Before you run your application, you need a Google Maps API key.
+
+             To get one, follow the directions here:
+
+                https://developers.google.com/maps/documentation/android-sdk/get-api-key
+
+             Once you have your API key (it starts with "AIza"), define a new property in your
+             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
+             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
+        -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
+
         <activity
             android:name=".views.activities.home.HomeActivity"
             android:exported="false" />
         <activity
             android:name=".views.activities.authentication.AuthenticationActivity"
             android:exported="false" />
-        <!--   Launcher Activity Splash Screen     -->
         <activity
             android:name=".views.launcher.LauncherActivity"
-            android:exported="true">
+            android:exported="true"> <!-- Launcher Activity Splash Screen -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

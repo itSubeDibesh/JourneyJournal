@@ -123,14 +123,17 @@ public class ProfileFragment extends Fragment {
     private void handleTriggerEvent() {
         // Camera Image
         fab_profile_image_camera.setOnClickListener(event -> {
+            Toast.makeText(requireContext(), "Opening Camera", Toast.LENGTH_SHORT).show();
             isCamera = true;
             Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(camera, CAMERA_REQUEST_CODE);
         });
         // Gallery Image
         fab_profile_image_gallery.setOnClickListener(event -> {
+            Toast.makeText(requireContext(), "Opening Gallery", Toast.LENGTH_SHORT).show();
             isCamera = false;
             Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            gallery.setType("image/*");
             startActivityForResult(gallery, GALLERY_REQUEST_CODE);
         });
         // Click on Update Button

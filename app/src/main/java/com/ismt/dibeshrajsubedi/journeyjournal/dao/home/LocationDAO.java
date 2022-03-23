@@ -5,21 +5,21 @@ package com.ismt.dibeshrajsubedi.journeyjournal.dao.home;
  * Created by Dibesh Raj Subedi on 3/21/2022.
  */
 public class LocationDAO {
-    private final String latitude;
-    private final String longitude;
+    private final Double latitude;
+    private final Double longitude;
     private final String address;
 
-    public LocationDAO(String latitude, String longitude, String address) {
+    public LocationDAO(Double latitude, Double longitude, String address) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.address = address;
     }
 
-    public String getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public String getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 

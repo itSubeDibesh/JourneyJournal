@@ -11,6 +11,7 @@
     <string name="label_send_reset_link">Reset Password</string>
     <string name="label_update_profile">Update Profile</string>
     <!--  Page Labels  -->
+    <string name="page_map">Map</string>
     <string name="page_login">Login</string>
     <string name="page_register">Register</string>
     <string name="page_forgot_password">Forgot password?</string>
@@ -51,7 +52,7 @@
     <string name="button_update">Update</string>
     <string name="button_share">Share</string>
     <string name="button_delete">Delete</string>
-    <string name="button_get_location">Get Location</string>
+    <string name="button_get_location">Location</string>
     <string name="button_add_journey">Add journey</string>
     <string name="button_login">@string/page_login</string>
     <string name="button_logout">@string/icon_logout</string>
@@ -109,4 +110,6 @@
     <string name="consent_sure_consent">Are you sure?</string>
     <!--  Dummy text  -->
     <string name="dummy_lorem">On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
