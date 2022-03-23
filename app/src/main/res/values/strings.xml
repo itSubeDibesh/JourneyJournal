@@ -53,6 +53,8 @@
     <string name="button_share">Share</string>
     <string name="button_delete">Delete</string>
     <string name="button_get_location">Location</string>
+    <string name="button_update_location">Update Location</string>
+    <string name="button_show_on_map">View Map</string>
     <string name="button_add_journey">Add journey</string>
     <string name="button_login">@string/page_login</string>
     <string name="button_logout">@string/icon_logout</string>
@@ -74,6 +76,9 @@
     <string name="message_welcome_back">Welcome back, Let\'s get started.</string>
     <string name="message_login_invalid_credentials">Invalid email or password.</string>
     <string name="message_new_user">New user?</string>
+    <string name="message_opening_camera">Opening Camera</string>
+    <string name="message_opening_gallery">Opening Gallery</string>
+    <string name="message_extracting_location">Extracting Location</string>
     <string name="message_have_account">Have account?</string>
     <string name="message_back_to_login">Back to login?</string>
     <!--  Success  -->
@@ -87,6 +92,8 @@
     <!--  Error  -->
     <string name="error_invalid_name">Name is Required!</string>
     <string name="error_empty_email">Email Address is Required!!</string>
+    <string name="error_empty_title">Journey Title is Required!!</string>
+    <string name="error_empty_description">Journey Description is Required!!</string>
     <string name="error_invalid_email">Invalid Email Format!</string>
     <string name="error_password_length">Password expects 6–20 characters.</string>
     <string name="error_empty_retype_password">Retype-Password is Empty!</string>

@@ -76,18 +76,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_medium"
+            android:layout_marginTop="16dp"
             android:drawablePadding="@dimen/dp_small"
             android:gravity="center"
             android:text="@string/field_journey_address"
             android:textSize="@dimen/sp_medium"
             android:textStyle="bold"
             app:drawableLeftCompat="@drawable/ic_gps"
+            app:layout_constraintEnd_toStartOf="@+id/tv_journey_map"
+            app:layout_constraintTop_toBottomOf="@+id/iv_journey_image" />
+
+        <TextView
+            android:id="@+id/tv_journey_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_medium"
+            android:layout_marginEnd="17dp"
+            android:clickable="true"
+            android:drawableTint="@color/primaryColor"
+            android:drawableRight="@drawable/ic_map"
+            android:drawablePadding="@dimen/dp_small"
+            android:focusable="true"
+            android:gravity="center"
+            android:textSize="@dimen/sp_medium"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_journey_image" />
 
 
         <ScrollView
-            android:id="@+id/scrollView3"
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/ib_250"
             android:layout_margin="@dimen/dp_medium"
@@ -119,7 +137,7 @@
             android:textSize="@dimen/sp_medium"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
+            app:layout_constraintTop_toBottomOf="@+id/scrollView" />
 
         <Button
             android:id="@+id/btn_journey_edit"
@@ -137,7 +155,7 @@
             android:textSize="@dimen/sp_medium"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/btn_journey_delete"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
+            app:layout_constraintTop_toBottomOf="@+id/scrollView" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

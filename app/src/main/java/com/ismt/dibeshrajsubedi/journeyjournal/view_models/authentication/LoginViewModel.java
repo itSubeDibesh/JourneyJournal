@@ -11,7 +11,7 @@ import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.LoginDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.register.RegisterDetailsDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.models.helper.LoginProfileHelperModel;
-import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.JourneyJournalViewModel;
+import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.JJ_AuthViewModel;
 
 import java.util.Objects;
 
@@ -19,7 +19,7 @@ import java.util.Objects;
  * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.view_models was
  * Created by Dibesh Raj Subedi on 3/19/2022.
  */
-public class LoginViewModel extends JourneyJournalViewModel {
+public class LoginViewModel extends JJ_AuthViewModel {
     public final MutableLiveData<LoginProfileHelperModel> isLoginSuccess = new MutableLiveData<>();
     public final MutableLiveData<LoginProfileHelperModel> isUserLoggedIn = new MutableLiveData<>();
     private final String TAG = "JJ_LoginViewModel";

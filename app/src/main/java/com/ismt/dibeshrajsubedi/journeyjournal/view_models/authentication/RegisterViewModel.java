@@ -10,15 +10,14 @@ import androidx.lifecycle.MutableLiveData;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.register.RegisterFormDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.StatusHelperDAO;
-import com.ismt.dibeshrajsubedi.journeyjournal.models.authentication.LoginModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.models.helper.LoginProfileHelperModel;
-import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.JourneyJournalViewModel;
+import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.JJ_AuthViewModel;
 
 /**
  * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.view_models.authentication.register was
  * Created by Dibesh Raj Subedi on 3/15/2022.
  */
-public class RegisterViewModel extends JourneyJournalViewModel {
+public class RegisterViewModel extends JJ_AuthViewModel {
     private final String TAG = "JJ_RegisterViewModel";
     public final MutableLiveData<StatusHelperDAO> isNameInValid = new MutableLiveData<>();
     public final MutableLiveData<StatusHelperDAO> isRetypePasswordNotMatched = new MutableLiveData<>();

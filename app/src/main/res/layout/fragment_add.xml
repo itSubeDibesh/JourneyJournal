@@ -25,7 +25,23 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_image_add"
+            android:id="@+id/fab_profile_image_gallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_small"
+            android:clickable="true"
+            android:layout_marginRight="@dimen/dp_medium"
+            android:contentDescription="@string/button_gallery"
+            android:focusable="true"
+            android:src="@drawable/ic_image"
+            android:theme="@style/Theme.JourneyJournal.FAB"
+            app:fabSize="mini"
+            app:layout_constraintBottom_toTopOf="@+id/fab_image_camera"
+            app:layout_constraintEnd_toEndOf="@+id/iv_journey_image" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_image_camera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_medium"

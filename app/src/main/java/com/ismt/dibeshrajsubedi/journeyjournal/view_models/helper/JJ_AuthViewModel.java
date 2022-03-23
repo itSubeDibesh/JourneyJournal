@@ -15,7 +15,7 @@ import com.ismt.dibeshrajsubedi.journeyjournal.repository.firebase.FirebaseAuthI
  * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.view_models was
  * Created by Dibesh Raj Subedi on 3/19/2022.
  */
-public class JourneyJournalViewModel extends AndroidViewModel {
+public class JJ_AuthViewModel extends AndroidViewModel {
 
     /**
      * Instantiating InputValidationHelper
@@ -32,7 +32,7 @@ public class JourneyJournalViewModel extends AndroidViewModel {
      */
     public final MutableLiveData<StatusHelperDAO> isPasswordInValid = new MutableLiveData<>();
 
-    public JourneyJournalViewModel(@NonNull Application application) {
+    public JJ_AuthViewModel(@NonNull Application application) {
         super(application);
     }
 

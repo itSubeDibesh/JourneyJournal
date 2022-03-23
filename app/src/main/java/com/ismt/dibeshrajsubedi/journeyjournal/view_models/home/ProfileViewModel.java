@@ -15,13 +15,13 @@ import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.register.RegisterDetailsDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.StatusHelperDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.models.home.ProfileModel;
-import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.JourneyJournalViewModel;
+import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.JJ_AuthViewModel;
 
 /**
  * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.view_models.home was
  * Created by Dibesh Raj Subedi on 3/22/2022.
  */
-public class ProfileViewModel extends JourneyJournalViewModel {
+public class ProfileViewModel extends JJ_AuthViewModel {
     public final MutableLiveData<ProfileModel> isProfileUpdated = new MutableLiveData<>();
     public final MutableLiveData<StatusHelperDAO> isNameInValid = new MutableLiveData<>();
     private final String TAG = "JJ_ProfileViewModel";

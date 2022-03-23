@@ -36,24 +36,33 @@ import com.ismt.dibeshrajsubedi.journeyjournal.view_models.home.ProfileViewModel
 import java.util.Objects;
 
 public class ProfileFragment extends Fragment {
+    // Permission Requests
     public static final int CAMERA_REQUEST_CODE = 102;
     public static final int GALLERY_REQUEST_CODE = 105;
+
     private final String TAG = "JJ_ProfileFragment";
+
     private FirebaseUser user;
     private LifecycleOwner owner;
     private boolean internetConnected;
     private RegisterDetailsDAO registerDetailsDAO;
+
+    // Input Fields
     private FloatingActionButton fab_profile_image_camera, fab_profile_image_gallery;
     private ImageView iv_profile_image;
     private TextInputLayout til_email, til_name;
     private TextView tv_reset_password;
     private Button btn_journey_edit;
+
+    // View Models
     private ForgetPasswordViewModel forgetPasswordViewModel;
     private CommonViewModel commonViewModel;
     private ProfileViewModel profileViewModel;
+
+    // Image Variables and helpers
+    private Uri extractedUri;
     private Uri image;
     private Bitmap imageBitmap;
-    private Uri extractedUri;
     private boolean isCamera = false;
 
     private void extractDetailsFromIntent() {
@@ -70,7 +79,7 @@ public class ProfileFragment extends Fragment {
     public void isInternetConnected() {
         ConnectivityHelperDAO helper = commonViewModel.checkInternetConnection(requireContext());
         internetConnected = helper.getStatus();
-        Log.d(TAG, "onNetworkChanged: Triggered, Received " + internetConnected + " as Status and " + helper.getMessage() + " message.");
+        Log.d(TAG, "onNetworkChanged: Triggered, Received internetConnected as " + internetConnected);
     }
 
     private void observeMutableLiveData(View view) {
@@ -123,17 +132,16 @@ public class ProfileFragment extends Fragment {
     private void handleTriggerEvent() {
         // Camera Image
         fab_profile_image_camera.setOnClickListener(event -> {
-            Toast.makeText(requireContext(), "Opening Camera", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), R.string.message_opening_camera, Toast.LENGTH_SHORT).show();
             isCamera = true;
             Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(camera, CAMERA_REQUEST_CODE);
         });
         // Gallery Image
         fab_profile_image_gallery.setOnClickListener(event -> {
-            Toast.makeText(requireContext(), "Opening Gallery", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), R.string.message_opening_gallery, Toast.LENGTH_SHORT).show();
             isCamera = false;
             Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            gallery.setType("image/*");
             startActivityForResult(gallery, GALLERY_REQUEST_CODE);
         });
         // Click on Update Button
