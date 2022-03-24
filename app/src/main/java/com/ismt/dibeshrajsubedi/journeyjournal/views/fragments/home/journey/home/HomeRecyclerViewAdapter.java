@@ -9,11 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyDAO;
+import com.ismt.dibeshrajsubedi.journeyjournal.view_models.home.JourneyViewModel;
 
 import java.util.ArrayList;
 
@@ -24,18 +27,22 @@ import java.util.ArrayList;
 public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerViewAdapter.HomeRecyclerViewHolder> {
     private final ArrayList<JourneyDAO> journeyDAOList;
     private final String TAG = "JJ_" + HomeRecyclerViewAdapter.class.getSimpleName();
+    private final JourneyViewModel journeyViewModel;
+    private final LifecycleOwner owner;
+    private Context context;
 
-    public HomeRecyclerViewAdapter(ArrayList<JourneyDAO> journeyDAOList) {
+    public HomeRecyclerViewAdapter(ArrayList<JourneyDAO> journeyDAOList, JourneyViewModel journeyViewModel, LifecycleOwner owner) {
         Log.d(TAG, "HomeRecyclerViewAdapter: Journey Length " + journeyDAOList.size());
         this.journeyDAOList = journeyDAOList;
+        this.journeyViewModel = journeyViewModel;
+        this.owner = owner;
     }
 
     @NonNull
     @Override
     public HomeRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
+        context = parent.getContext();
         View view = LayoutInflater.from(context).inflate(R.layout.journey_card_item, parent, false);
-        Log.d(TAG, "onCreateViewHolder: journey " + journeyDAOList.get(0));
         return new HomeRecyclerViewHolder(view);
     }
 
@@ -45,7 +52,14 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
         // TODO: Remove Hard Coded String With Journey Module
         JourneyDAO journey = journeyDAOList.get(position);
         // Extraction of Image of Each Holder
-        holder.imageView.setImageResource(R.drawable.ic_img_landing);
+        if (journey.getImageUri() != null) {
+            Glide.with(context).
+                    load(journey.getImageUri())
+                    .into(holder.imageView);
+        } else {
+            holder.imageView.setImageResource(R.drawable.ic_img_landing);
+        }
+
         holder.title.setText(journey.getJourneyTitle());
         if (journey.getJourneyDate() != null) {
             holder.date.setText(journey.getJourneyDate());

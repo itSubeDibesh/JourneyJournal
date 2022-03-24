@@ -20,6 +20,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.firebase.auth.FirebaseUser;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyDAO;
+import com.ismt.dibeshrajsubedi.journeyjournal.repository.firebase.FirebaseStorageImpl;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.CommonViewModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.home.JourneyViewModel;
 
@@ -43,7 +44,7 @@ public class HomeFragment extends Fragment {
     private void observeMutableLiveData(View view) {
         journeyViewModel.fetchJourney(user.getUid())
                 .observe(owner, journeyDAOS -> {
-                    this.homeRecyclerViewAdapter = new HomeRecyclerViewAdapter(journeyDAOS);
+                    this.homeRecyclerViewAdapter = new HomeRecyclerViewAdapter(journeyDAOS,journeyViewModel,owner);
                     this.recyclerView.setAdapter(homeRecyclerViewAdapter);
                     // Show Hide Recycler View Based on Empty nature
                     CommonViewModel.recyclerViewVisibility(view, homeRecyclerViewAdapter.getItemCount() == 0);
@@ -69,7 +70,7 @@ public class HomeFragment extends Fragment {
         this.recyclerView = viewGroup.findViewById(R.id.rv_journey_item);
         this.swipeRefreshLayout = viewGroup.findViewById(R.id.srl_refresh_list);
         this.linearLayoutManager = new LinearLayoutManager(context);
-        this.homeRecyclerViewAdapter = new HomeRecyclerViewAdapter(journeys);
+        this.homeRecyclerViewAdapter = new HomeRecyclerViewAdapter(journeys,journeyViewModel,owner);
     }
 
     /**

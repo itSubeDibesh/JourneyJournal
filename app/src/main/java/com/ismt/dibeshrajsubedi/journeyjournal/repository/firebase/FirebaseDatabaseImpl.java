@@ -3,22 +3,17 @@ package com.ismt.dibeshrajsubedi.journeyjournal.repository.firebase;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.util.Log;
 
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.models.home.JourneyModel;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -90,7 +85,9 @@ public class FirebaseDatabaseImpl {
             storage.getIsUploadSuccess().observe(owner, statusHelperDAO -> {
                 if (statusHelperDAO.getStatus()) {
                     // Update journey DAO Uri
-                    journeyDAO.setImageUri(ImagePath + imageId);
+                    if (statusHelperDAO.getStatus()) {
+                        journeyDAO.setImageUri(statusHelperDAO.getMessage());
+                    }
                     database
                             .getReference("Journey")
                             .child(journeyDAO.getJourneyAuthor())
@@ -130,7 +127,7 @@ public class FirebaseDatabaseImpl {
         }
     }
 
-    public void fetchJourneys(String UUid){
+    public void fetchJourneys(String UUid) {
         database.getReference("Journey")
                 .child(UUid)
                 .get()

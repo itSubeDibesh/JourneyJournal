@@ -5,7 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.util.Base64;
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -23,6 +23,7 @@ import java.io.IOException;
  * Created by Dibesh Raj Subedi on 3/21/2022.
  */
 public class FirebaseStorageImpl {
+    private final String TAG = "JJ_" + FirebaseStorageImpl.class.getSimpleName();
     private final FirebaseStorage storage = FirebaseStorage.getInstance();
     private final StorageReference reference = storage.getReference();
     private final MutableLiveData<StatusHelperDAO> isUploadSuccess = new MutableLiveData<>();
@@ -56,6 +57,7 @@ public class FirebaseStorageImpl {
     }
 
     public void getLocalImage(String imagePath) {
+        Log.d(TAG, "getLocalImage: Image Path " + imagePath);
         try {
             final File localFile = File.createTempFile("images", "png");
             reference.child(imagePath).getFile(localFile).addOnSuccessListener(taskSnapshot -> {
@@ -82,8 +84,10 @@ public class FirebaseStorageImpl {
             StorageReference ref = reference.child(filePath + fileName);
             ref.putBytes(data)
                     .addOnSuccessListener(taskSnapshot -> {
-                        progressDialog.dismiss();
-                        isUploadSuccess.postValue(new StatusHelperDAO(true));
+                        ref.getDownloadUrl().addOnSuccessListener(uri -> {
+                            progressDialog.dismiss();
+                            isUploadSuccess.postValue(new StatusHelperDAO(true, uri.toString()));
+                        });
                     })
                     .addOnFailureListener(failure -> {
                         progressDialog.dismiss();
@@ -105,8 +109,10 @@ public class FirebaseStorageImpl {
             StorageReference ref = reference.child(filePath + fileName);
             ref.putFile(image)
                     .addOnSuccessListener(taskSnapshot -> {
-                        progressDialog.dismiss();
-                        isUploadSuccess.postValue(new StatusHelperDAO(true));
+                        ref.getDownloadUrl().addOnSuccessListener(uri -> {
+                            progressDialog.dismiss();
+                            isUploadSuccess.postValue(new StatusHelperDAO(true, uri.toString()));
+                        });
                     })
                     .addOnFailureListener(failure -> {
                         progressDialog.dismiss();
