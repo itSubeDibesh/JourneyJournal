@@ -93,7 +93,6 @@ public class FirebaseStorageImpl {
                         double progress = (100.0 * task.getBytesTransferred() / task.getTotalByteCount());
                         progressDialog.setMessage("Uploaded " + (int) progress + "%");
                     });
-
         }
     }
 
@@ -117,7 +116,6 @@ public class FirebaseStorageImpl {
                         double progress = (100.0 * task.getBytesTransferred() / task.getTotalByteCount());
                         progressDialog.setMessage("Uploaded " + (int) progress + "%");
                     });
-
         }
     }
 }

@@ -35,10 +35,12 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseUser;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.ConnectivityHelperDAO;
+import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.LocationDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.CommonViewModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.home.JourneyViewModel;
@@ -61,7 +63,7 @@ public class AddFragment extends Fragment implements LocationListener {
     private Button btn_journey_add, btn_journey_get_location;
     private FloatingActionButton fab_image_camera, fab_profile_image_gallery;
     private ImageView iv_journey_image;
-    private TextInputEditText tf_journey_title, tf_journey_description;
+    private TextInputLayout til_add_journey_title, til_add_journey_description;
     private LocationDAO locationDAO;
     private NavController navController;
     private LocationManager locationManager;
@@ -74,7 +76,7 @@ public class AddFragment extends Fragment implements LocationListener {
     // Image Helpers and Placeholders
     private Uri image;
     private Bitmap imageBitmap;
-    private  boolean isCamera = false;
+    private boolean isCamera = false;
 
     private void extractElementsFromIntent() {
         if (requireActivity().getIntent() != null) {
@@ -94,8 +96,8 @@ public class AddFragment extends Fragment implements LocationListener {
         btn_journey_get_location = view.findViewById(R.id.btn_journey_get_location);
         fab_image_camera = view.findViewById(R.id.fab_image_camera);
         fab_profile_image_gallery = view.findViewById(R.id.fab_profile_image_gallery);
-        tf_journey_title = view.findViewById(R.id.tf_journey_title);
-        tf_journey_description = view.findViewById(R.id.tf_journey_description);
+        til_add_journey_title = view.findViewById(R.id.til_add_journey_title);
+        til_add_journey_description = view.findViewById(R.id.til_add_journey_description);
         iv_journey_image = view.findViewById(R.id.iv_journey_image);
     }
 
@@ -114,14 +116,31 @@ public class AddFragment extends Fragment implements LocationListener {
         Log.d(TAG, "onNetworkChanged: Triggered, Received internetConnected as " + internetConnected);
     }
 
-    private void observeMutableLiveData() {
-
+    private void observeMutableLiveData(View view) {
+        journeyViewModel.getIsTitleInvalid().observe(owner, helper -> commonViewModel.setObserverError(til_add_journey_title, helper));
+        journeyViewModel.getIsDescriptionInvalid().observe(owner, helper -> commonViewModel.setObserverError(til_add_journey_description, helper));
+        journeyViewModel.getIsAddSuccess().observe(owner, journeyModel -> {
+            if (journeyModel.getStatus()) {
+                Toast.makeText(requireContext(), journeyModel.getMessage(), Toast.LENGTH_LONG).show();
+                navController.navigate(R.id.action_addFragment_to_journeysFragment);
+            } else {
+                Snackbar.make(view, journeyModel.getMessage(), Snackbar.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void buttonTrigger() {
         // Add ButtonTrigger Event
         btn_journey_add.setOnClickListener(v -> {
             isInternetConnected();
+            journeyViewModel.addJourneyValidation(new JourneyDAO(
+                            user.getUid(),
+                            commonViewModel.til(til_add_journey_title),
+                            commonViewModel.getDateString(),
+                            null,
+                            locationDAO,
+                            commonViewModel.til(til_add_journey_description)),
+                    image, internetConnected, getContext(), owner, isCamera, imageBitmap);
             //Toast.makeText(requireContext(), tf_journey_title.getText().toString().trim() + " Added.", Toast.LENGTH_SHORT).show();
         });
 
@@ -196,7 +215,7 @@ public class AddFragment extends Fragment implements LocationListener {
         // Step 5: Trigger Buttons
         this.buttonTrigger();
         // Step 6: Observe Response Generated from Live Data
-        this.observeMutableLiveData();
+        this.observeMutableLiveData(view);
     }
 
     @SuppressLint("MissingPermission")

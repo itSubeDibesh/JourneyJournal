@@ -65,6 +65,7 @@
             app:layout_constraintTop_toBottomOf="@+id/iv_journey_image">
 
             <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_add_journey_title"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,7 +74,6 @@
                 app:startIconDrawable="@drawable/ic_title">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tf_journey_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text" />
@@ -81,6 +81,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_add_journey_description"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -88,7 +89,6 @@
                 android:hint="@string/field_journey_description">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tf_journey_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"

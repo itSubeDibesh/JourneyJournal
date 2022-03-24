@@ -1,6 +1,7 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.journey.home;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +13,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
+import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyDAO;
+
+import java.util.ArrayList;
 
 /**
  * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.home was
  * Created by Dibesh Raj Subedi on 3/8/2022.
  */
 public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerViewAdapter.HomeRecyclerViewHolder> {
+    private final ArrayList<JourneyDAO> journeyDAOList;
+    private final String TAG = "JJ_" + HomeRecyclerViewAdapter.class.getSimpleName();
 
-    public HomeRecyclerViewAdapter() {
+    public HomeRecyclerViewAdapter(ArrayList<JourneyDAO> journeyDAOList) {
+        Log.d(TAG, "HomeRecyclerViewAdapter: Journey Length " + journeyDAOList.size());
+        this.journeyDAOList = journeyDAOList;
     }
 
     @NonNull
@@ -27,6 +35,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
     public HomeRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         View view = LayoutInflater.from(context).inflate(R.layout.journey_card_item, parent, false);
+        Log.d(TAG, "onCreateViewHolder: journey " + journeyDAOList.get(0));
         return new HomeRecyclerViewHolder(view);
     }
 
@@ -34,16 +43,26 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
     public void onBindViewHolder(@NonNull HomeRecyclerViewHolder holder, int position) {
         // Set Text, Description, Image and Date Here
         // TODO: Remove Hard Coded String With Journey Module
+        JourneyDAO journey = journeyDAOList.get(position);
+        // Extraction of Image of Each Holder
         holder.imageView.setImageResource(R.drawable.ic_img_landing);
-        holder.title.setText("Welcome to Nepal");
-        holder.date.setText("14/07/1999");
-        holder.description.setText(R.string.dummy_lorem);
+        holder.title.setText(journey.getJourneyTitle());
+        if (journey.getJourneyDate() != null) {
+            holder.date.setText(journey.getJourneyDate());
+            holder.date.setVisibility(View.VISIBLE);
+        } else {
+            holder.date.setVisibility(View.INVISIBLE);
+        }
+        holder.description.setText(journey.getJourneyDescription());
     }
 
     @Override
     public int getItemCount() {
-        // ToDo: get size and return it
-        return 0;
+        if (journeyDAOList != null) {
+            return journeyDAOList.size();
+        } else {
+            return 0;
+        }
     }
 
     public static class HomeRecyclerViewHolder extends RecyclerView.ViewHolder {

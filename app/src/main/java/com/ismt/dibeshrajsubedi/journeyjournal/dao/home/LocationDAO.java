@@ -15,6 +15,10 @@ public class LocationDAO {
         this.address = address;
     }
 
+    public LocationDAO() {
+        this(null,null,null);
+    }
+
     public Double getLatitude() {
         return latitude;
     }

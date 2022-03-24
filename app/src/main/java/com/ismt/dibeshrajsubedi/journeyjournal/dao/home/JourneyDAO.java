@@ -13,10 +13,14 @@ public class JourneyDAO extends InputValidationHelper {
     private final String journeyTitle;
     private final String journeyDate;
     @Nullable
-    private final String imageUri;
+    private String imageUri;
     @Nullable
-    private final LocationDAO locationDAO;
+    private LocationDAO locationDAO;
     private final String journeyDescription;
+
+    public JourneyDAO() {
+        this(null,null,null,null,null,null);
+    }
 
     public JourneyDAO(String journeyAuthor, String journeyTitle, String journeyDate, String imageUri, LocationDAO locationDAO, String journeyDescription) {
         this.journeyAuthor = journeyAuthor;
@@ -43,8 +47,16 @@ public class JourneyDAO extends InputValidationHelper {
         return imageUri;
     }
 
+    public void setImageUri(String imageUri) {
+        this.imageUri = imageUri;
+    }
+
     public LocationDAO getLocationDAO() {
         return locationDAO;
+    }
+
+    public void setLocationDAO(LocationDAO locationDAO) {
+        this.locationDAO = locationDAO;
     }
 
     public String getJourneyDescription() {

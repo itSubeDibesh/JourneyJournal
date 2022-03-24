@@ -1,5 +1,6 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
@@ -22,6 +23,8 @@ import com.ismt.dibeshrajsubedi.journeyjournal.repository.firebase.FirebaseAuthI
 import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.authentication.AuthenticationActivity;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.home.HomeActivity;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -217,7 +220,7 @@ public class CommonViewModel extends AndroidViewModel {
             // Step 1: Get Connectivity Manager
             ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             // Step 2: Get network Information
-            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            @SuppressLint("MissingPermission") NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
             // Step 3: Conditional Checks regarding Network Information
             if (networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected()) {
                 if (networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
@@ -237,6 +240,16 @@ public class CommonViewModel extends AndroidViewModel {
         // Step 4: Implement Helper to Pass Data and return
         return new ConnectivityHelperDAO(status, message);
     }
+
+    /**
+     * Returns Date in dd/MM/yyyy format
+     *
+     * @return String
+     */
+    public String getDateString() {
+        return new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+    }
+
 
     /**
      * Enum for Confirmation
