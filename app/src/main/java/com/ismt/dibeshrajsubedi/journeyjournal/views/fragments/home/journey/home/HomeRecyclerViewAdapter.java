@@ -13,9 +13,9 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.material.snackbar.Snackbar;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyDAO;
+import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyRetrieverDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.home.JourneyViewModel;
 
 import java.util.ArrayList;
@@ -25,17 +25,18 @@ import java.util.ArrayList;
  * Created by Dibesh Raj Subedi on 3/8/2022.
  */
 public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerViewAdapter.HomeRecyclerViewHolder> {
-    private final ArrayList<JourneyDAO> journeyDAOList;
+    private final ArrayList<JourneyRetrieverDAO> journeyDAOList;
     private final String TAG = "JJ_" + HomeRecyclerViewAdapter.class.getSimpleName();
     private final JourneyViewModel journeyViewModel;
     private final LifecycleOwner owner;
+    private final HomeRecyclerViewInterface homeRecyclerViewInterface;
     private Context context;
 
-    public HomeRecyclerViewAdapter(ArrayList<JourneyDAO> journeyDAOList, JourneyViewModel journeyViewModel, LifecycleOwner owner) {
-        Log.d(TAG, "HomeRecyclerViewAdapter: Journey Length " + journeyDAOList.size());
+    public HomeRecyclerViewAdapter(ArrayList<JourneyRetrieverDAO> journeyDAOList, JourneyViewModel journeyViewModel, LifecycleOwner owner, HomeRecyclerViewInterface homeRecyclerViewInterface) {
         this.journeyDAOList = journeyDAOList;
         this.journeyViewModel = journeyViewModel;
         this.owner = owner;
+        this.homeRecyclerViewInterface = homeRecyclerViewInterface;
     }
 
     @NonNull
@@ -50,24 +51,24 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
     public void onBindViewHolder(@NonNull HomeRecyclerViewHolder holder, int position) {
         // Set Text, Description, Image and Date Here
         // TODO: Remove Hard Coded String With Journey Module
-        JourneyDAO journey = journeyDAOList.get(position);
+        JourneyRetrieverDAO journey = journeyDAOList.get(position);
         // Extraction of Image of Each Holder
-        if (journey.getImageUri() != null) {
+        if (journey.getJourney().getImageUri() != null) {
             Glide.with(context).
-                    load(journey.getImageUri())
+                    load(journey.getJourney().getImageUri())
                     .into(holder.imageView);
         } else {
             holder.imageView.setImageResource(R.drawable.ic_img_landing);
         }
 
-        holder.title.setText(journey.getJourneyTitle());
-        if (journey.getJourneyDate() != null) {
-            holder.date.setText(journey.getJourneyDate());
+        holder.title.setText(journey.getJourney().getJourneyTitle());
+        if (journey.getJourney().getJourneyDate() != null) {
+            holder.date.setText(journey.getJourney().getJourneyDate());
             holder.date.setVisibility(View.VISIBLE);
         } else {
             holder.date.setVisibility(View.INVISIBLE);
         }
-        holder.description.setText(journey.getJourneyDescription());
+        holder.description.setText(journey.getJourney().getJourneyDescription());
     }
 
     @Override
@@ -79,10 +80,11 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
         }
     }
 
-    public static class HomeRecyclerViewHolder extends RecyclerView.ViewHolder {
+    class HomeRecyclerViewHolder extends RecyclerView.ViewHolder {
         // Accessing Data Set from Fragment To Update elements in View.
         TextView title, description, date;
         ImageView imageView;
+        String TAG = "JJ_" + HomeRecyclerViewHolder.class.getSimpleName();
 
         public HomeRecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -91,7 +93,11 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
             date = itemView.findViewById(R.id.tv_item_date);
             imageView = itemView.findViewById(R.id.iv_item_image);
             // TODO: Handle On Item Click Event https://github.com/itSubeDibesh/JourneyJournal/blob/2681249d0b38abd9f2c1784bb4d8dd044c75380a/app/src/main/java/com/ismt/dibeshrajsubedi/journeyjournal/views/fragments/home/home/HomeRecyclerViewAdapter.java
-            itemView.setOnClickListener(view -> Snackbar.make(view, "Item Clicked", Snackbar.LENGTH_LONG).show());
+            itemView.setOnClickListener(view -> {
+                JourneyRetrieverDAO journeyRetrieverDAO = journeyDAOList.get(getAdapterPosition());
+                Log.d(TAG, "HomeRecyclerViewHolder: journeyRetrieverDAO "+journeyRetrieverDAO.getKey());
+                homeRecyclerViewInterface.onJourneyListItemClick(journeyRetrieverDAO);
+            });
         }
     }
 }

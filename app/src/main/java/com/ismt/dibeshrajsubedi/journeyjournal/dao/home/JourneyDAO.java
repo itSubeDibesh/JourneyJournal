@@ -4,6 +4,8 @@ package com.ismt.dibeshrajsubedi.journeyjournal.dao.home;
 import com.google.firebase.database.annotations.Nullable;
 import com.ismt.dibeshrajsubedi.journeyjournal.helper.InputValidationHelper;
 
+import java.io.Serializable;
+
 /**
  * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.models was
  * Created by Dibesh Raj Subedi on 3/15/2022.

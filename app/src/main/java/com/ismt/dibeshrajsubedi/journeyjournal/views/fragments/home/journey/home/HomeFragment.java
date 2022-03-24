@@ -13,14 +13,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
-import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyDAO;
-import com.ismt.dibeshrajsubedi.journeyjournal.repository.firebase.FirebaseStorageImpl;
+import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyRetrieverDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.CommonViewModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.home.JourneyViewModel;
 
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 /**
  * Implements List of Journey's and respective events
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements HomeRecyclerViewInterface {
     private final String TAG = "JJ_" + HomeFragment.class.getSimpleName();
     private CommonViewModel CommonViewModel;
     private JourneyViewModel journeyViewModel;
@@ -39,12 +40,13 @@ public class HomeFragment extends Fragment {
     private HomeRecyclerViewAdapter homeRecyclerViewAdapter;
     private FirebaseUser user;
     private LifecycleOwner owner;
-    private ArrayList<JourneyDAO> journeys;
+    private ArrayList<JourneyRetrieverDAO> journeys;
+    private NavController navController;
 
     private void observeMutableLiveData(View view) {
         journeyViewModel.fetchJourney(user.getUid())
                 .observe(owner, journeyDAOS -> {
-                    this.homeRecyclerViewAdapter = new HomeRecyclerViewAdapter(journeyDAOS,journeyViewModel,owner);
+                    this.homeRecyclerViewAdapter = new HomeRecyclerViewAdapter(journeyDAOS, journeyViewModel, owner, this);
                     this.recyclerView.setAdapter(homeRecyclerViewAdapter);
                     // Show Hide Recycler View Based on Empty nature
                     CommonViewModel.recyclerViewVisibility(view, homeRecyclerViewAdapter.getItemCount() == 0);
@@ -70,7 +72,7 @@ public class HomeFragment extends Fragment {
         this.recyclerView = viewGroup.findViewById(R.id.rv_journey_item);
         this.swipeRefreshLayout = viewGroup.findViewById(R.id.srl_refresh_list);
         this.linearLayoutManager = new LinearLayoutManager(context);
-        this.homeRecyclerViewAdapter = new HomeRecyclerViewAdapter(journeys,journeyViewModel,owner);
+        this.homeRecyclerViewAdapter = new HomeRecyclerViewAdapter(journeys, journeyViewModel, owner, this);
     }
 
     /**
@@ -80,7 +82,10 @@ public class HomeFragment extends Fragment {
         // Setting Layout manager and Adapter
         this.recyclerView.setLayoutManager(this.linearLayoutManager);
         this.recyclerView.setAdapter(this.homeRecyclerViewAdapter);
-        this.swipeRefreshLayout.setOnRefreshListener(() -> this.swipeRefreshLayout.setRefreshing(false));
+        this.swipeRefreshLayout.setOnRefreshListener(() -> {
+            observeMutableLiveData(view);
+            this.swipeRefreshLayout.setRefreshing(false);
+        });
         // TODO: Instantiating itemTouch helper and attaching to recycler view to handle swipe right and swipe left
     }
 
@@ -104,6 +109,8 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.initializeListElements(view);
+        // Extract Navigation Controller
+        navController = Navigation.findNavController(view);
         // Show Hide Recycler View Based on Empty nature
         CommonViewModel.recyclerViewVisibility(view, homeRecyclerViewAdapter.getItemCount() == 0);
         // Handle Back pressed for exit confirmation
@@ -115,5 +122,13 @@ public class HomeFragment extends Fragment {
         });
         // Call Journey
         observeMutableLiveData(view);
+    }
+
+    @Override
+    public void onJourneyListItemClick(JourneyRetrieverDAO journeyRetrieverDAO) {
+        Log.d(TAG, "onJourneyListItemClick: JourneyDAO " + journeyRetrieverDAO.getJourney().getJourneyTitle() + " and key as " + journeyRetrieverDAO.getKey());
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("JourneyRetrieverDAO", journeyRetrieverDAO);
+        navController.navigate(R.id.action_journeysFragment_to_viewFragment, bundle);
     }
 }

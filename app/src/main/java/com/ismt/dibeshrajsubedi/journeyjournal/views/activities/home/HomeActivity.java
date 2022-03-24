@@ -20,6 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseUser;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.register.RegisterDetailsDAO;
+import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyRetrieverDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.CommonViewModel;
 
 public class HomeActivity extends AppCompatActivity {
@@ -35,11 +36,13 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseUser user;
     private RegisterDetailsDAO registerDetailsDAO;
     private Uri extractedUri;
+    private JourneyRetrieverDAO journeyRetrieverDAO;
 
     private void extractDetailsFromIntent() {
         if (getIntent() != null) {
             user = getIntent().getParcelableExtra("USER");
             registerDetailsDAO = (RegisterDetailsDAO) getIntent().getSerializableExtra("PROFILE");
+            journeyRetrieverDAO = (JourneyRetrieverDAO) getIntent().getSerializableExtra("JourneyRetrieverDAO");
             if (getIntent().getStringExtra("ImageURI") != null) {
                 extractedUri = Uri.parse(getIntent().getStringExtra("ImageURI"));
             }
@@ -139,6 +142,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        Log.d(TAG, "onCreate: onCreate");
         // Step 1: Extract Data Passed From Intent
         extractDetailsFromIntent();
         // Step 2: Extract Elements To Use Globally

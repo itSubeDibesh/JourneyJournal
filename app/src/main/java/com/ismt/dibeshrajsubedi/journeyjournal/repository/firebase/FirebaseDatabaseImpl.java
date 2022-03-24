@@ -3,6 +3,7 @@ package com.ismt.dibeshrajsubedi.journeyjournal.repository.firebase;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
@@ -10,6 +11,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyDAO;
+import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyRetrieverDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.models.home.JourneyModel;
 
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ public class FirebaseDatabaseImpl {
     private final MutableLiveData<JourneyModel> addJourney = new MutableLiveData<>();
     private final MutableLiveData<JourneyModel> updateJourney = new MutableLiveData<>();
     private final MutableLiveData<JourneyModel> deleteJourney = new MutableLiveData<>();
-    private final MutableLiveData<ArrayList<JourneyDAO>> fetchJourney = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<JourneyRetrieverDAO>> fetchJourney = new MutableLiveData<>();
 
     /**
      * Random Numeric Id
@@ -66,7 +68,7 @@ public class FirebaseDatabaseImpl {
         return deleteJourney;
     }
 
-    public MutableLiveData<ArrayList<JourneyDAO>> getFetchJourney() {
+    public MutableLiveData<ArrayList<JourneyRetrieverDAO>> getFetchJourney() {
         return fetchJourney;
     }
 
@@ -133,10 +135,10 @@ public class FirebaseDatabaseImpl {
                 .get()
                 .addOnSuccessListener(dataSnapshot -> {
                     if (dataSnapshot != null) {
-                        ArrayList<JourneyDAO> journey = new ArrayList<>();
+                        ArrayList<JourneyRetrieverDAO> journey = new ArrayList<>();
                         for (DataSnapshot dataset : dataSnapshot.getChildren()) {
                             JourneyDAO journeyDAO = dataset.getValue(JourneyDAO.class);
-                            journey.add(journeyDAO);
+                            journey.add(new JourneyRetrieverDAO(dataset.getKey(), journeyDAO));
                         }
                         fetchJourney.postValue(journey);
                     } else {

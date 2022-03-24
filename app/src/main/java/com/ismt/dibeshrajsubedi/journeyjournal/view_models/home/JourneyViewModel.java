@@ -11,6 +11,7 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyDAO;
+import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyRetrieverDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.models.home.JourneyModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.JJ_JourneyViewModel;
 
@@ -27,6 +28,7 @@ public class JourneyViewModel extends JJ_JourneyViewModel {
     private final MutableLiveData<JourneyModel> isUpdateSuccess = new MutableLiveData<>();
     private final MutableLiveData<JourneyModel> isDeleteSuccess = new MutableLiveData<>();
 
+
     public JourneyViewModel(@NonNull Application application) {
         super(application);
     }
@@ -42,7 +44,6 @@ public class JourneyViewModel extends JJ_JourneyViewModel {
     public MutableLiveData<JourneyModel> getIsDeleteSuccess() {
         return isDeleteSuccess;
     }
-
 
     public void addJourneyValidation(JourneyDAO journeyDAO, Uri image, boolean internetConnected, Context context, LifecycleOwner owner, boolean isCamera, Bitmap bitmap) {
         Log.d(TAG, "addJourneyValidation: Triggered addJourneyValidation with internetConnected as " + internetConnected);
@@ -68,7 +69,7 @@ public class JourneyViewModel extends JJ_JourneyViewModel {
 
     }
 
-    public MutableLiveData<ArrayList<JourneyDAO>> fetchJourney(String UUid){
+    public MutableLiveData<ArrayList<JourneyRetrieverDAO>> fetchJourney(String UUid) {
         database.fetchJourneys(UUid);
         return database.getFetchJourney();
     }

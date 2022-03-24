@@ -48,6 +48,7 @@
             android:name="@string/args_show_bottom_navigation_view"
             android:defaultValue="true"
             app:argType="boolean" />
+
         <action
             android:id="@+id/action_journeysFragment_to_viewFragment"
             app:destination="@id/viewFragment"
