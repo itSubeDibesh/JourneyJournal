@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +18,9 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.snackbar.Snackbar;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
+import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.ConnectivityHelperDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyRetrieverDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.CommonViewModel;
@@ -35,6 +38,7 @@ public class ViewFragment extends Fragment {
     private JourneyRetrieverDAO journeyRetrieverDAO;
     private JourneyViewModel journeyViewModel;
     private CommonViewModel commonViewModel;
+    private boolean internetConnected;
 
     private void extractElementsFromIntents(Bundle bundle) {
         if (bundle != null) {
@@ -43,8 +47,14 @@ public class ViewFragment extends Fragment {
         }
     }
 
+    public void isInternetConnected() {
+        ConnectivityHelperDAO helper = commonViewModel.checkInternetConnection(requireContext());
+        internetConnected = helper.getStatus();
+        Log.d(TAG, "onNetworkChanged: Triggered, Received internetConnected as " + internetConnected);
+    }
 
     private void extractElements(ViewGroup view) {
+        internetConnected = false;
         tv_journey_title = view.findViewById(R.id.tv_journey_title);
         tv_journey_date = view.findViewById(R.id.tv_journey_date);
         tv_journey_map = view.findViewById(R.id.tv_journey_map);
@@ -95,7 +105,8 @@ public class ViewFragment extends Fragment {
         });
         // Delete Button Click
         btn_journey_delete.setOnClickListener(event -> {
-            commonViewModel.deleteConfirmation(getActivity(), getViewLifecycleOwner());
+            isInternetConnected();
+            journeyViewModel.deleteConfirmation(getActivity(), journeyRetrieverDAO, internetConnected, getViewLifecycleOwner());
         });
         // Map Button Click
         tv_journey_map.setOnClickListener(event -> {
@@ -103,7 +114,15 @@ public class ViewFragment extends Fragment {
         });
     }
 
-    private void obServeMutableLiveData() {
+    private void obServeMutableLiveData(View view) {
+        journeyViewModel.getIsDeleteSuccess().observe(getViewLifecycleOwner(), statusHelperDAO -> {
+            if (statusHelperDAO.getStatus()) {
+                Toast.makeText(getContext(), statusHelperDAO.getMessage(), Toast.LENGTH_SHORT).show();
+                navController.navigate(R.id.action_viewFragment_to_journeysFragment);
+            } else {
+                Snackbar.make(view, statusHelperDAO.getMessage(), Snackbar.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
@@ -135,6 +154,6 @@ public class ViewFragment extends Fragment {
         // Step 5: Handle Trigger Events
         this.handleButtonClickEvent();
         // Step 6: Observe Mutable Live
-        this.obServeMutableLiveData();
+        this.obServeMutableLiveData(view);
     }
 }

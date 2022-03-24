@@ -3,20 +3,19 @@ package com.ismt.dibeshrajsubedi.journeyjournal.repository.firebase;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.util.Log;
 
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
+import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.StatusHelperDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyRetrieverDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.models.home.JourneyModel;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.repository.firebase was
@@ -29,7 +28,7 @@ public class FirebaseDatabaseImpl {
     private final String Table_Name = "Journey";
     private final MutableLiveData<JourneyModel> addJourney = new MutableLiveData<>();
     private final MutableLiveData<JourneyModel> updateJourney = new MutableLiveData<>();
-    private final MutableLiveData<JourneyModel> deleteJourney = new MutableLiveData<>();
+    private final MutableLiveData<StatusHelperDAO> deleteJourney = new MutableLiveData<>();
     private final MutableLiveData<ArrayList<JourneyRetrieverDAO>> fetchJourney = new MutableLiveData<>();
 
     /**
@@ -64,7 +63,7 @@ public class FirebaseDatabaseImpl {
         return updateJourney;
     }
 
-    public MutableLiveData<JourneyModel> getDeleteJourney() {
+    public MutableLiveData<StatusHelperDAO> getDeleteJourney() {
         return deleteJourney;
     }
 
@@ -147,7 +146,7 @@ public class FirebaseDatabaseImpl {
                 });
     }
 
-    public void updateJourney(String JourneyId,JourneyDAO journeyDAO, Uri image, Context context, LifecycleOwner owner, boolean isCamera, Bitmap bitmap) {
+    public void updateJourney(String JourneyId, JourneyDAO journeyDAO, Uri image, Context context, LifecycleOwner owner, boolean isCamera, Bitmap bitmap) {
         // Step 1: Upload Image if Exists
         if (image != null || bitmap != null) {
             String imageId = "" + JourneyId, ImagePath = "images/journey/" + journeyDAO.getJourneyAuthor() + "/";
@@ -202,8 +201,36 @@ public class FirebaseDatabaseImpl {
         }
     }
 
-    public void deleteJourney() {
-
+    public void deleteJourney(String JourneyId, JourneyDAO journeyDAO, LifecycleOwner owner) {
+        // Step 1 : Check if Image is Empty or Not
+        if (journeyDAO.getImageUri() != null) {
+            // Step 2: Delete Image If NO Empty First
+            storage.DeleteImage(journeyDAO.getImageUri());
+            storage.getIsDeleteSuccess().observe(owner, statusHelperDAO -> {
+                if (statusHelperDAO.getStatus()) {
+                    database
+                            .getReference("Journey")
+                            .child(journeyDAO.getJourneyAuthor())
+                            .child(JourneyId)
+                            .removeValue().addOnSuccessListener(status -> {
+                        deleteJourney.postValue(new StatusHelperDAO(true, "Journey Deleted Successfully"));
+                    }).addOnFailureListener(status -> {
+                        deleteJourney.postValue(new StatusHelperDAO(false, status.getMessage()));
+                    });
+                }
+            });
+        } else {
+            // Step 3: Delete Data from Database and return Status Accordingly
+            database
+                    .getReference("Journey")
+                    .child(journeyDAO.getJourneyAuthor())
+                    .child(JourneyId)
+                    .removeValue().addOnSuccessListener(status -> {
+                deleteJourney.postValue(new StatusHelperDAO(true, "Journey Deleted Successfully"));
+            }).addOnFailureListener(status -> {
+                deleteJourney.postValue(new StatusHelperDAO(false, status.getMessage()));
+            });
+        }
     }
 
 }

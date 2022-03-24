@@ -23,11 +23,15 @@ public class FirebaseStorageImpl {
     private final FirebaseStorage storage = FirebaseStorage.getInstance();
     private final StorageReference reference = storage.getReference();
     private final MutableLiveData<StatusHelperDAO> isUploadSuccess = new MutableLiveData<>();
+    private final MutableLiveData<StatusHelperDAO> isDeleteSuccess = new MutableLiveData<>();
 
     public MutableLiveData<StatusHelperDAO> getIsUploadSuccess() {
         return isUploadSuccess;
     }
 
+    public MutableLiveData<StatusHelperDAO> getIsDeleteSuccess() {
+        return isDeleteSuccess;
+    }
 
     public void UploadBitMap(Bitmap image, String filePath, String fileName, Context context) {
         if (image != null && fileName != null && filePath != null) {
@@ -77,6 +81,16 @@ public class FirebaseStorageImpl {
                         double progress = (100.0 * task.getBytesTransferred() / task.getTotalByteCount());
                         progressDialog.setMessage("Uploaded " + (int) progress + "%");
                     });
+        }
+    }
+
+    public void DeleteImage(String url) {
+        if (url != null) {
+            storage.getReferenceFromUrl(url).delete().addOnSuccessListener(task -> {
+                isDeleteSuccess.postValue(new StatusHelperDAO(true, "Delete Successfully"));
+            }).addOnFailureListener(task -> {
+                isDeleteSuccess.postValue(new StatusHelperDAO(false, task.getMessage()));
+            });
         }
     }
 }

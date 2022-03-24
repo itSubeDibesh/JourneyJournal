@@ -20,6 +20,8 @@ import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.ConnectivityHelperDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.StatusHelperDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.repository.firebase.FirebaseAuthImpl;
+import com.ismt.dibeshrajsubedi.journeyjournal.repository.firebase.FirebaseDatabaseImpl;
+import com.ismt.dibeshrajsubedi.journeyjournal.repository.firebase.FirebaseStorageImpl;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.authentication.AuthenticationActivity;
 import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.home.HomeActivity;
 
@@ -34,6 +36,8 @@ import java.util.Objects;
 public class CommonViewModel extends AndroidViewModel {
     private final String TAG = "JJ_CommonViewModel";
     private final FirebaseAuthImpl firebaseAuth = new FirebaseAuthImpl();
+    private final FirebaseStorageImpl storage = new FirebaseStorageImpl();
+    private final FirebaseDatabaseImpl database = new FirebaseDatabaseImpl();
 
     public CommonViewModel(@NonNull Application application) {
         super(application);
@@ -65,27 +69,9 @@ public class CommonViewModel extends AndroidViewModel {
                         .setPositiveButton(R.string.option_yes, (dialog, id) -> logout(owner, activity))
                         .setNegativeButton(R.string.option_no, (dialog, id) -> dialog.cancel());
                 break;
-            case DELETE:
-                builder
-                        .setMessage(message).setCancelable(true)
-                        .setPositiveButton(R.string.option_yes, (dialog, id) -> dialog.dismiss())
-                        .setNegativeButton(R.string.option_no, (dialog, id) -> dialog.cancel());
-                break;
         }
         AlertDialog alert = builder.create();
         alert.show();
-    }
-
-    /**
-     * Application Journey Delete Confirmation
-     * Alert Dialogue Builder Implementation
-     *
-     * @param activity Activity
-     * @param owner    LifecycleOwner
-     */
-    public void deleteConfirmation(Activity activity, LifecycleOwner owner) {
-        // TODO -> Take Delete Details and trigger Deleter From Here Itself
-        this.confirmation(activity, R.string.confirmation_delete, R.string.consent_delete_journey, Confirmation.DELETE, owner);
     }
 
     /**
@@ -256,7 +242,6 @@ public class CommonViewModel extends AndroidViewModel {
      */
     private enum Confirmation {
         EXIT,
-        LOGOUT,
-        DELETE
+        LOGOUT
     }
 }
