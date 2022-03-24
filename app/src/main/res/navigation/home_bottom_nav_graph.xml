@@ -93,6 +93,13 @@
             android:name="@string/args_show_bottom_navigation_view"
             android:defaultValue="false"
             app:argType="boolean" />
+        <action
+            android:id="@+id/action_editFragment_to_journeysFragment"
+            app:destination="@id/journeysFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment

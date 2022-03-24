@@ -10,7 +10,7 @@ import java.io.Serializable;
  * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.models was
  * Created by Dibesh Raj Subedi on 3/15/2022.
  */
-public class JourneyDAO extends InputValidationHelper {
+public class JourneyDAO extends InputValidationHelper implements Serializable{
     private final String journeyAuthor;
     private final String journeyTitle;
     private final String journeyDate;

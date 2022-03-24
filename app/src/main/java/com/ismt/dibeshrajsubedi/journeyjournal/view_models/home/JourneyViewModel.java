@@ -74,8 +74,27 @@ public class JourneyViewModel extends JJ_JourneyViewModel {
         return database.getFetchJourney();
     }
 
-    public void updateJourneyValidation(JourneyDAO journeyDAO, Uri image, boolean internetConnected, Context context, LifecycleOwner owner, boolean isCamera, Bitmap bitmap) {
+    public void updateJourneyValidation(String journeyId, JourneyDAO journeyDAO, Uri image, boolean internetConnected, Context context, LifecycleOwner owner, boolean isCamera, Bitmap bitmap) {
+        Log.d(TAG, "updateJourneyValidation: Triggered updateJourneyValidation with internetConnected as " + internetConnected);
 
+        // Title Validation Checks - [Empty Check]
+        String Title = journeyDAO.getJourneyTitle();
+        TitleInvalid(Title);
+
+        // Description Validation Checks - [Empty Check]
+        String Description = journeyDAO.getJourneyDescription();
+        DescriptionInvalid(Description);
+
+        // TODO : Implement Offline Code Using Room
+        if (internetConnected) {
+            if (!journeyDAO.isNullOrEmpty(Title) && !journeyDAO.isNullOrEmpty(Description)){
+                database.updateJourney(journeyId,journeyDAO, image, context, owner, isCamera, bitmap);
+                database.getUpdateJourney().observe(owner,journeyModel -> {
+                    Log.d(TAG, "updateJourneyValidation: received isSuccess as " + journeyModel.getStatus());
+                    isUpdateSuccess.postValue(journeyModel);
+                });
+            }
+        }
     }
 
     public void deleteJourney(JourneyDAO journeyDAO, UUID uuid, boolean internetConnected, LifecycleOwner owner) {

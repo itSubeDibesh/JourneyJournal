@@ -58,7 +58,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
                     load(journey.getJourney().getImageUri())
                     .into(holder.imageView);
         } else {
-            holder.imageView.setImageResource(R.drawable.ic_img_landing);
+            holder.imageView.setImageResource(R.drawable.ic_img_journey_default);
         }
 
         holder.title.setText(journey.getJourney().getJourneyTitle());

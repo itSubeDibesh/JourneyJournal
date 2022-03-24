@@ -19,7 +19,7 @@
             android:layout_gravity="center"
             android:contentDescription="@string/field_journey_image"
             android:elevation="@dimen/dp_small"
-            android:paddingRight="@dimen/dp_small"
+            android:paddingRight="@dimen/dp_extra_small"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_img_journey_default" />
 
@@ -32,8 +32,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp_small"
-                android:drawableLeft="@drawable/ic_title"
                 android:drawablePadding="@dimen/dp_small"
+                android:layout_marginRight="@dimen/dp_medium"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@string/field_journey_title"
@@ -46,12 +46,12 @@
                 android:id="@+id/tv_item_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp_medium"
+                android:layout_marginTop="@dimen/dp_medium"
+                android:layout_marginRight="@dimen/dp_medium"
+                android:layout_marginLeft="@dimen/dp_small"
                 android:ellipsize="end"
                 android:maxLines="3"
-                android:paddingRight="@dimen/dp_small"
                 android:text="@string/field_journey_description"
-                app:layout_constraintBottom_toTopOf="@+id/tv_item_date"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_item_title" />
@@ -66,7 +66,6 @@
                 android:gravity="center"
                 android:text="@string/field_journey_date"
                 android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_calendar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 

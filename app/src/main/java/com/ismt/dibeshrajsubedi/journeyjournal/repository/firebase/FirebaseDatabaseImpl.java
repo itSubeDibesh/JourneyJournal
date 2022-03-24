@@ -77,7 +77,7 @@ public class FirebaseDatabaseImpl {
         String RandomID = "JJ_" + random;
         // Step 1: Upload Image if Exists
         if (image != null || bitmap != null) {
-            String imageId = "" + random, ImagePath = "images/journey/" + journeyDAO.getJourneyAuthor() + "/";
+            String imageId = "" + RandomID, ImagePath = "images/journey/" + journeyDAO.getJourneyAuthor() + "/";
             if (isCamera) {
                 storage.UploadBitMap(bitmap, ImagePath, imageId, context);
             } else {
@@ -147,8 +147,59 @@ public class FirebaseDatabaseImpl {
                 });
     }
 
-    public void updateJourney(JourneyDAO journeyDAO, UUID uuid) {
-
+    public void updateJourney(String JourneyId,JourneyDAO journeyDAO, Uri image, Context context, LifecycleOwner owner, boolean isCamera, Bitmap bitmap) {
+        // Step 1: Upload Image if Exists
+        if (image != null || bitmap != null) {
+            String imageId = "" + JourneyId, ImagePath = "images/journey/" + journeyDAO.getJourneyAuthor() + "/";
+            if (isCamera) {
+                storage.UploadBitMap(bitmap, ImagePath, imageId, context);
+            } else {
+                storage.UploadImage(image, ImagePath, imageId, context);
+            }
+            // Step 2: Check getIsUploadSuccess
+            storage.getIsUploadSuccess().observe(owner, statusHelperDAO -> {
+                if (statusHelperDAO.getStatus()) {
+                    // Update journey DAO Uri
+                    if (statusHelperDAO.getStatus()) {
+                        journeyDAO.setImageUri(statusHelperDAO.getMessage());
+                    }
+                    database
+                            .getReference("Journey")
+                            .child(journeyDAO.getJourneyAuthor())
+                            .child(JourneyId)
+                            .setValue(journeyDAO)
+                            .addOnCompleteListener(update -> {
+                                JourneyModel journey;
+                                if (update.isSuccessful()) {
+                                    journey = new JourneyModel(true, journeyDAO.getJourneyTitle() + ", Updated Successfully.");
+                                } else {
+                                    journey = new JourneyModel(true, update.getException().getMessage());
+                                }
+                                journey.setJourneyDAO(journeyDAO);
+                                updateJourney.postValue(journey);
+                            });
+                } else {
+                    updateJourney.postValue(new JourneyModel(false, statusHelperDAO.getMessage()));
+                }
+            });
+        } else {
+            // Only Perform Db Related Task
+            database
+                    .getReference("Journey")
+                    .child(journeyDAO.getJourneyAuthor())
+                    .child(JourneyId)
+                    .setValue(journeyDAO)
+                    .addOnCompleteListener(update -> {
+                        JourneyModel journey;
+                        if (update.isSuccessful()) {
+                            journey = new JourneyModel(true, journeyDAO.getJourneyTitle() + ", Updated Successfully.");
+                        } else {
+                            journey = new JourneyModel(true, update.getException().getMessage());
+                        }
+                        journey.setJourneyDAO(journeyDAO);
+                        updateJourney.postValue(journey);
+                    });
+        }
     }
 
     public void deleteJourney() {

@@ -7,8 +7,8 @@ import java.io.Serializable;
  * Created by Dibesh Raj Subedi on 3/24/2022.
  */
 public class JourneyRetrieverDAO implements Serializable {
-    private final String Key;
-    private final JourneyDAO journey;
+    private  String Key;
+    private  JourneyDAO journey;
 
     public JourneyRetrieverDAO(String key, JourneyDAO journey) {
         Key = key;
@@ -21,5 +21,9 @@ public class JourneyRetrieverDAO implements Serializable {
 
     public JourneyDAO getJourney() {
         return journey;
+    }
+
+    public void setJourney(JourneyDAO journey) {
+        this.journey = journey;
     }
 }
