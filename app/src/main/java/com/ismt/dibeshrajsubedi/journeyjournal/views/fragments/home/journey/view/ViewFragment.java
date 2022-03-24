@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyRetrieverDAO;
+import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.CommonViewModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.home.JourneyViewModel;
 
 /**
@@ -33,7 +34,7 @@ public class ViewFragment extends Fragment {
     private NavController navController;
     private JourneyRetrieverDAO journeyRetrieverDAO;
     private JourneyViewModel journeyViewModel;
-
+    private CommonViewModel commonViewModel;
 
     private void extractElementsFromIntents(Bundle bundle) {
         if (bundle != null) {
@@ -80,7 +81,26 @@ public class ViewFragment extends Fragment {
     }
 
     private void handleButtonClickEvent() {
+        // Update Button Click
+        btn_journey_edit.setOnClickListener(event -> {
+            // Open Edit Fragment With Details
+            Bundle bundle = new Bundle();
+            Log.d(TAG, "handleButtonClickEvent: journeyRetrieverDAO key as " + journeyRetrieverDAO.getKey());
+            bundle.putSerializable("JourneyRetrieverDAO", journeyRetrieverDAO);
+            navController.navigate(R.id.action_viewFragment_to_editFragment, bundle);
+        });
+        // Share Button Click
+        btn_share.setOnClickListener(event -> {
+            // Todo Share
+        });
+        // Delete Button Click
+        btn_journey_delete.setOnClickListener(event -> {
+            commonViewModel.deleteConfirmation(getActivity(), getViewLifecycleOwner());
+        });
+        // Map Button Click
+        tv_journey_map.setOnClickListener(event -> {
 
+        });
     }
 
     private void obServeMutableLiveData() {
@@ -91,6 +111,7 @@ public class ViewFragment extends Fragment {
         super.onCreate(savedInstanceState);
         // Step 0: Binding View Model
         journeyViewModel = new ViewModelProvider(this).get(JourneyViewModel.class);
+        commonViewModel = new ViewModelProvider(this).get(CommonViewModel.class);
     }
 
     @Override

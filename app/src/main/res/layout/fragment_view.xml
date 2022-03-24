@@ -91,21 +91,22 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_medium"
             android:clickable="true"
-            android:drawableRight="@drawable/ic_map"
+            android:drawableLeft="@drawable/ic_map"
             android:drawablePadding="@dimen/dp_small"
             android:drawableTint="@color/primaryColor"
             android:focusable="true"
             android:gravity="center"
+            android:text="@string/button_show_on_map"
             android:textSize="@dimen/sp_medium"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/tv_journey_location_name"
-            app:layout_constraintTop_toBottomOf="@+id/tv_journey_date" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_journey_image" />
 
 
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/ib_250"
+            android:layout_height="@dimen/ib_200"
             android:layout_margin="@dimen/dp_medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.218"

@@ -142,7 +142,6 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Log.d(TAG, "onCreate: onCreate");
         // Step 1: Extract Data Passed From Intent
         extractDetailsFromIntent();
         // Step 2: Extract Elements To Use Globally
