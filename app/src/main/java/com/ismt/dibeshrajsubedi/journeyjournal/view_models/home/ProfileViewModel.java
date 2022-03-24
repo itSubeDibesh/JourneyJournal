@@ -38,10 +38,6 @@ public class ProfileViewModel extends JJ_AuthViewModel {
         return isNameInValid;
     }
 
-    public MutableLiveData<Bitmap> getFirebaseImageURI(String Path){
-        return firebaseAuthImpl.getImageFile(Path);
-    }
-
     public void validateProfile(FirebaseUser user, RegisterDetailsDAO registerDetailsDAO, Uri image, boolean internetConnected, Context context, LifecycleOwner owner, boolean isCamera, Bitmap bitmap) {
         Log.d(TAG, "validateProfile: Triggered validateProfile with internetConnected as " + internetConnected);
 

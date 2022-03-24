@@ -195,11 +195,6 @@ public class FirebaseAuthImpl {
         userLoggedIn.postValue(false);
     }
 
-    public MutableLiveData<Bitmap> getImageFile(String path) {
-        storageImpl.getLocalImage(path);
-        return storageImpl.getImageFile();
-    }
-
     public void updateProfile(FirebaseUser user, RegisterDetailsDAO registerDetailsDAO, Uri image, Context context, LifecycleOwner owner, boolean isCamera, Bitmap bitmap) {
         Log.d(TAG, "updateProfile: triggered with UUID " + user.getUid() + " and image uri as " + image);
         // Step 1: Upload Image if Exists

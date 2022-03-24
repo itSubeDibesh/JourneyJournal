@@ -68,17 +68,6 @@ public class JourneyViewModel extends JJ_JourneyViewModel {
 
     }
 
-    public MutableLiveData<Bitmap> getImageFile(String path) {
-        storage.getLocalImage(path);
-        return storage.getImageFile();
-    }
-
-    public MutableLiveData<Uri> getImageURI(String path){
-        storage.getImageURL(path);
-        return storage.getImageUri();
-    }
-
-
     public MutableLiveData<ArrayList<JourneyDAO>> fetchJourney(String UUid){
         database.fetchJourneys(UUid);
         return database.getFetchJourney();
