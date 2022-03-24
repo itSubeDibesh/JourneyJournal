@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
@@ -120,13 +121,14 @@ public class ProfileFragment extends Fragment {
         if (registerDetailsDAO != null) {
             Objects.requireNonNull(til_name.getEditText()).setText(registerDetailsDAO.getDisplayName());
         }
-        profileViewModel.getFirebaseImageURI(extractedUri.getPath()).observe(owner, bitmap -> {
-            if (bitmap != null) {
-                iv_profile_image.setImageBitmap(bitmap);
-            } else {
-                iv_profile_image.setImageResource(R.drawable.ic_img_profile);
-            }
-        });
+        if (extractedUri != null) {
+            Log.d(TAG, "populateDetailsOnLoad: URI "+extractedUri);
+            Glide.with(requireContext())
+                    .load(extractedUri)
+                    .into(iv_profile_image);
+        } else {
+            iv_profile_image.setImageResource(R.drawable.ic_img_profile);
+        }
     }
 
     private void handleTriggerEvent() {

@@ -214,7 +214,7 @@ public class FirebaseAuthImpl {
                 if (statusHelperDAO.getStatus()) {
                     // Step 3: Update profileChangeRequest
                     UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
-                            .setPhotoUri(Uri.parse("images/profiles/" + user.getEmail()))
+                            .setPhotoUri(Uri.parse(statusHelperDAO.getMessage()))
                             .build();
                     // Step 4: updateProfile
                     user.updateProfile(profileChangeRequest)
