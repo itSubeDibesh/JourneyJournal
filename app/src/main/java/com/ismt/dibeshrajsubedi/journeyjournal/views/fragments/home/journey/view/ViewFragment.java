@@ -1,5 +1,6 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.journey.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -90,6 +91,7 @@ public class ViewFragment extends Fragment {
         }
     }
 
+
     private void handleButtonClickEvent() {
         // Update Button Click
         btn_journey_edit.setOnClickListener(event -> {
@@ -101,7 +103,17 @@ public class ViewFragment extends Fragment {
         });
         // Share Button Click
         btn_share.setOnClickListener(event -> {
-            // Todo Share
+
+            JourneyDAO journeyDAO = journeyRetrieverDAO.getJourney();
+            Intent Share = new Intent(Intent.ACTION_SEND);
+            Share.setType("text/plain");
+            if (journeyDAO.getLocationDAO() != null) {
+                Share.putExtra(Intent.EXTRA_TEXT, journeyDAO.getJourneyTitle() + "\n\n" + journeyDAO.getJourneyDescription() + "\n\n\t\t\tFrom - " + journeyDAO.getLocationDAO().getAddress());
+            } else {
+                Share.putExtra(Intent.EXTRA_TEXT, journeyDAO.getJourneyTitle() + "\n\n" + journeyDAO.getJourneyDescription());
+            }
+            startActivity(Intent.createChooser(Share, "Share via"));
+
         });
         // Delete Button Click
         btn_journey_delete.setOnClickListener(event -> {

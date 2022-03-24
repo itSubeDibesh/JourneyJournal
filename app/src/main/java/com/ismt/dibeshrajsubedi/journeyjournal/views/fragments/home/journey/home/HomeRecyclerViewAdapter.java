@@ -50,7 +50,6 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
     @Override
     public void onBindViewHolder(@NonNull HomeRecyclerViewHolder holder, int position) {
         // Set Text, Description, Image and Date Here
-        // TODO: Remove Hard Coded String With Journey Module
         JourneyRetrieverDAO journey = journeyDAOList.get(position);
         // Extraction of Image of Each Holder
         if (journey.getJourney().getImageUri() != null) {
@@ -92,7 +91,6 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
             description = itemView.findViewById(R.id.tv_item_description);
             date = itemView.findViewById(R.id.tv_item_date);
             imageView = itemView.findViewById(R.id.iv_item_image);
-            // TODO: Handle On Item Click Event https://github.com/itSubeDibesh/JourneyJournal/blob/2681249d0b38abd9f2c1784bb4d8dd044c75380a/app/src/main/java/com/ismt/dibeshrajsubedi/journeyjournal/views/fragments/home/home/HomeRecyclerViewAdapter.java
             itemView.setOnClickListener(view -> {
                 JourneyRetrieverDAO journeyRetrieverDAO = journeyDAOList.get(getAdapterPosition());
                 Log.d(TAG, "HomeRecyclerViewHolder: journeyRetrieverDAO "+journeyRetrieverDAO.getKey());
