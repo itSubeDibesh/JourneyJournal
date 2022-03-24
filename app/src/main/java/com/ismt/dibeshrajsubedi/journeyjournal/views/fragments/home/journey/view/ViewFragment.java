@@ -16,7 +16,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.bumptech.glide.Glide;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
+import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyRetrieverDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.home.JourneyViewModel;
 
@@ -25,7 +27,7 @@ import com.ismt.dibeshrajsubedi.journeyjournal.view_models.home.JourneyViewModel
  */
 public class ViewFragment extends Fragment {
     private final String TAG = "JJ_" + ViewFragment.class.getSimpleName();
-    private TextView tv_journey_title, tv_journey_date, tv_journey_location_name, tv_journey_description, btn_share;
+    private TextView tv_journey_title, tv_journey_date, tv_journey_location_name, tv_journey_description, btn_share, tv_journey_map;
     private Button btn_journey_edit, btn_journey_delete;
     private ImageView iv_journey_image;
     private NavController navController;
@@ -44,6 +46,7 @@ public class ViewFragment extends Fragment {
     private void extractElements(ViewGroup view) {
         tv_journey_title = view.findViewById(R.id.tv_journey_title);
         tv_journey_date = view.findViewById(R.id.tv_journey_date);
+        tv_journey_map = view.findViewById(R.id.tv_journey_map);
         tv_journey_location_name = view.findViewById(R.id.tv_journey_location_name);
         tv_journey_description = view.findViewById(R.id.tv_journey_description);
         btn_journey_edit = view.findViewById(R.id.btn_journey_edit);
@@ -54,7 +57,26 @@ public class ViewFragment extends Fragment {
 
 
     private void populateData() {
-
+        JourneyDAO journeyDAO = journeyRetrieverDAO.getJourney();
+        tv_journey_title.setText(journeyDAO.getJourneyTitle());
+        tv_journey_date.setText(journeyDAO.getJourneyDate());
+        tv_journey_description.setText(journeyDAO.getJourneyDescription());
+        if (journeyDAO.getLocationDAO() != null) {
+            // Show Address
+            tv_journey_map.setVisibility(View.VISIBLE);
+            tv_journey_location_name.setVisibility(View.VISIBLE);
+            tv_journey_location_name.setText(journeyDAO.getLocationDAO().getAddress());
+        } else {
+            tv_journey_location_name.setVisibility(View.GONE);
+            tv_journey_map.setVisibility(View.GONE);
+        }
+        if (journeyDAO.getImageUri() != null) {
+            Glide.with(requireContext())
+                    .load(journeyDAO.getImageUri())
+                    .into(iv_journey_image);
+        } else {
+            iv_journey_image.setImageResource(R.drawable.ic_img_journey_default);
+        }
     }
 
     private void handleButtonClickEvent() {

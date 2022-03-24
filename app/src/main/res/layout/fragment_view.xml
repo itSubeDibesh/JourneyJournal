@@ -75,32 +75,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_medium"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="236dp"
             android:drawablePadding="@dimen/dp_small"
             android:gravity="center"
             android:text="@string/field_journey_address"
             android:textSize="@dimen/sp_medium"
             android:textStyle="bold"
             app:drawableLeftCompat="@drawable/ic_gps"
-            app:layout_constraintEnd_toStartOf="@+id/tv_journey_map"
-            app:layout_constraintTop_toBottomOf="@+id/iv_journey_image" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_journey_date" />
 
         <TextView
             android:id="@+id/tv_journey_map"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_medium"
-            android:layout_marginEnd="17dp"
             android:clickable="true"
-            android:drawableTint="@color/primaryColor"
             android:drawableRight="@drawable/ic_map"
             android:drawablePadding="@dimen/dp_small"
+            android:drawableTint="@color/primaryColor"
             android:focusable="true"
             android:gravity="center"
             android:textSize="@dimen/sp_medium"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_journey_image" />
+            app:layout_constraintStart_toEndOf="@+id/tv_journey_location_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_journey_date" />
 
 
         <ScrollView
@@ -111,7 +110,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.218"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_journey_date">
+            app:layout_constraintTop_toBottomOf="@+id/tv_journey_location_name">
 
             <TextView
                 android:id="@+id/tv_journey_description"
