@@ -43,6 +43,7 @@
     <!--  Options  -->
     <string name="option_yes">Yes</string>
     <string name="option_no">No</string>
+    <string name="option_ok">Ok</string>
     <!--  Buttons  -->
     <string name="button_name">Add</string>
     <string name="button_camera">Camera</string>
@@ -65,6 +66,8 @@
     <string name="message_login">Please Login First.</string>
     <string name="message_required">Required *</string>
     <string name="message_login_with">Or login with</string>
+    <string name="message_working_on_twitter">We are currently working on Twitter, Please use default Login/Register Approach. \n Sorry for your Inconvenience. 🙂</string>
+    <string name="message_working_on_google">We are currently working on Google, Please use default Login/Register Approach. \n Sorry for your Inconvenience. 🙂</string>
     <string name="message_register_using">Or register using</string>
     <string name="message_journey_empty">Journey Not Found!</string>
     <string name="message_landing_get_started">Let\'s get started</string>
@@ -87,7 +90,7 @@
     <!--  Failure  -->
     <string name="failure_register">Problem Registering User! Please try again later</string>
     <!--  Connectivity  -->
-    <string name="connection_offline">Internet Disconnected! Offline mode enabled</string>
+    <string name="connection_offline">Internet Disconnected! Please Check your Internet Connection.</string>
     <string name="connection_wifi">Wifi Connected! Online mode enabled</string>
     <string name="connection_data">Mobile Data Connected! Online mode enabled</string>
     <!--  Error  -->
@@ -109,6 +112,8 @@
     <string name="message_query_hint">Search title or description</string>
     <!--  Confirmation  -->
     <string name="confirmation_exit">Exit confirmation!</string>
+    <string name="confirmation_internet_disconnected">Internet Disconnected!</string>
+    <string name="confirmation_working_on_it">We are working on it!</string>
     <string name="confirmation_logout">Log Out confirmation!</string>
     <string name="confirmation_delete">Delete confirmation!</string>
     <!--  Consent  -->

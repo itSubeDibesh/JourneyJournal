@@ -68,6 +68,12 @@ public class CommonViewModel extends AndroidViewModel {
                         .setMessage(message).setCancelable(true)
                         .setPositiveButton(R.string.option_yes, (dialog, id) -> logout(owner, activity))
                         .setNegativeButton(R.string.option_no, (dialog, id) -> dialog.cancel());
+            case GOOGLE:
+                builder.setMessage(message).setCancelable(true)
+                        .setNegativeButton(R.string.option_ok, (dialog, id) -> dialog.dismiss());
+            case TWITTER:
+                builder.setMessage(message).setCancelable(true)
+                        .setNegativeButton(R.string.option_ok, (dialog, id) -> dialog.dismiss());
                 break;
         }
         AlertDialog alert = builder.create();
@@ -95,6 +101,29 @@ public class CommonViewModel extends AndroidViewModel {
     public void exitConfirmation(Activity activity, LifecycleOwner owner) {
         this.confirmation(activity, R.string.confirmation_exit, R.string.consent_exit, Confirmation.EXIT, owner);
     }
+
+    /**
+     * Dialog Message Working on It Twitter
+     * Alert Dialogue Builder Implementation
+     *
+     * @param activity Activity
+     * @param owner    LifecycleOwner
+     */
+    public void twitterAuth(Activity activity, LifecycleOwner owner) {
+        this.confirmation(activity, R.string.confirmation_working_on_it, R.string.message_working_on_twitter, Confirmation.TWITTER, owner);
+    }
+
+    /**
+     * Dialog Message Working on It Google
+     * Alert Dialogue Builder Implementation
+     *
+     * @param activity Activity
+     * @param owner    LifecycleOwner
+     */
+    public void googleAuth(Activity activity, LifecycleOwner owner) {
+        this.confirmation(activity, R.string.confirmation_working_on_it, R.string.message_working_on_google, Confirmation.GOOGLE, owner);
+    }
+
 
     /**
      * Checks if User Login Details is Cached and Act Accordingly
@@ -242,6 +271,8 @@ public class CommonViewModel extends AndroidViewModel {
      */
     private enum Confirmation {
         EXIT,
-        LOGOUT
+        LOGOUT,
+        GOOGLE,
+        TWITTER
     }
 }

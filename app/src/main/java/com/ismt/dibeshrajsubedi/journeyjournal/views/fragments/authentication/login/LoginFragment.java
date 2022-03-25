@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
@@ -67,20 +68,32 @@ public class LoginFragment extends Fragment {
         login.setOnClickListener(event -> {
             isInternetConnected();
             Log.d(TAG, "handleButtonTriggerEvents: Login Button triggered");
-            loginViewModel.loginValidation(new LoginDAO(
-                            commonViewModel.til(ltil_email),
-                            commonViewModel.til(ltil_password)),
-                    internetConnected, owner);
+            if (internetConnected) {
+                loginViewModel.loginValidation(new LoginDAO(
+                                commonViewModel.til(ltil_email),
+                                commonViewModel.til(ltil_password)),
+                        internetConnected, owner);
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle(R.string.confirmation_internet_disconnected);
+                builder.setIcon(R.drawable.ic_launcher_foreground);
+                builder.setMessage(R.string.connection_offline);
+                builder.setNegativeButton(R.string.option_ok, (dialog, id) -> dialog.cancel());
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
         });
         // Navigate Google
         google.setOnClickListener(event -> {
             Log.d(TAG, "handleButtonTriggerEvents: Google Button triggered");
             // TODO: Implement Google Click Redirect
+            commonViewModel.googleAuth(getActivity(), getViewLifecycleOwner());
         });
         // Navigate Twitter
         twitter.setOnClickListener(event -> {
             Log.d(TAG, "handleButtonTriggerEvents: Twitter Button triggered");
             // TODO: Implement Twitter Click Redirect
+            commonViewModel.twitterAuth(getActivity(), getViewLifecycleOwner());
         });
     }
 
