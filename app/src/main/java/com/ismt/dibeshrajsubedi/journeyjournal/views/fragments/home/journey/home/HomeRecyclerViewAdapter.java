@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
-import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyRetrieverDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.home.JourneyViewModel;
 
@@ -25,11 +24,11 @@ import java.util.ArrayList;
  * Created by Dibesh Raj Subedi on 3/8/2022.
  */
 public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerViewAdapter.HomeRecyclerViewHolder> {
-    private final ArrayList<JourneyRetrieverDAO> journeyDAOList;
     private final String TAG = "JJ_" + HomeRecyclerViewAdapter.class.getSimpleName();
     private final JourneyViewModel journeyViewModel;
     private final LifecycleOwner owner;
     private final HomeRecyclerViewInterface homeRecyclerViewInterface;
+    private ArrayList<JourneyRetrieverDAO> journeyDAOList;
     private Context context;
 
     public HomeRecyclerViewAdapter(ArrayList<JourneyRetrieverDAO> journeyDAOList, JourneyViewModel journeyViewModel, LifecycleOwner owner, HomeRecyclerViewInterface homeRecyclerViewInterface) {
@@ -70,6 +69,12 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
         holder.description.setText(journey.getJourney().getJourneyDescription());
     }
 
+    public void updateList(ArrayList<JourneyRetrieverDAO> list) {
+        journeyDAOList = new ArrayList<>();
+        journeyDAOList.addAll(list);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         if (journeyDAOList != null) {
@@ -93,7 +98,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
             imageView = itemView.findViewById(R.id.iv_item_image);
             itemView.setOnClickListener(view -> {
                 JourneyRetrieverDAO journeyRetrieverDAO = journeyDAOList.get(getAdapterPosition());
-                Log.d(TAG, "HomeRecyclerViewHolder: journeyRetrieverDAO "+journeyRetrieverDAO.getKey());
+                Log.d(TAG, "HomeRecyclerViewHolder: journeyRetrieverDAO " + journeyRetrieverDAO.getKey());
                 homeRecyclerViewInterface.onJourneyListItemClick(journeyRetrieverDAO);
             });
         }

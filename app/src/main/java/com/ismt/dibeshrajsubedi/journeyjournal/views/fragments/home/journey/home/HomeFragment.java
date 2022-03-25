@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
@@ -42,10 +43,12 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewInterface 
     private LifecycleOwner owner;
     private ArrayList<JourneyRetrieverDAO> journeys;
     private NavController navController;
+    private SearchView searchView;
 
     private void observeMutableLiveData(View view) {
         journeyViewModel.fetchJourney(user.getUid())
                 .observe(owner, journeyDAOS -> {
+                    journeys = journeyDAOS;
                     this.homeRecyclerViewAdapter = new HomeRecyclerViewAdapter(journeyDAOS, journeyViewModel, owner, this);
                     this.recyclerView.setAdapter(homeRecyclerViewAdapter);
                     // Show Hide Recycler View Based on Empty nature
@@ -69,6 +72,7 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewInterface 
         owner = getViewLifecycleOwner();
         Context context = requireContext();
         journeys = new ArrayList<>();
+        searchView = viewGroup.findViewById(R.id.sv_search_view);
         this.recyclerView = viewGroup.findViewById(R.id.rv_journey_item);
         this.swipeRefreshLayout = viewGroup.findViewById(R.id.srl_refresh_list);
         this.linearLayoutManager = new LinearLayoutManager(context);
@@ -85,6 +89,26 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewInterface 
         this.swipeRefreshLayout.setOnRefreshListener(() -> {
             observeMutableLiveData(view);
             this.swipeRefreshLayout.setRefreshing(false);
+        });
+        // Implementing Search
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ArrayList<JourneyRetrieverDAO> journeyRetrieverDAOArrayList = new ArrayList<>();
+                String query = newText;
+                for(JourneyRetrieverDAO item :journeys){
+                    if(item.getJourney().getJourneyTitle().contains(query)|| item.getJourney().getJourneyDescription().contains(query)){
+                        journeyRetrieverDAOArrayList.add(item);
+                    }
+                }
+                homeRecyclerViewAdapter.updateList(journeyRetrieverDAOArrayList);
+                return true;
+            }
         });
         // TODO: Instantiating itemTouch helper and attaching to recycler view to handle swipe right and swipe left
     }

@@ -106,7 +106,7 @@
     <string name="redirect_create">Create</string>
     <!--  Message  -->
     <string name="message_check_email">Please! Check your email.</string>
-    <string name="message_query_hint">Search your journey with title</string>
+    <string name="message_query_hint">Search title or description</string>
     <!--  Confirmation  -->
     <string name="confirmation_exit">Exit confirmation!</string>
     <string name="confirmation_logout">Log Out confirmation!</string>
