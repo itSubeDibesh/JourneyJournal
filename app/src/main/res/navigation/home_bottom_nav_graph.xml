@@ -123,13 +123,6 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/action_viewFragment_to_mapsFragment"
-            app:destination="@id/mapsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
             android:id="@+id/action_viewFragment_to_journeysFragment"
             app:destination="@id/journeysFragment"
             app:enterAnim="@anim/slide_in_right"
@@ -145,19 +138,6 @@
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
         app:popExitAnim="@anim/slide_out_right" />
-    <fragment
-        android:id="@+id/mapsFragment"
-        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.journey.map.MapFragment"
-        android:label="@string/page_map"
-        tools:layout="@layout/fragment_map">
-        <argument
-            android:name="@string/args_show_toolbar"
-            android:defaultValue="true"
-            app:argType="boolean" />
-        <argument
-            android:name="@string/args_show_bottom_navigation_view"
-            android:defaultValue="false"
-            app:argType="boolean" />
-    </fragment>
+
 
 </navigation>

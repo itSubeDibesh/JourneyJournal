@@ -1,6 +1,7 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.journey.view;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.ConnectivityHelperDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyRetrieverDAO;
+import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.LocationDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.CommonViewModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.home.JourneyViewModel;
 
@@ -103,7 +105,6 @@ public class ViewFragment extends Fragment {
         });
         // Share Button Click
         btn_share.setOnClickListener(event -> {
-
             JourneyDAO journeyDAO = journeyRetrieverDAO.getJourney();
             Intent Share = new Intent(Intent.ACTION_SEND);
             Share.setType("text/plain");
@@ -113,7 +114,6 @@ public class ViewFragment extends Fragment {
                 Share.putExtra(Intent.EXTRA_TEXT, journeyDAO.getJourneyTitle() + "\n\n" + journeyDAO.getJourneyDescription());
             }
             startActivity(Intent.createChooser(Share, "Share via"));
-
         });
         // Delete Button Click
         btn_journey_delete.setOnClickListener(event -> {
@@ -122,7 +122,10 @@ public class ViewFragment extends Fragment {
         });
         // Map Button Click
         tv_journey_map.setOnClickListener(event -> {
-
+            LocationDAO locationDAO = journeyRetrieverDAO.getJourney().getLocationDAO();
+            String geoUri = "http://maps.google.com/maps?q=loc:" + locationDAO.getLatitude() + "," + locationDAO.getLongitude() + " (" + locationDAO.getAddress() + ")";
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(geoUri));
+            startActivity(intent);
         });
     }
 

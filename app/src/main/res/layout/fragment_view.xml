@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/dp_small"
+            android:layout_margin="@dimen/dp_medium"
             android:clickable="true"
             android:focusable="true"
             android:padding="@dimen/dp_small"
@@ -40,8 +40,9 @@
             android:textStyle="bold"
             app:drawableLeftCompat="@drawable/ic_share"
             app:drawableTint="@color/primaryLightColor"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/iv_journey_image" />
+            app:layout_constraintTop_toBottomOf="@+id/scrollView" />
 
         <ImageView
             android:id="@+id/iv_journey_image"
@@ -135,7 +136,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/sp_medium"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_journey_edit"
             app:layout_constraintTop_toBottomOf="@+id/scrollView" />
 
         <Button
@@ -144,7 +145,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="@dimen/dp_medium"
-            android:layout_marginEnd="169dp"
             android:drawableLeft="@drawable/ic_edit"
             android:drawableTint="@color/white"
             android:padding="@dimen/dp_small"
@@ -154,6 +154,7 @@
             android:textSize="@dimen/sp_medium"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/btn_journey_delete"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/scrollView" />
 
 

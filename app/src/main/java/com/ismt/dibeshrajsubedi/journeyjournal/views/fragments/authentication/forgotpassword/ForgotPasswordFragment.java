@@ -55,7 +55,6 @@ public class ForgotPasswordFragment extends Fragment {
      * Handle Button trigger Event
      */
     private void handleButtonTriggerEvent() {
-        // TODO -> Implement Reset Email Send Procedure and redirect to Login
         reset.setOnClickListener(event -> {
             isInternetConnected();
             Log.d(TAG, "handleButtonTriggerEvents: Reset Button triggered");
