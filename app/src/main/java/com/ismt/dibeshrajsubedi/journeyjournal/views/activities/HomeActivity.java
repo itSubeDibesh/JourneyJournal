@@ -1,4 +1,4 @@
-package com.ismt.dibeshrajsubedi.journeyjournal.views.activities.home;
+package com.ismt.dibeshrajsubedi.journeyjournal.views.activities;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseUser;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.register.RegisterDetailsDAO;
+import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyRetrieverDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.CommonViewModel;
 
 public class HomeActivity extends AppCompatActivity {
@@ -35,11 +36,13 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseUser user;
     private RegisterDetailsDAO registerDetailsDAO;
     private Uri extractedUri;
+    private JourneyRetrieverDAO journeyRetrieverDAO;
 
     private void extractDetailsFromIntent() {
         if (getIntent() != null) {
             user = getIntent().getParcelableExtra("USER");
             registerDetailsDAO = (RegisterDetailsDAO) getIntent().getSerializableExtra("PROFILE");
+            journeyRetrieverDAO = (JourneyRetrieverDAO) getIntent().getSerializableExtra("JourneyRetrieverDAO");
             if (getIntent().getStringExtra("ImageURI") != null) {
                 extractedUri = Uri.parse(getIntent().getStringExtra("ImageURI"));
             }

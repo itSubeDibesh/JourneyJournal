@@ -1,9 +1,8 @@
-package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.authentication.register;
+package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.authentication;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
@@ -27,7 +27,7 @@ import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.register.Regis
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.ConnectivityHelperDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.authentication.RegisterViewModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.CommonViewModel;
-import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.home.HomeActivity;
+import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.HomeActivity;
 
 /**
  * Navigates to Home Activity or Login Fragment
@@ -63,23 +63,35 @@ public class RegisterFragment extends Fragment {
         register.setOnClickListener(view -> {
             isInternetConnected();
             Log.d(TAG, "handleButtonTriggerEvents: Register Button triggered");
-            registerViewModel.registrationValidation(new RegisterFormDAO(
-                            commonViewModel.til(rtil_name),
-                            commonViewModel.til(rtil_email),
-                            commonViewModel.til(rtil_password),
-                            commonViewModel.til(rtil_retype_password)),
-                    internetConnected, owner
-            );
+            if (internetConnected) {
+                registerViewModel.registrationValidation(new RegisterFormDAO(
+                                commonViewModel.til(rtil_name),
+                                commonViewModel.til(rtil_email),
+                                commonViewModel.til(rtil_password),
+                                commonViewModel.til(rtil_retype_password)),
+                        internetConnected, owner
+                );
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle(R.string.confirmation_internet_disconnected);
+                builder.setIcon(R.drawable.ic_launcher_foreground);
+                builder.setMessage(R.string.connection_offline);
+                builder.setNegativeButton(R.string.option_ok, (dialog, id) -> dialog.cancel());
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
         });
         // Trigger Google Click event
         google.setOnClickListener(v -> {
             Log.d(TAG, "handleButtonTriggerEvents: Google Button triggered");
             // TODO: Implement Google Click Redirect
+            commonViewModel.googleAuth(getActivity(), getViewLifecycleOwner());
         });
         // Trigger Twitter Click event
         twitter.setOnClickListener(v -> {
             Log.d(TAG, "handleButtonTriggerEvents: Twitter Button triggered");
             // TODO: Implement Twitter Click Redirect
+            commonViewModel.twitterAuth(getActivity(), getViewLifecycleOwner());
         });
     }
 

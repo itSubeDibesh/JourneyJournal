@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'androidx.navigation.safeargs'
     id 'com.google.gms.google-services'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -15,6 +16,10 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures{
+        viewBinding true
     }
 
     buildTypes {
@@ -37,7 +42,13 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:21.0.2'
     implementation 'com.google.firebase:firebase-database:20.0.4'
     implementation 'com.google.firebase:firebase-storage:20.0.1'
+    implementation 'com.google.android.gms:play-services-location:19.0.1'
     //----> Firebase Initialization Ends
+
+
+    //----> Glide Initialization Ends
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    //----> Glide Initialization Ends
 
     //----> Constants Initialization Begins
     def lifecycle_version = "2.4.1"

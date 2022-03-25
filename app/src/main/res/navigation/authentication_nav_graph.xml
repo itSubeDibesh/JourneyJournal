@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/landingFragment"
-        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.authentication.landing.LandingFragment"
+        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.authentication.LandingFragment"
         android:label="fragment_landing"
         tools:layout="@layout/fragment_landing">
         <action
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.authentication.register.RegisterFragment"
+        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.authentication.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register">
         <action
@@ -47,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.authentication.login.LoginFragment"
+        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.authentication.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
         <action
@@ -74,7 +74,7 @@
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
-        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.authentication.forgotpassword.ForgotPasswordFragment"
+        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.authentication.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password">
         <action

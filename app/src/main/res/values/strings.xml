@@ -11,6 +11,7 @@
     <string name="label_send_reset_link">Reset Password</string>
     <string name="label_update_profile">Update Profile</string>
     <!--  Page Labels  -->
+    <string name="page_map">Map</string>
     <string name="page_login">Login</string>
     <string name="page_register">Register</string>
     <string name="page_forgot_password">Forgot password?</string>
@@ -42,6 +43,7 @@
     <!--  Options  -->
     <string name="option_yes">Yes</string>
     <string name="option_no">No</string>
+    <string name="option_ok">Ok</string>
     <!--  Buttons  -->
     <string name="button_name">Add</string>
     <string name="button_camera">Camera</string>
@@ -51,7 +53,9 @@
     <string name="button_update">Update</string>
     <string name="button_share">Share</string>
     <string name="button_delete">Delete</string>
-    <string name="button_get_location">Get Location</string>
+    <string name="button_get_location">Location</string>
+    <string name="button_update_location">Update Location</string>
+    <string name="button_show_on_map">View Map</string>
     <string name="button_add_journey">Add journey</string>
     <string name="button_login">@string/page_login</string>
     <string name="button_logout">@string/icon_logout</string>
@@ -62,6 +66,8 @@
     <string name="message_login">Please Login First.</string>
     <string name="message_required">Required *</string>
     <string name="message_login_with">Or login with</string>
+    <string name="message_working_on_twitter">We are currently working on Twitter, Please use default Login/Register Approach. \n Sorry for your Inconvenience. 🙂</string>
+    <string name="message_working_on_google">We are currently working on Google, Please use default Login/Register Approach. \n Sorry for your Inconvenience. 🙂</string>
     <string name="message_register_using">Or register using</string>
     <string name="message_journey_empty">Journey Not Found!</string>
     <string name="message_landing_get_started">Let\'s get started</string>
@@ -73,19 +79,25 @@
     <string name="message_welcome_back">Welcome back, Let\'s get started.</string>
     <string name="message_login_invalid_credentials">Invalid email or password.</string>
     <string name="message_new_user">New user?</string>
+    <string name="message_opening_camera">Opening Camera</string>
+    <string name="message_opening_gallery">Opening Gallery</string>
+    <string name="message_extracting_location">Extracting Location</string>
     <string name="message_have_account">Have account?</string>
     <string name="message_back_to_login">Back to login?</string>
+    <string name="message_journey_not_found">Journeys Not Found!</string>
     <!--  Success  -->
     <string name="success_register">User Registered Successfully, Please Login!</string>
     <!--  Failure  -->
     <string name="failure_register">Problem Registering User! Please try again later</string>
     <!--  Connectivity  -->
-    <string name="connection_offline">Internet Disconnected! Offline mode enabled</string>
+    <string name="connection_offline">Internet Disconnected! Please Check your Internet Connection.</string>
     <string name="connection_wifi">Wifi Connected! Online mode enabled</string>
     <string name="connection_data">Mobile Data Connected! Online mode enabled</string>
     <!--  Error  -->
     <string name="error_invalid_name">Name is Required!</string>
     <string name="error_empty_email">Email Address is Required!!</string>
+    <string name="error_empty_title">Journey Title is Required!!</string>
+    <string name="error_empty_description">Journey Description is Required!!</string>
     <string name="error_invalid_email">Invalid Email Format!</string>
     <string name="error_password_length">Password expects 6–20 characters.</string>
     <string name="error_empty_retype_password">Retype-Password is Empty!</string>
@@ -97,9 +109,11 @@
     <string name="redirect_create">Create</string>
     <!--  Message  -->
     <string name="message_check_email">Please! Check your email.</string>
-    <string name="message_query_hint">Search your journey with title</string>
+    <string name="message_query_hint">Search title or description</string>
     <!--  Confirmation  -->
     <string name="confirmation_exit">Exit confirmation!</string>
+    <string name="confirmation_internet_disconnected">Internet Disconnected!</string>
+    <string name="confirmation_working_on_it">We are working on it!</string>
     <string name="confirmation_logout">Log Out confirmation!</string>
     <string name="confirmation_delete">Delete confirmation!</string>
     <!--  Consent  -->

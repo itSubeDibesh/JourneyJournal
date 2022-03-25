@@ -1,5 +1,6 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
@@ -19,9 +20,13 @@ import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.ConnectivityHelperDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.StatusHelperDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.repository.firebase.FirebaseAuthImpl;
-import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.authentication.AuthenticationActivity;
-import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.home.HomeActivity;
+import com.ismt.dibeshrajsubedi.journeyjournal.repository.firebase.FirebaseDatabaseImpl;
+import com.ismt.dibeshrajsubedi.journeyjournal.repository.firebase.FirebaseStorageImpl;
+import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.AuthenticationActivity;
+import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.HomeActivity;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -31,6 +36,8 @@ import java.util.Objects;
 public class CommonViewModel extends AndroidViewModel {
     private final String TAG = "JJ_CommonViewModel";
     private final FirebaseAuthImpl firebaseAuth = new FirebaseAuthImpl();
+    private final FirebaseStorageImpl storage = new FirebaseStorageImpl();
+    private final FirebaseDatabaseImpl database = new FirebaseDatabaseImpl();
 
     public CommonViewModel(@NonNull Application application) {
         super(application);
@@ -61,28 +68,16 @@ public class CommonViewModel extends AndroidViewModel {
                         .setMessage(message).setCancelable(true)
                         .setPositiveButton(R.string.option_yes, (dialog, id) -> logout(owner, activity))
                         .setNegativeButton(R.string.option_no, (dialog, id) -> dialog.cancel());
-                break;
-            case DELETE:
-                builder
-                        .setMessage(message).setCancelable(true)
-                        .setPositiveButton(R.string.option_yes, (dialog, id) -> dialog.dismiss())
-                        .setNegativeButton(R.string.option_no, (dialog, id) -> dialog.cancel());
+            case GOOGLE:
+                builder.setMessage(message).setCancelable(true)
+                        .setNegativeButton(R.string.option_ok, (dialog, id) -> dialog.dismiss());
+            case TWITTER:
+                builder.setMessage(message).setCancelable(true)
+                        .setNegativeButton(R.string.option_ok, (dialog, id) -> dialog.dismiss());
                 break;
         }
         AlertDialog alert = builder.create();
         alert.show();
-    }
-
-    /**
-     * Application Journey Delete Confirmation
-     * Alert Dialogue Builder Implementation
-     *
-     * @param activity Activity
-     * @param owner    LifecycleOwner
-     */
-    public void deleteConfirmation(Activity activity, LifecycleOwner owner) {
-        // TODO -> Take Delete Details and trigger Deleter From Here Itself
-        this.confirmation(activity, R.string.confirmation_delete, R.string.consent_delete_journey, Confirmation.DELETE, owner);
     }
 
     /**
@@ -106,6 +101,29 @@ public class CommonViewModel extends AndroidViewModel {
     public void exitConfirmation(Activity activity, LifecycleOwner owner) {
         this.confirmation(activity, R.string.confirmation_exit, R.string.consent_exit, Confirmation.EXIT, owner);
     }
+
+    /**
+     * Dialog Message Working on It Twitter
+     * Alert Dialogue Builder Implementation
+     *
+     * @param activity Activity
+     * @param owner    LifecycleOwner
+     */
+    public void twitterAuth(Activity activity, LifecycleOwner owner) {
+        this.confirmation(activity, R.string.confirmation_working_on_it, R.string.message_working_on_twitter, Confirmation.TWITTER, owner);
+    }
+
+    /**
+     * Dialog Message Working on It Google
+     * Alert Dialogue Builder Implementation
+     *
+     * @param activity Activity
+     * @param owner    LifecycleOwner
+     */
+    public void googleAuth(Activity activity, LifecycleOwner owner) {
+        this.confirmation(activity, R.string.confirmation_working_on_it, R.string.message_working_on_google, Confirmation.GOOGLE, owner);
+    }
+
 
     /**
      * Checks if User Login Details is Cached and Act Accordingly
@@ -217,7 +235,7 @@ public class CommonViewModel extends AndroidViewModel {
             // Step 1: Get Connectivity Manager
             ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             // Step 2: Get network Information
-            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            @SuppressLint("MissingPermission") NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
             // Step 3: Conditional Checks regarding Network Information
             if (networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected()) {
                 if (networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
@@ -239,11 +257,22 @@ public class CommonViewModel extends AndroidViewModel {
     }
 
     /**
+     * Returns Date in dd/MM/yyyy format
+     *
+     * @return String
+     */
+    public String getDateString() {
+        return new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+    }
+
+
+    /**
      * Enum for Confirmation
      */
     private enum Confirmation {
         EXIT,
         LOGOUT,
-        DELETE
+        GOOGLE,
+        TWITTER
     }
 }

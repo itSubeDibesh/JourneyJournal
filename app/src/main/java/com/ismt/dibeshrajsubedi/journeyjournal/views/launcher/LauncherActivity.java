@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
-import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.authentication.AuthenticationActivity;
+import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.AuthenticationActivity;
 
 /**
  * Application Entry Point Begins From Here, It Creates A Splash Screen And Redirect To Authentication Activity

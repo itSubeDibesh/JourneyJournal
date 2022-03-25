@@ -4,12 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.fragments.home.journey.edit.EditFragment">
+    tools:context=".views.fragments.home.journey.EditFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/dp_extra_large"
-        android:layout_height="@dimen/ib">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/iv_journey_image"
@@ -25,7 +24,22 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_image_add"
+            android:id="@+id/fab_profile_image_gallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_small"
+            android:clickable="true"
+            android:layout_marginRight="@dimen/dp_medium"
+            android:contentDescription="@string/button_gallery"
+            android:focusable="true"
+            android:src="@drawable/ic_image"
+            android:theme="@style/Theme.JourneyJournal.FAB"
+            app:fabSize="mini"
+            app:layout_constraintBottom_toTopOf="@+id/fab_image_camera"
+            app:layout_constraintEnd_toEndOf="@+id/iv_journey_image" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_image_camera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_medium"
@@ -50,6 +64,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/til_update_journey_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_medium"
@@ -57,7 +72,6 @@
                 app:startIconDrawable="@drawable/ic_title">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tf_journey_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text" />
@@ -66,13 +80,13 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:id="@+id/til_update_journey_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_medium"
                 android:hint="@string/field_journey_description">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tf_journey_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
@@ -85,7 +99,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/til_journey_address"
+                    android:id="@+id/tv_journey_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -93,7 +107,6 @@
                     android:text="@string/field_journey_address"
                     android:textSize="@dimen/sp_medium"
                     app:drawableLeftCompat="@drawable/ic_gps"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -105,12 +118,12 @@
                     android:drawableLeft="@drawable/ic_gps"
                     android:drawableTint="@color/white"
                     android:gravity="center"
+                    android:text="@string/button_update_location"
                     android:textAllCaps="false"
-                    android:text="@string/button_get_location"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_journey_address" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

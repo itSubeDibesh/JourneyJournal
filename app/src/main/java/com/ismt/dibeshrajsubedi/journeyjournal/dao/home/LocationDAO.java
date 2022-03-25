@@ -1,25 +1,31 @@
 package com.ismt.dibeshrajsubedi.journeyjournal.dao.home;
 
+import java.io.Serializable;
+
 /**
  * Project JourneyJournal with package com.ismt.dibeshrajsubedi.journeyjournal.dao.home was
  * Created by Dibesh Raj Subedi on 3/21/2022.
  */
-public class LocationDAO {
-    private final String latitude;
-    private final String longitude;
+public class LocationDAO implements Serializable {
+    private final Double latitude;
+    private final Double longitude;
     private final String address;
 
-    public LocationDAO(String latitude, String longitude, String address) {
+    public LocationDAO(Double latitude, Double longitude, String address) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.address = address;
     }
 
-    public String getLatitude() {
+    public LocationDAO() {
+        this(null, null, null);
+    }
+
+    public Double getLatitude() {
         return latitude;
     }
 
-    public String getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
