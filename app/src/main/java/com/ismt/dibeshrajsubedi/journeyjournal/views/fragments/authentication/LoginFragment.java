@@ -1,4 +1,4 @@
-package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.authentication.login;
+package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.authentication;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,7 +27,7 @@ import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.LoginDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.ConnectivityHelperDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.authentication.LoginViewModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.CommonViewModel;
-import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.home.HomeActivity;
+import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.HomeActivity;
 
 /**
  * Redirects to Home page or Register Fragment or Forgot Fragment

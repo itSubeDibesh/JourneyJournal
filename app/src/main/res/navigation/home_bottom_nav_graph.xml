@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.about.AboutFragment"
+        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.AboutFragment"
         android:label="@string/page_about"
         tools:layout="@layout/fragment_about">
         <argument
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.profile.ProfileFragment"
+        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.ProfileFragment"
         android:label="@string/page_profile"
         tools:layout="@layout/fragment_profile">
         <argument
@@ -60,7 +60,7 @@
 
     <fragment
         android:id="@+id/addFragment"
-        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.journey.add.AddFragment"
+        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.journey.AddFragment"
         android:label="@string/page_add_journey"
         tools:layout="@layout/fragment_add">
         <argument
@@ -82,7 +82,7 @@
 
     <fragment
         android:id="@+id/editFragment"
-        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.journey.edit.EditFragment"
+        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.journey.EditFragment"
         android:label="@string/page_update_journey"
         tools:layout="@layout/fragment_edit">
         <argument
@@ -104,7 +104,7 @@
 
     <fragment
         android:id="@+id/viewFragment"
-        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.journey.view.ViewFragment"
+        android:name="com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.journey.ViewFragment"
         android:label="@string/page_view_journey"
         tools:layout="@layout/fragment_view">
         <argument

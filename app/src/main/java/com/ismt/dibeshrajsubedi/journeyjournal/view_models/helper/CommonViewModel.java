@@ -22,8 +22,8 @@ import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.StatusHelperDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.repository.firebase.FirebaseAuthImpl;
 import com.ismt.dibeshrajsubedi.journeyjournal.repository.firebase.FirebaseDatabaseImpl;
 import com.ismt.dibeshrajsubedi.journeyjournal.repository.firebase.FirebaseStorageImpl;
-import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.authentication.AuthenticationActivity;
-import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.home.HomeActivity;
+import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.AuthenticationActivity;
+import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.HomeActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

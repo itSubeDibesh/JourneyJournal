@@ -1,4 +1,4 @@
-package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.authentication.forgotpassword;
+package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.authentication;
 
 import android.os.Bundle;
 import android.util.Log;

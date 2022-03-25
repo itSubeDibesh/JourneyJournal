@@ -1,4 +1,4 @@
-package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.journey.edit;
+package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.journey;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -34,14 +34,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseUser;
 import com.ismt.dibeshrajsubedi.journeyjournal.R;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.ConnectivityHelperDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyDAO;
-import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.JourneyRetrieverDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.home.LocationDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.CommonViewModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.home.JourneyViewModel;
@@ -49,56 +48,57 @@ import com.ismt.dibeshrajsubedi.journeyjournal.view_models.home.JourneyViewModel
 import java.util.List;
 import java.util.Locale;
 
-public class EditFragment extends Fragment implements LocationListener {
+/**
+ * Used For Adding Journey
+ */
+public class AddFragment extends Fragment implements LocationListener {
     // Permission Requests
     public static final int CAMERA_REQUEST_CODE = 102;
     public static final int GALLERY_REQUEST_CODE = 105;
 
-    private final String TAG = "JJ_" + EditFragment.class.getSimpleName();
-    private JourneyRetrieverDAO journeyRetrieverDAO;
-    private JourneyViewModel journeyViewModel;
-    private CommonViewModel commonViewModel;
-    private NavController navController;
+    private final String TAG = "JJ_" + AddFragment.class.getSimpleName();
 
+    // Input Fields and Ui Elements
+    private TextView til_journey_address;
+    private Button btn_journey_add, btn_journey_get_location;
+    private FloatingActionButton fab_image_camera, fab_profile_image_gallery;
+    private ImageView iv_journey_image;
+    private TextInputLayout til_add_journey_title, til_add_journey_description;
+    private LocationDAO locationDAO;
+    private NavController navController;
+    private LocationManager locationManager;
+    private LifecycleOwner owner;
+    private boolean internetConnected;
+    // View Models
+    private CommonViewModel commonViewModel;
+    private JourneyViewModel journeyViewModel;
+    private FirebaseUser user;
     // Image Helpers and Placeholders
     private Uri image;
     private Bitmap imageBitmap;
     private boolean isCamera = false;
 
-    private LifecycleOwner owner;
-    private boolean internetConnected;
-    private LocationManager locationManager;
-    private LocationDAO locationDAO;
-
-    // Elements
-    private ImageView iv_journey_image;
-    private FloatingActionButton fab_profile_image_gallery, fab_image_camera;
-    private TextInputLayout til_update_journey_title, til_update_journey_description;
-    private TextView tv_journey_address;
-    private Button btn_journey_get_location, btn_journey_update;
-
-
-    private void extractElementsFromIntents() {
-        if (this.getArguments() != null) {
-            journeyRetrieverDAO = (JourneyRetrieverDAO) this.getArguments().getSerializable("JourneyRetrieverDAO");
-            Log.d(TAG, "extractElementsFromIntents: Retrieved Key as " + journeyRetrieverDAO.getKey());
+    private void extractElementsFromIntent() {
+        if (requireActivity().getIntent() != null) {
+            user = requireActivity().getIntent().getParcelableExtra("USER");
+            Log.d(TAG, "extractDetailsFromIntent: fetched User Data from Login Fragment and email as " + user.getEmail());
         }
     }
 
-    private void extractElements(View view) {
+    private void extractElements(ViewGroup view) {
         locationDAO = null;
         owner = getViewLifecycleOwner();
         internetConnected = false;
         image = null;
         imageBitmap = null;
-        iv_journey_image = view.findViewById(R.id.iv_journey_image);
-        fab_profile_image_gallery = view.findViewById(R.id.fab_profile_image_gallery);
-        fab_image_camera = view.findViewById(R.id.fab_image_camera);
-        til_update_journey_title = view.findViewById(R.id.til_update_journey_title);
-        til_update_journey_description = view.findViewById(R.id.til_update_journey_description);
-        tv_journey_address = view.findViewById(R.id.tv_journey_address);
+        til_journey_address = view.findViewById(R.id.til_journey_address);
+        btn_journey_add = view.findViewById(R.id.btn_journey_add);
         btn_journey_get_location = view.findViewById(R.id.btn_journey_get_location);
-        btn_journey_update = view.findViewById(R.id.btn_journey_update);
+        fab_image_camera = view.findViewById(R.id.fab_image_camera);
+        fab_profile_image_gallery = view.findViewById(R.id.fab_profile_image_gallery);
+        til_add_journey_title = view.findViewById(R.id.til_add_journey_title);
+        til_add_journey_description = view.findViewById(R.id.til_add_journey_description);
+        iv_journey_image = view.findViewById(R.id.iv_journey_image);
     }
 
     private void getPermission() {
@@ -116,78 +116,56 @@ public class EditFragment extends Fragment implements LocationListener {
         Log.d(TAG, "onNetworkChanged: Triggered, Received internetConnected as " + internetConnected);
     }
 
-    private void populateData() {
-        JourneyDAO journeyDAO = journeyRetrieverDAO.getJourney();
-        til_update_journey_title.getEditText().setText(journeyDAO.getJourneyTitle());
-        til_update_journey_description.getEditText().setText(journeyDAO.getJourneyDescription());
-        if (journeyDAO.getLocationDAO() != null) {
-            // Show Address
-            tv_journey_address.setText(journeyDAO.getLocationDAO().getAddress());
-        }
-        if (journeyDAO.getImageUri() != null) {
-            Glide.with(requireContext())
-                    .load(journeyDAO.getImageUri())
-                    .into(iv_journey_image);
-        } else {
-            iv_journey_image.setImageResource(R.drawable.ic_img_journey_default);
-        }
-        locationDAO= journeyDAO.getLocationDAO();
-    }
-
-    private void obServeMutableLiveData(View view) {
-        journeyViewModel.getIsTitleInvalid().observe(owner, helper -> commonViewModel.setObserverError(til_update_journey_title, helper));
-        journeyViewModel.getIsDescriptionInvalid().observe(owner, helper -> commonViewModel.setObserverError(til_update_journey_description, helper));
-        journeyViewModel.getIsUpdateSuccess().observe(owner, journeyModel -> {
-            // DO Something
+    private void observeMutableLiveData(View view) {
+        journeyViewModel.getIsTitleInvalid().observe(owner, helper -> commonViewModel.setObserverError(til_add_journey_title, helper));
+        journeyViewModel.getIsDescriptionInvalid().observe(owner, helper -> commonViewModel.setObserverError(til_add_journey_description, helper));
+        journeyViewModel.getIsAddSuccess().observe(owner, journeyModel -> {
             if (journeyModel.getStatus()) {
                 Toast.makeText(requireContext(), journeyModel.getMessage(), Toast.LENGTH_LONG).show();
-                navController.navigate(R.id.action_editFragment_to_journeysFragment);
+                navController.navigate(R.id.action_addFragment_to_journeysFragment);
             } else {
                 Snackbar.make(view, journeyModel.getMessage(), Snackbar.LENGTH_LONG).show();
             }
         });
-
     }
 
-    private void handleButtonClickEvent() {
+    private void buttonTrigger() {
+        // Add ButtonTrigger Event
+        btn_journey_add.setOnClickListener(v -> {
+            isInternetConnected();
+            journeyViewModel.addJourneyValidation(new JourneyDAO(
+                            user.getUid(),
+                            commonViewModel.til(til_add_journey_title),
+                            commonViewModel.getDateString(),
+                            null,
+                            locationDAO,
+                            commonViewModel.til(til_add_journey_description)),
+                    image, internetConnected, getContext(), owner, isCamera, imageBitmap);
+            //Toast.makeText(requireContext(), tf_journey_title.getText().toString().trim() + " Added.", Toast.LENGTH_SHORT).show();
+        });
+
         // Get Permission
         getPermission();
-        // Handle Camera Open
+
+        // Get Location Click event
+        btn_journey_get_location.setOnClickListener(v -> {
+            Toast.makeText(requireContext(), R.string.message_extracting_location, Toast.LENGTH_SHORT).show();
+            getLocation();
+        });
+
+        // Camera Click Event
         fab_image_camera.setOnClickListener(v -> {
             Toast.makeText(requireContext(), R.string.message_opening_camera, Toast.LENGTH_SHORT).show();
             isCamera = true;
             Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(camera, CAMERA_REQUEST_CODE);
         });
-        // Handle Gallery Open
+        // Gallery Click Event
         fab_profile_image_gallery.setOnClickListener(v -> {
             Toast.makeText(requireContext(), R.string.message_opening_gallery, Toast.LENGTH_SHORT).show();
             isCamera = false;
             Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(gallery, GALLERY_REQUEST_CODE);
-        });
-        // Handle getAddress Open
-        btn_journey_get_location.setOnClickListener(v -> {
-            Toast.makeText(requireContext(), R.string.message_extracting_location, Toast.LENGTH_SHORT).show();
-            getLocation();
-        });
-        // Handle Update Open
-        btn_journey_update.setOnClickListener(event -> {
-            // DO Tasks
-            isInternetConnected();
-            journeyViewModel.updateJourneyValidation(
-                    journeyRetrieverDAO.getKey(),
-                    new JourneyDAO(
-                            journeyRetrieverDAO.getJourney().getJourneyAuthor(),
-                            commonViewModel.til(til_update_journey_title),
-                            commonViewModel.getDateString(),
-                            journeyRetrieverDAO.getJourney().getImageUri(),
-                            locationDAO,
-                            commonViewModel.til(til_update_journey_description)
-                    ), image, internetConnected,
-                    getContext(), owner, isCamera,
-                    imageBitmap
-            );
         });
     }
 
@@ -213,7 +191,7 @@ public class EditFragment extends Fragment implements LocationListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Step 0: Binding View Model
+        // Step 1: Bind View Model using ViewModel Provider
         commonViewModel = new ViewModelProvider(this).get(CommonViewModel.class);
         journeyViewModel = new ViewModelProvider(this).get(JourneyViewModel.class);
     }
@@ -221,25 +199,23 @@ public class EditFragment extends Fragment implements LocationListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_edit, container, false);
-        // Step 1: Extract ElementsFrom Intents
-        extractElementsFromIntents();
-        // Step 2: Extract Elements
+        ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_add, container, false);
+        // Step 2: Extract Elements from Views
         this.extractElements(view);
+        // Step 3: Extract Details From Intents
+        this.extractElementsFromIntent();
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // Step 3: Extract Navigation Controller
+        // Step 4: Initialize Navigation Controller
         navController = Navigation.findNavController(view);
-        // Step 4: Populate Data
-        populateData();
-        // Step 5: Handle Trigger Events
-        this.handleButtonClickEvent();
-        // Step 6: Observe Mutable Live
-        this.obServeMutableLiveData(view);
+        // Step 5: Trigger Buttons
+        this.buttonTrigger();
+        // Step 6: Observe Response Generated from Live Data
+        this.observeMutableLiveData(view);
     }
 
     @SuppressLint("MissingPermission")
@@ -259,7 +235,7 @@ public class EditFragment extends Fragment implements LocationListener {
             List<Address> addressList = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
             String address = addressList.get(0).getLocality() + ", " + addressList.get(0).getCountryName();
             Log.d(TAG, "onLocationChanged: " + addressList.get(0));
-            tv_journey_address.setText(address);
+            til_journey_address.setText(address);
             locationDAO = new LocationDAO(location.getLatitude(), location.getLongitude(), address);
         } catch (Exception e) {
             e.printStackTrace();

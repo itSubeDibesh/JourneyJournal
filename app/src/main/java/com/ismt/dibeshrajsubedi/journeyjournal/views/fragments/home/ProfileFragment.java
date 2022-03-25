@@ -1,4 +1,4 @@
-package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.profile;
+package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home;
 
 import android.app.Activity;
 import android.content.Intent;

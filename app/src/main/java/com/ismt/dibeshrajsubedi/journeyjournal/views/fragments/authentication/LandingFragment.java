@@ -1,4 +1,4 @@
-package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.authentication.landing;
+package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.authentication;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

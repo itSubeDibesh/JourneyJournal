@@ -1,4 +1,4 @@
-package com.ismt.dibeshrajsubedi.journeyjournal.views.activities.home;
+package com.ismt.dibeshrajsubedi.journeyjournal.views.activities;
 
 import android.net.Uri;
 import android.os.Bundle;

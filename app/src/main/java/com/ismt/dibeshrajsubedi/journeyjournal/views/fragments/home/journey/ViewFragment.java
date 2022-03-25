@@ -1,4 +1,4 @@
-package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.journey.view;
+package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.home.journey;
 
 import android.content.Intent;
 import android.net.Uri;

@@ -1,4 +1,4 @@
-package com.ismt.dibeshrajsubedi.journeyjournal.views.activities.authentication;
+package com.ismt.dibeshrajsubedi.journeyjournal.views.activities;
 
 import android.os.Bundle;
 import android.util.Log;

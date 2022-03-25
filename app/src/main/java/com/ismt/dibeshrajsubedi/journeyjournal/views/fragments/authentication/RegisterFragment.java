@@ -1,4 +1,4 @@
-package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.authentication.register;
+package com.ismt.dibeshrajsubedi.journeyjournal.views.fragments.authentication;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -27,7 +27,7 @@ import com.ismt.dibeshrajsubedi.journeyjournal.dao.authentication.register.Regis
 import com.ismt.dibeshrajsubedi.journeyjournal.dao.helper.ConnectivityHelperDAO;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.authentication.RegisterViewModel;
 import com.ismt.dibeshrajsubedi.journeyjournal.view_models.helper.CommonViewModel;
-import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.home.HomeActivity;
+import com.ismt.dibeshrajsubedi.journeyjournal.views.activities.HomeActivity;
 
 /**
  * Navigates to Home Activity or Login Fragment

@@ -20,10 +20,10 @@
         android:theme="@style/Theme.JourneyJournal.NoActionBar">
 
         <activity
-            android:name=".views.activities.home.HomeActivity"
+            android:name=".views.activities.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".views.activities.authentication.AuthenticationActivity"
+            android:name=".views.activities.AuthenticationActivity"
             android:exported="false" />
         <activity
             android:name=".views.launcher.LauncherActivity"
