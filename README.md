@@ -27,6 +27,7 @@ A Complete Journey Tracking Android Application in partial fulfillment of level 
   - [**Scenario**](#scenario)
     - [**Typical User Interaction**](#typical-user-interaction)
     - [**The prototype**](#the-prototype)
+  - [**TODO**](#todo)
 
 ## **Scenario**
 
@@ -59,3 +60,11 @@ Optional Desirable Requirements for the app:
 1. The ability to allow integration with other apps and hardware, such as social media and the camera.
 
 **Note 📓:** There is no associated logo or house style for this app yet so you have free reign over the appearance, but pay particular attention to Material Design.
+
+## **TODO**
+
+1. Receive data from other apps using intent filters and show it on Add Journey Page.
+1. Add a map to the journal entry and updated screen.
+1. Add swipe to delete, update and share functionality.
+1. Implement Share image with other apps. Although, text is shared but better if image is also shared.
+1. Implement SignUp and Login with Twitter and Google.
