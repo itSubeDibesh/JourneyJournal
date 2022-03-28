@@ -27,6 +27,7 @@ A Complete Journey Tracking Android Application in partial fulfillment of level 
   - [**Scenario**](#scenario)
     - [**Typical User Interaction**](#typical-user-interaction)
     - [**The prototype**](#the-prototype)
+  - [**Application Design**](#application-design)
   - [**TODO**](#todo)
 
 ## **Scenario**
@@ -61,6 +62,10 @@ Optional Desirable Requirements for the app:
 
 **Note 📓:** There is no associated logo or house style for this app yet so you have free reign over the appearance, but pay particular attention to Material Design.
 
+## **Application Design**
+
+Application design process initiates with wireframe creation, design mockup, prototyping and
+
 ## **TODO**
 
 1. Receive data from other apps using intent filters and show it on Add Journey Page.
@@ -68,3 +73,4 @@ Optional Desirable Requirements for the app:
 1. Add swipe to delete, update and share functionality.
 1. Implement Share image with other apps. Although, text is shared but better if image is also shared.
 1. Implement SignUp and Login with Twitter and Google.
+1. Implement offline cashing and room database implementation.

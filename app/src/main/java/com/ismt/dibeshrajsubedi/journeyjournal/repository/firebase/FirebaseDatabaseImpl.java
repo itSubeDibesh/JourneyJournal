@@ -90,7 +90,7 @@ public class FirebaseDatabaseImpl {
                         journeyDAO.setImageUri(statusHelperDAO.getMessage());
                     }
                     database
-                            .getReference("Journey")
+                            .getReference(Table_Name)
                             .child(journeyDAO.getJourneyAuthor())
                             .child(RandomID)
                             .setValue(journeyDAO)
@@ -111,7 +111,7 @@ public class FirebaseDatabaseImpl {
         } else {
             // Only Perform Db Related Task
             database
-                    .getReference("Journey")
+                    .getReference(Table_Name)
                     .child(journeyDAO.getJourneyAuthor())
                     .child(RandomID)
                     .setValue(journeyDAO)
@@ -129,7 +129,7 @@ public class FirebaseDatabaseImpl {
     }
 
     public void fetchJourneys(String UUid) {
-        database.getReference("Journey")
+        database.getReference(Table_Name)
                 .child(UUid)
                 .get()
                 .addOnSuccessListener(dataSnapshot -> {
@@ -163,7 +163,7 @@ public class FirebaseDatabaseImpl {
                         journeyDAO.setImageUri(statusHelperDAO.getMessage());
                     }
                     database
-                            .getReference("Journey")
+                            .getReference(Table_Name)
                             .child(journeyDAO.getJourneyAuthor())
                             .child(JourneyId)
                             .setValue(journeyDAO)
@@ -184,7 +184,7 @@ public class FirebaseDatabaseImpl {
         } else {
             // Only Perform Db Related Task
             database
-                    .getReference("Journey")
+                    .getReference(Table_Name)
                     .child(journeyDAO.getJourneyAuthor())
                     .child(JourneyId)
                     .setValue(journeyDAO)
@@ -209,7 +209,7 @@ public class FirebaseDatabaseImpl {
             storage.getIsDeleteSuccess().observe(owner, statusHelperDAO -> {
                 if (statusHelperDAO.getStatus()) {
                     database
-                            .getReference("Journey")
+                            .getReference(Table_Name)
                             .child(journeyDAO.getJourneyAuthor())
                             .child(JourneyId)
                             .removeValue().addOnSuccessListener(status -> {
@@ -222,7 +222,7 @@ public class FirebaseDatabaseImpl {
         } else {
             // Step 3: Delete Data from Database and return Status Accordingly
             database
-                    .getReference("Journey")
+                    .getReference(Table_Name)
                     .child(journeyDAO.getJourneyAuthor())
                     .child(JourneyId)
                     .removeValue().addOnSuccessListener(status -> {
