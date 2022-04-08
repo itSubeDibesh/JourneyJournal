@@ -76,18 +76,26 @@ Application design process initiates with wireframe creation, design mockup, pro
 
 Wireframe of the app is created using [**Figma**](https://www.figma.com/proto/3MOnQyiwSPvJOrVgHTfXAk/Journey-Journal?page-id=68%3A9&node-id=112%3A5398&viewport=309%2C48%2C0.31&scaling=min-zoom&starting-point-node-id=112%3A5379). Click on image below to see an interactive wireframe af application.
 
-[!["Wireframe"](./docs/Splash_Screen_Wireframe.png)](https://www.figma.com/proto/3MOnQyiwSPvJOrVgHTfXAk/Journey-Journal?page-id=68%3A9&node-id=112%3A5398&viewport=309%2C48%2C0.31&scaling=min-zoom&starting-point-node-id=112%3A5379)
+<a href="https://www.figma.com/proto/3MOnQyiwSPvJOrVgHTfXAk/Journey-Journal?page-id=68%3A9&node-id=112%3A5398&viewport=309%2C48%2C0.31&scaling=min-zoom&starting-point-node-id=112%3A5379">
+<img src="./docs/Splash_Screen_Wireframe.png" alt="Wireframe" height="700"/>
+</a>
 
 ### **Design Mockup**
 
 Design mockup of app is created using **Figma**. Click on image below to see an interactive design mockup af application in light mode.
 
-[!["Design Mockup"](./docs/Splash_Screen_Light_Mode.png)](https://www.figma.com/proto/3MOnQyiwSPvJOrVgHTfXAk/Journey-Journal?page-id=31%3A12192&node-id=101%3A107&viewport=309%2C48%2C0.56&scaling=scale-down&starting-point-node-id=101%3A53&show-proto-sidebar=1)
+<a href="https://www.figma.com/proto/3MOnQyiwSPvJOrVgHTfXAk/Journey-Journal?page-id=31%3A12192&node-id=101%3A107&viewport=309%2C48%2C0.56&scaling=scale-down&starting-point-node-id=101%3A53&show-proto-sidebar=1">
+<img src="./docs/Splash_Screen_Light_Mode.png" alt="Design Mockup Light Mode" height="700"/>
+</a>
 
 Click on image below to see an interactive design mockup af application in dark mode.
+                            
+<a href="https://www.figma.com/proto/3MOnQyiwSPvJOrVgHTfXAk/Journey-Journal?page-id=31%3A12192&node-id=101%3A121&viewport=309%2C48%2C0.56&scaling=scale-down&starting-point-node-id=101%3A56&show-proto-sidebar=1">
+<img src="./docs/Splash_Screen_Dark_Mode.png" alt="Design Mockup Dark Mode" height="700"/>
+</a>
 
-[!["Design Mockup"](./docs/Splash_Screen_Dark_Mode.png)](https://www.figma.com/proto/3MOnQyiwSPvJOrVgHTfXAk/Journey-Journal?page-id=31%3A12192&node-id=101%3A121&viewport=309%2C48%2C0.56&scaling=scale-down&starting-point-node-id=101%3A56&show-proto-sidebar=1)
-
+                  
+                  
 ### **Application Screen Hierarchy**
 
 The figure below shows the application screen hierarchy.
