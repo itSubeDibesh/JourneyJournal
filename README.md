@@ -28,6 +28,10 @@ A Complete Journey Tracking Android Application in partial fulfillment of level 
     - [**Typical User Interaction**](#typical-user-interaction)
     - [**The prototype**](#the-prototype)
   - [**Application Design**](#application-design)
+    - [**Wireframe**](#wireframe)
+    - [**Design Mockup**](#design-mockup)
+    - [**Application Screen Hierarchy**](#application-screen-hierarchy)
+    - [**Application Flow Chart**](#application-flow-chart)
   - [**TODO**](#todo)
 
 ## **Scenario**
@@ -64,7 +68,37 @@ Optional Desirable Requirements for the app:
 
 ## **Application Design**
 
-Application design process initiates with wireframe creation, design mockup, prototyping and
+Application design process initiates with wireframe creation, design mockup, prototyping and app screen hierarchy creation and many more. Find the Link of [**Figma Project**](https://www.figma.com/file/3MOnQyiwSPvJOrVgHTfXAk/Journey-Journal) Project where different layers have different implementations.
+
+[![Figma Project](./docs/Cover_Page.png)](https://www.figma.com/file/3MOnQyiwSPvJOrVgHTfXAk/Journey-Journal)
+
+### **Wireframe**
+
+Wireframe of the app is created using [**Figma**](https://www.figma.com/proto/3MOnQyiwSPvJOrVgHTfXAk/Journey-Journal?page-id=68%3A9&node-id=112%3A5398&viewport=309%2C48%2C0.31&scaling=min-zoom&starting-point-node-id=112%3A5379). Click on image below to see an interactive wireframe af application.
+
+[!["Wireframe"](./docs/Splash_Screen_Wireframe.png)](https://www.figma.com/proto/3MOnQyiwSPvJOrVgHTfXAk/Journey-Journal?page-id=68%3A9&node-id=112%3A5398&viewport=309%2C48%2C0.31&scaling=min-zoom&starting-point-node-id=112%3A5379)
+
+### **Design Mockup**
+
+Design mockup of app is created using **Figma**. Click on image below to see an interactive design mockup af application in light mode.
+
+[!["Design Mockup"](./docs/Splash_Screen_Light_Mode.png)](https://www.figma.com/proto/3MOnQyiwSPvJOrVgHTfXAk/Journey-Journal?page-id=31%3A12192&node-id=101%3A107&viewport=309%2C48%2C0.56&scaling=scale-down&starting-point-node-id=101%3A53&show-proto-sidebar=1)
+
+Click on image below to see an interactive design mockup af application in dark mode.
+
+[!["Design Mockup"](./docs/Splash_Screen_Dark_Mode.png)](https://www.figma.com/proto/3MOnQyiwSPvJOrVgHTfXAk/Journey-Journal?page-id=31%3A12192&node-id=101%3A121&viewport=309%2C48%2C0.56&scaling=scale-down&starting-point-node-id=101%3A56&show-proto-sidebar=1)
+
+### **Application Screen Hierarchy**
+
+The figure below shows the application screen hierarchy.
+
+![Screen Hierarchy](./docs/Screen_Heirachy.png)
+
+### **Application Flow Chart**
+
+The figure below shows the application flow chart.
+
+![Application Flow Chart](./docs/Flow_Chart.png)
 
 ## **TODO**
 
