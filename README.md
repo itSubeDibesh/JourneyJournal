@@ -68,13 +68,13 @@ Optional Desirable Requirements for the app:
 
 ## **Application Design**
 
-Application design process initiates with wireframe creation, design mockup, prototyping and app screen hierarchy creation and many more. Find the Link of [**Figma Project**](https://www.figma.com/file/3MOnQyiwSPvJOrVgHTfXAk/Journey-Journal) Project where different layers have different implementations.
+Application design process initiates with wireframe creation, design mockup, prototyping and app screen hierarchy creation and many more. Find the Link of [**Figma Project**](https://www.figma.com/file/3MOnQyiwSPvJOrVgHTfXAk/Journey-Journal) where different layers have different implementations.
 
 [![Figma Project](./docs/Cover_Page.png)](https://www.figma.com/file/3MOnQyiwSPvJOrVgHTfXAk/Journey-Journal)
 
 ### **Wireframe**
 
-Wireframe of the app is created using [**Figma**](https://www.figma.com/proto/3MOnQyiwSPvJOrVgHTfXAk/Journey-Journal?page-id=68%3A9&node-id=112%3A5398&viewport=309%2C48%2C0.31&scaling=min-zoom&starting-point-node-id=112%3A5379). Click on image below to see an interactive wireframe af application.
+Wireframe of the app is created using [**Figma**](https://www.figma.com/proto/3MOnQyiwSPvJOrVgHTfXAk/Journey-Journal?page-id=68%3A9&node-id=112%3A5398&viewport=309%2C48%2C0.31&scaling=min-zoom&starting-point-node-id=112%3A5379). Click on image below to see an interactive wireframe of application.
 
 <a href="https://www.figma.com/proto/3MOnQyiwSPvJOrVgHTfXAk/Journey-Journal?page-id=68%3A9&node-id=112%3A5398&viewport=309%2C48%2C0.31&scaling=min-zoom&starting-point-node-id=112%3A5379">
 <img src="./docs/Splash_Screen_Wireframe.png" alt="Wireframe" height="700"/>
@@ -82,13 +82,13 @@ Wireframe of the app is created using [**Figma**](https://www.figma.com/proto/3M
 
 ### **Design Mockup**
 
-Design mockup of app is created using **Figma**. Click on image below to see an interactive design mockup af application in light mode.
+Design mockup of app is created using **Figma**. Click on image below to see an interactive design mockup of application in light mode.
 
 <a href="https://www.figma.com/proto/3MOnQyiwSPvJOrVgHTfXAk/Journey-Journal?page-id=31%3A12192&node-id=101%3A107&viewport=309%2C48%2C0.56&scaling=scale-down&starting-point-node-id=101%3A53&show-proto-sidebar=1">
 <img src="./docs/Splash_Screen_Light_Mode.png" alt="Design Mockup Light Mode" height="700"/>
 </a>
 
-Click on image below to see an interactive design mockup af application in dark mode.
+Click on image below to see an interactive design mockup of application in dark mode.
                             
 <a href="https://www.figma.com/proto/3MOnQyiwSPvJOrVgHTfXAk/Journey-Journal?page-id=31%3A12192&node-id=101%3A121&viewport=309%2C48%2C0.56&scaling=scale-down&starting-point-node-id=101%3A56&show-proto-sidebar=1">
 <img src="./docs/Splash_Screen_Dark_Mode.png" alt="Design Mockup Dark Mode" height="700"/>
